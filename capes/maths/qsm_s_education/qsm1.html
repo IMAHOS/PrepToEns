@@ -1,687 +1,699 @@
-<!DOCTYPE html>
+{<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مسابقة الرياضيات - CRFPE 2024</title>
-    <!-- MathJax pour le rendu des formules mathématiques -->
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap RTL -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-rtl@5.3.0/dist/css/bootstrap-rtl.min.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary-color: #2c786c;
-            --secondary-color: #004445;
-            --accent-color: #f8b400;
-            --light-color: #faf5e4;
-            --success-color: #28a745;
-            --danger-color: #dc3545;
-            --warning-color: #ffc107;
-            --info-color: #17a2b8;
-        }
-        
-        body {
-            background-color: var(--light-color);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding-top: 80px;
-            color: #333;
-            line-height: 1.7;
-            text-align: right;
-        }
-        
-        .main-container {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 68, 69, 0.1);
-            padding: 2.5rem;
-            margin-bottom: 3rem;
-            border: 2px solid rgba(44, 120, 108, 0.1);
-            max-width: 1000px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .question-card {
-            margin-bottom: 2.5rem;
-            border-radius: 15px;
-            background: white;
-            box-shadow: 0 5px 15px rgba(0, 68, 69, 0.08);
-            border: 2px solid rgba(44, 120, 108, 0.15);
-            transition: all 0.3s ease;
-            overflow: hidden;
-        }
-        
-        .question-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 68, 69, 0.15);
-            border-color: rgba(44, 120, 108, 0.3);
-        }
-        
-        .card-header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            font-weight: 700;
-            border-bottom: none;
-            padding: 1.2rem 1.5rem;
-            border-radius: 13px 13px 0 0 !important;
-        }
-        
-        .card-body {
-            padding: 1.8rem;
-        }
-        
-        .card-title {
-            color: var(--secondary-color);
-            font-weight: 700;
-            font-size: 1.2rem;
-            margin-bottom: 1.2rem;
-            position: relative;
-            padding-right: 1.5rem;
-        }
-        
-        .card-title:before {
-            content: "";
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 8px;
-            height: 25px;
-            background: var(--accent-color);
-            border-radius: 5px;
-        }
-        
-        .card-text {
-            color: #444;
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .list-group-item {
-            border: none;
-            border-right: 4px solid transparent;
-            margin-bottom: 0.5rem;
-            border-radius: 8px !important;
-            padding: 1rem 1.5rem;
-            font-size: 1.05rem;
-            transition: all 0.2s;
-            background-color: rgba(250, 245, 228, 0.5);
-            text-align: right;
-        }
-        
-        .list-group-item:hover {
-            background-color: rgba(44, 120, 108, 0.08);
-            border-right-color: var(--accent-color);
-        }
-        
-        .form-check-input {
-            width: 1.2em;
-            height: 1.2em;
-            margin-left: 0.8rem;
-            margin-top: 0.2rem;
-            border: 2px solid #ced4da;
-        }
-        
-        .form-check-input:checked {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-        
-        .btn-primary {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-            padding: 0.6rem 2.2rem;
-            font-weight: 600;
-            border-radius: 30px;
-            box-shadow: 0 4px 10px rgba(44, 120, 108, 0.3);
-            transition: all 0.3s ease;
-        }
-        
-        .btn-primary:hover {
-            background-color: var(--secondary-color);
-            border-color: var(--secondary-color);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0, 68, 69, 0.4);
-        }
-        
-        .btn-outline-primary {
-            color: var(--primary-color);
-            border-color: var(--primary-color);
-            font-weight: 600;
-            border-radius: 30px;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-outline-primary:hover {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-            color: white;
-        }
-        
-        .correct-answer {
-            background-color: rgba(40, 167, 69, 0.15) !important;
-            border-right: 4px solid var(--success-color) !important;
-        }
-        
-        .incorrect-answer {
-            background-color: rgba(220, 53, 69, 0.1) !important;
-            border-right: 4px solid var(--danger-color) !important;
-        }
-        
-        .explanation {
-            display: none;
-            background-color: rgba(248, 180, 0, 0.08);
-            border-radius: 10px;
-            padding: 1.3rem;
-            margin-top: 1.5rem;
-            border-right: 4px solid var(--accent-color);
-            font-size: 1.05rem;
-            animation: fadeIn 0.5s ease-out;
-        }
-        
-        .explanation strong {
-            color: var(--secondary-color);
-        }
-        
-        .fixed-timer {
-            position: fixed;
-            top: 90px;
-            left: 30px;
-            z-index: 1000;
-            width: 180px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 68, 69, 0.15);
-            padding: 15px;
-            text-align: center;
-            display: none;
-            border: 2px solid rgba(44, 120, 108, 0.2);
-            animation: fadeIn 0.5s ease-out;
-        }
-        
-        .fixed-timer.active {
-            display: block;
-        }
-        
-        .fixed-timer .timer-text {
-            font-size: 1rem;
-            margin-bottom: 8px;
-            color: var(--primary-color);
-            font-weight: 700;
-        }
-        
-        .fixed-timer #fixed-timer-display {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--secondary-color);
-            letter-spacing: 1px;
-        }
-        
-        .fixed-timer.warning {
-            background-color: #fff3cd;
-            border-color: var(--warning-color);
-        }
-        
-        .fixed-timer.danger {
-            background-color: #f8d7da;
-            border-color: var(--danger-color);
-            animation: pulse 1s infinite;
-        }
-        
-        .navbar {
-            box-shadow: 0 3px 15px rgba(0, 68, 69, 0.1);
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
-            padding: 0.8rem 1rem;
-            transition: all 0.3s ease;
-        }
-        
-        .navbar-brand {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: white !important;
-            display: flex;
-            align-items: center;
-        }
-        
-        .navbar-brand i {
-            color: var(--accent-color);
-            margin-left: 10px;
-            font-size: 1.3em;
-        }
-        
-        .navbar-text {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.9) !important;
-        }
-        
-        .nav-link {
-            font-weight: 600;
-            padding: 0.5rem 1.2rem !important;
-            color: rgba(255, 255, 255, 0.8) !important;
-            transition: all 0.2s;
-            border-radius: 30px;
-            margin: 0 2px;
-        }
-        
-        .nav-link:hover, .nav-link.active {
-            color: white !important;
-            transform: translateY(-2px);
-            background-color: rgba(255, 255, 255, 0.15);
-        }
-        
-        h1.display-4 {
-            font-weight: 800;
-            color: var(--secondary-color);
-            margin-bottom: 1rem;
-            position: relative;
-            display: inline-block;
-        }
-        
-        h1.display-4:after {
-            content: "";
-            position: absolute;
-            bottom: -10px;
-            right: 0;
-            width: 70px;
-            height: 4px;
-            background: var(--accent-color);
-            border-radius: 2px;
-        }
-        
-        .lead {
-            color: #555;
-            font-size: 1.25rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .progress {
-            height: 35px;
-            background-color: #f1f1f1;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        
-        .progress-bar {
-            font-size: 1.1rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: width 0.6s ease;
-        }
-        
-        #final-score {
-            font-size: 2.3rem;
-            font-weight: 800;
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-        }
-        
-        .score-feedback {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            font-weight: 600;
-        }
-        
-        .score-excellent {
-            color: var(--success-color);
-        }
-        
-        .score-good {
-            color: var(--primary-color);
-        }
-        
-        .score-average {
-            color: var(--warning-color);
-        }
-        
-        .score-poor {
-            color: var(--danger-color);
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-            100% { transform: scale(1); }
-        }
-        
-        .math-formula {
-            font-family: "Times New Roman", Times, serif;
-            font-size: 1.1em;
-            margin: 10px 0;
-            padding: 5px;
-            background-color: rgba(250, 245, 228, 0.5);
-            border-radius: 5px;
-            display: inline-block;
-        }
-        
-        .section-divider {
-            border-top: 3px solid var(--primary-color);
-            margin: 40px 0;
-            position: relative;
-        }
-        
-        .section-divider-text {
-            position: absolute;
-            top: -15px;
-            right: 50%;
-            transform: translateX(50%);
-            background-color: white;
-            padding: 0 20px;
-            color: var(--primary-color);
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-        
-        .hidden-section {
-            display: none;
-        }
-        
-        .question-number {
-            display: inline-block;
-            width: 30px;
-            height: 30px;
-            background-color: var(--primary-color);
-            color: white;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 30px;
-            margin-left: 10px;
-            font-weight: bold;
-        }
-        
-        /* Styles responsives */
-        @media (max-width: 991.98px) {
-            .main-container {
-                padding: 1.8rem;
-                border-radius: 15px;
-            }
-            .fixed-timer {
-                top: 80px;
-                left: 15px;
-                width: 150px;
-                padding: 12px;
-            }
-            body {
-                padding-top: 70px;
-            }
-            .card-body {
-                padding: 1.5rem;
-            }
-            h1.display-4 {
-                font-size: 2.2rem;
-            }
-        }
-        @media (max-width: 767.98px) {
-            .main-container {
-                padding: 1.5rem 1rem;
-                border-radius: 12px;
-            }
-            .fixed-timer {
-                top: 70px;
-                left: 10px;
-                width: 120px;
-                padding: 10px;
-                font-size: 0.9rem;
-            }
-            #fixed-timer-display {
-                font-size: 1.2rem;
-            }
-            h1.display-4 {
-                font-size: 1.8rem;
-            }
-            .lead {
-                font-size: 1.1rem;
-            }
-            .card-title {
-                font-size: 1.1rem;
-            }
-            .card-text, .list-group-item {
-                font-size: 1rem;
-            }
-            .btn-primary, .btn-outline-primary {
-                padding: 0.5rem 1.5rem;
-                font-size: 0.95rem;
-            }
-            .navbar-brand {
-                font-size: 1.2rem;
-            }
-            .navbar-text {
-                font-size: 0.9rem;
-            }
-        }
-    </style>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2933584289526056"
+     crossorigin="anonymous"></script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JXB7PLLX85"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'G-JXB7PLLX85');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مسابقة الرياضيات - CRFPE 2024</title>
+<!-- MathJax pour le rendu des formules mathématiques -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap RTL -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-rtl@5.3.0/dist/css/bootstrap-rtl.min.css">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+    --primary-color: #2c786c;
+    --secondary-color: #004445;
+    --accent-color: #f8b400;
+    --light-color: #faf5e4;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+}
+
+body {
+    background-color: var(--light-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 80px;
+    color: #333;
+    line-height: 1.7;
+    text-align: right;
+}
+
+.main-container {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 68, 69, 0.1);
+    padding: 2.5rem;
+    margin-bottom: 3rem;
+    border: 2px solid rgba(44, 120, 108, 0.1);
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.question-card {
+    margin-bottom: 2.5rem;
+    border-radius: 15px;
+    background: white;
+    box-shadow: 0 5px 15px rgba(0, 68, 69, 0.08);
+    border: 2px solid rgba(44, 120, 108, 0.15);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.question-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 68, 69, 0.15);
+    border-color: rgba(44, 120, 108, 0.3);
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    font-weight: 700;
+    border-bottom: none;
+    padding: 1.2rem 1.5rem;
+    border-radius: 13px 13px 0 0 !important;
+}
+
+.card-body {
+    padding: 1.8rem;
+}
+
+.card-title {
+    color: var(--secondary-color);
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-bottom: 1.2rem;
+    position: relative;
+    padding-right: 1.5rem;
+}
+
+.card-title:before {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 25px;
+    background: var(--accent-color);
+    border-radius: 5px;
+}
+
+.card-text {
+    color: #444;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.list-group-item {
+    border: none;
+    border-right: 4px solid transparent;
+    margin-bottom: 0.5rem;
+    border-radius: 8px !important;
+    padding: 1rem 1.5rem;
+    font-size: 1.05rem;
+    transition: all 0.2s;
+    background-color: rgba(250, 245, 228, 0.5);
+    text-align: right;
+}
+
+.list-group-item:hover {
+    background-color: rgba(44, 120, 108, 0.08);
+    border-right-color: var(--accent-color);
+}
+
+.form-check-input {
+    width: 1.2em;
+    height: 1.2em;
+    margin-left: 0.8rem;
+    margin-top: 0.2rem;
+    border: 2px solid #ced4da;
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    padding: 0.6rem 2.2rem;
+    font-weight: 600;
+    border-radius: 30px;
+    box-shadow: 0 4px 10px rgba(44, 120, 108, 0.3);
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 68, 69, 0.4);
+}
+
+.btn-outline-primary {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+    font-weight: 600;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+.correct-answer {
+    background-color: rgba(40, 167, 69, 0.15) !important;
+    border-right: 4px solid var(--success-color) !important;
+}
+
+.incorrect-answer {
+    background-color: rgba(220, 53, 69, 0.1) !important;
+    border-right: 4px solid var(--danger-color) !important;
+}
+
+.explanation {
+    display: none;
+    background-color: rgba(248, 180, 0, 0.08);
+    border-radius: 10px;
+    padding: 1.3rem;
+    margin-top: 1.5rem;
+    border-right: 4px solid var(--accent-color);
+    font-size: 1.05rem;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.explanation strong {
+    color: var(--secondary-color);
+}
+
+.fixed-timer {
+    position: fixed;
+    top: 90px;
+    left: 30px;
+    z-index: 1000;
+    width: 180px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 68, 69, 0.15);
+    padding: 15px;
+    text-align: center;
+    display: none;
+    border: 2px solid rgba(44, 120, 108, 0.2);
+    animation: fadeIn 0.5s ease-out;
+}
+
+.fixed-timer.active {
+    display: block;
+}
+
+.fixed-timer .timer-text {
+    font-size: 1rem;
+    margin-bottom: 8px;
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.fixed-timer #fixed-timer-display {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--secondary-color);
+    letter-spacing: 1px;
+}
+
+.fixed-timer.warning {
+    background-color: #fff3cd;
+    border-color: var(--warning-color);
+}
+
+.fixed-timer.danger {
+    background-color: #f8d7da;
+    border-color: var(--danger-color);
+    animation: pulse 1s infinite;
+}
+
+.navbar {
+    box-shadow: 0 3px 15px rgba(0, 68, 69, 0.1);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+    padding: 0.8rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: white !important;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand i {
+    color: var(--accent-color);
+    margin-left: 10px;
+    font-size: 1.3em;
+}
+
+.navbar-text {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.nav-link {
+    font-weight: 600;
+    padding: 0.5rem 1.2rem !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+    transition: all 0.2s;
+    border-radius: 30px;
+    margin: 0 2px;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: white !important;
+    transform: translateY(-2px);
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+h1.display-4 {
+    font-weight: 800;
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+}
+
+h1.display-4:after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    right: 0;
+    width: 70px;
+    height: 4px;
+    background: var(--accent-color);
+    border-radius: 2px;
+}
+
+.lead {
+    color: #555;
+    font-size: 1.25rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.progress {
+    height: 35px;
+    background-color: #f1f1f1;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+    font-size: 1.1rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: width 0.6s ease;
+}
+
+#final-score {
+    font-size: 2.3rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+
+.score-feedback {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+.score-excellent {
+    color: var(--success-color);
+}
+
+.score-good {
+    color: var(--primary-color);
+}
+
+.score-average {
+    color: var(--warning-color);
+}
+
+.score-poor {
+    color: var(--danger-color);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+.math-formula {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 1.1em;
+    margin: 10px 0;
+    padding: 5px;
+    background-color: rgba(250, 245, 228, 0.5);
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.section-divider {
+    border-top: 3px solid var(--primary-color);
+    margin: 40px 0;
+    position: relative;
+}
+
+.section-divider-text {
+    position: absolute;
+    top: -15px;
+    right: 50%;
+    transform: translateX(50%);
+    background-color: white;
+    padding: 0 20px;
+    color: var(--primary-color);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.hidden-section {
+    display: none;
+}
+
+.question-number {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 30px;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+/* Styles responsives */
+@media (max-width: 991.98px) {
+    .main-container {
+        padding: 1.8rem;
+        border-radius: 15px;
+    }
+    .fixed-timer {
+        top: 80px;
+        left: 15px;
+        width: 150px;
+        padding: 12px;
+    }
+    body {
+        padding-top: 70px;
+    }
+    .card-body {
+        padding: 1.5rem;
+    }
+    h1.display-4 {
+        font-size: 2.2rem;
+    }
+}
+@media (max-width: 767.98px) {
+    .main-container {
+        padding: 1.5rem 1rem;
+        border-radius: 12px;
+    }
+    .fixed-timer {
+        top: 70px;
+        left: 10px;
+        width: 120px;
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+    #fixed-timer-display {
+        font-size: 1.2rem;
+    }
+    h1.display-4 {
+        font-size: 1.8rem;
+    }
+    .lead {
+        font-size: 1.1rem;
+    }
+    .card-title {
+        font-size: 1.1rem;
+    }
+    .card-text, .list-group-item {
+        font-size: 1rem;
+    }
+    .btn-primary, .btn-outline-primary {
+        padding: 0.5rem 1.5rem;
+        font-size: 0.95rem;
+    }
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+    .navbar-text {
+        font-size: 0.9rem;
+    }
+}
+</style>
 </head>
 <body>
-    <!-- Navigation Bar -->
+<!-- Navigation Bar -->
 
 
-    <!-- Fixed Timer -->
-    <div class="fixed-timer" id="fixedTimer">
-        <div class="timer-text">الوقت المتبقي</div>
-        <div id="fixed-timer-display">30:00</div>
+<!-- Fixed Timer -->
+<div class="fixed-timer" id="fixedTimer">
+<div class="timer-text">الوقت المتبقي</div>
+<div id="fixed-timer-display">30:00</div>
+</div>
+
+<!-- Main Content -->
+<div class="container py-5">
+<div class="text-center mb-5">
+    <h1 class="display-4"> Concours de sciences education </h1>
+    <p class="lead">Épreuve  </p>
+</div>
+
+<!-- Instructions Section -->
+<div class="main-container" id="instructions-section">
+    <div class="card mb-4 border-0 shadow-sm">
+        <div class="card-header">
+            <h4 class="mb-0"><i class="fas fa-info-circle ms-2"></i>التعليمات</h4>
+        </div>
+        <div class="card-body">
+            <ul class="mb-4">
+                <li class="mb-2"><i class="fas fa-check-circle text-primary ms-2"></i>يحتوي الاختبار على 20 سؤالاً (من Q1 إلى Q20)</li>
+                <li class="mb-2"><i class="fas fa-check-circle text-primary ms-2"></i>لديك 30 دقيقة للإجابة على جميع الأسئلة</li>
+                <li class="mb-2"><i class="fas fa-check-circle text-primary ms-2"></i>لكل سؤال، هناك 4 خيارات للإجابة (أ، ب، ج، د)</li>
+                <li class="mb-2"><i class="fas fa-check-circle text-primary ms-2"></i>يوجد إجابة واحدة صحيحة فقط لكل سؤال</li>
+                <li><i class="fas fa-check-circle text-primary ms-2"></i>كل إجابة صحيحة تحصل على نقطة واحدة</li>
+            </ul>
+            <div class="alert alert-info">
+                <i class="fas fa-exclamation-circle ms-2"></i><strong>تنبيه:</strong> يبدأ المؤقت بمجرد النقر على "بدء الاختبار" ولا يمكن إيقافه.
+            </div>
+            <div class="text-center mt-4">
+                <button id="start-timer" class="btn btn-primary btn-lg px-5">
+                    <i class="fas fa-play-circle ms-2"></i>بدء الاختبار
+                </button>
+            </div>
+        </div>
     </div>
+</div>
+<br>
 
-    <!-- Main Content -->
-    <div class="container py-5">
-        <div class="text-center mb-5">
-            <h1 class="display-4"> Concours de sciences education </h1>
-            <p class="lead">Épreuve  </p>
+<!-- QCM Section -->
+<div class="main-container hidden-section" id="qcm-section">
+    <section>
+        <div class="section-divider">
+            <span class="section-divider-text">الجزء 1 (أسئلة 1-20)</span>
         </div>
 
-        <!-- Instructions Section -->
-        <div class="main-container" id="instructions-section">
-            <div class="card mb-4 border-0 shadow-sm">
-                <div class="card-header">
-                    <h4 class="mb-0"><i class="fas fa-info-circle ms-2"></i>التعليمات</h4>
+        <!-- Question 1 -->
+        <div class="question-card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">السؤال 1</h4>
+                <span class="badge bg-primary">1 نقطة</span>
+            </div>
+            <div class="card-body">
+                <p class="card-text">من خصائص القدرة أنها:</p>
+                <div class="list-group">
+                    <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q1" value="a">أ. نوعية</label>
+                    <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q1" value="b">ب. خاصة بمادة دراسية</label>
+                    <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q1" value="c">ج. قابلة للتدهور</label>
+                    <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q1" value="d">د. غير قابلة للتحول</label>
                 </div>
-                <div class="card-body">
-                    <ul class="mb-4">
-                        <li class="mb-2"><i class="fas fa-check-circle text-primary ms-2"></i>يحتوي الاختبار على 20 سؤالاً (من Q1 إلى Q20)</li>
-                        <li class="mb-2"><i class="fas fa-check-circle text-primary ms-2"></i>لديك 30 دقيقة للإجابة على جميع الأسئلة</li>
-                        <li class="mb-2"><i class="fas fa-check-circle text-primary ms-2"></i>لكل سؤال، هناك 4 خيارات للإجابة (أ، ب، ج، د)</li>
-                        <li class="mb-2"><i class="fas fa-check-circle text-primary ms-2"></i>يوجد إجابة واحدة صحيحة فقط لكل سؤال</li>
-                        <li><i class="fas fa-check-circle text-primary ms-2"></i>كل إجابة صحيحة تحصل على نقطة واحدة</li>
-                    </ul>
-                    <div class="alert alert-info">
-                        <i class="fas fa-exclamation-circle ms-2"></i><strong>تنبيه:</strong> يبدأ المؤقت بمجرد النقر على "بدء الاختبار" ولا يمكن إيقافه.
-                    </div>
-                    <div class="text-center mt-4">
-                        <button id="start-timer" class="btn btn-primary btn-lg px-5">
-                            <i class="fas fa-play-circle ms-2"></i>بدء الاختبار
-                        </button>
-                    </div>
+                <div class="explanation">
+                    <strong>الإجابة الصحيحة: ج. قابلة للتدهور</strong><br>
+                    القدرة تختلف عن المعرفة في أنها قابلة للتدهور إذا لم يتم ممارستها بانتظام، بينما المعرفة قد تبقى مخزنة في الذاكرة لفترة أطول.
                 </div>
             </div>
         </div>
-        <br>
 
-        <!-- QCM Section -->
-        <div class="main-container hidden-section" id="qcm-section">
-            <section>
-                <div class="section-divider">
-                    <span class="section-divider-text">الجزء 1 (أسئلة 1-20)</span>
+        <!-- Question 2 -->
+        <div class="question-card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">السؤال 2</h4>
+                <span class="badge bg-primary">1 نقطة</span>
+            </div>
+            <div class="card-body">
+                <p class="card-text">من القوانين الأساسية في النظرية السلوكية قانون:</p>
+                <div class="list-group">
+                    <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q2" value="a">أ. الاصطفاء</label>
+                    <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q2" value="b">ب. الاكتمال</label>
+                    <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q2" value="c">ج. الانطفاء</label>
+                    <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q2" value="d">د. الاحتمال</label>
                 </div>
-
-                <!-- Question 1 -->
-                <div class="question-card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h4 class="mb-0">السؤال 1</h4>
-                        <span class="badge bg-primary">1 نقطة</span>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">من خصائص القدرة أنها:</p>
-                        <div class="list-group">
-                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q1" value="a">أ. نوعية</label>
-                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q1" value="b">ب. خاصة بمادة دراسية</label>
-                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q1" value="c">ج. قابلة للتدهور</label>
-                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q1" value="d">د. غير قابلة للتحول</label>
-                        </div>
-                        <div class="explanation">
-                            <strong>الإجابة الصحيحة: ج. قابلة للتدهور</strong><br>
-                            القدرة تختلف عن المعرفة في أنها قابلة للتدهور إذا لم يتم ممارستها بانتظام، بينما المعرفة قد تبقى مخزنة في الذاكرة لفترة أطول.
-                        </div>
-                    </div>
+                <div class="explanation">
+                    <strong>الإجابة الصحيحة: ج. الانطفاء</strong><br>
+                    قانون الانطفاء في النظرية السلوكية يشير إلى اختفاء الاستجابة عندما يتوقف التعزيز، وهو أحد المبادئ الأساسية في تعديل السلوك.
                 </div>
+            </div>
+        </div>
 
-                <!-- Question 2 -->
-                <div class="question-card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h4 class="mb-0">السؤال 2</h4>
-                        <span class="badge bg-primary">1 نقطة</span>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">من القوانين الأساسية في النظرية السلوكية قانون:</p>
-                        <div class="list-group">
-                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q2" value="a">أ. الاصطفاء</label>
-                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q2" value="b">ب. الاكتمال</label>
-                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q2" value="c">ج. الانطفاء</label>
-                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q2" value="d">د. الاحتمال</label>
-                        </div>
-                        <div class="explanation">
-                            <strong>الإجابة الصحيحة: ج. الانطفاء</strong><br>
-                            قانون الانطفاء في النظرية السلوكية يشير إلى اختفاء الاستجابة عندما يتوقف التعزيز، وهو أحد المبادئ الأساسية في تعديل السلوك.
-                        </div>
-                    </div>
+        <!-- Question 3 -->
+        <div class="question-card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">السؤال 3</h4>
+                <span class="badge bg-primary">1 نقطة</span>
+            </div>
+            <div class="card-body">
+                <p class="card-text">يقصد بالمنهاج الخفي:</p>
+                <div class="list-group">
+                    <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q3" value="a">أ. ممارسات تربوية تتعارض مع المنهاج الرسمي</label>
+                    <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q3" value="b">ب. المنهاج القابل للتطبيق على محتويات مختلفة</label>
+                    <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q3" value="c">ج. الأهداف والغايات غير المعلنة للتعليم</label>
+                    <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q3" value="d">د. منهاج غير قابل للتطبيق</label>
                 </div>
-
-                <!-- Question 3 -->
-                <div class="question-card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h4 class="mb-0">السؤال 3</h4>
-                        <span class="badge bg-primary">1 نقطة</span>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">يقصد بالمنهاج الخفي:</p>
-                        <div class="list-group">
-                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q3" value="a">أ. ممارسات تربوية تتعارض مع المنهاج الرسمي</label>
-                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q3" value="b">ب. المنهاج القابل للتطبيق على محتويات مختلفة</label>
-                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q3" value="c">ج. الأهداف والغايات غير المعلنة للتعليم</label>
-                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q3" value="d">د. منهاج غير قابل للتطبيق</label>
-                        </div>
-                        <div class="explanation">
-                            <strong>الإجابة الصحيحة: ج. الأهداف والغايات غير المعلنة للتعليم</strong><br>
-                            المنهاج الخفي يشير إلى القيم والمعايير والسلوكيات التي يتعلمها الطلاب من خلال جو المدرسة وطريقة التدريس دون أن تكون مذكورة صراحة في المنهاج الرسمي.
-                        </div>
-                    </div>
+                <div class="explanation">
+                    <strong>الإجابة الصحيحة: ج. الأهداف والغايات غير المعلنة للتعليم</strong><br>
+                    المنهاج الخفي يشير إلى القيم والمعايير والسلوكيات التي يتعلمها الطلاب من خلال جو المدرسة وطريقة التدريس دون أن تكون مذكورة صراحة في المنهاج الرسمي.
                 </div>
+            </div>
+        </div>
 
-                <!-- Question 4 -->
-                <div class="question-card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h4 class="mb-0">السؤال 4</h4>
-                        <span class="badge bg-primary">1 نقطة</span>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">يشير مفهوم المواءمة عند "بياجي" إلى:</p>
-                        <div class="list-group">
-                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q4" value="a">أ. حالة التوازن نتيجة استيعاب الموضوع</label>
-                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q4" value="b">ب. توافق الذوات المتعلمة حول موضوع التعلم</label>
-                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q4" value="c">ج. تكيف الذات مع موضوعات العالم الخارجي</label>
-                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q4" value="d">د. تغيير في البنيات الذهنية للمتعلم</label>
-                        </div>
-                        <div class="explanation">
-                            <strong>الإجابة الصحيحة: ج. تكيف الذات مع موضوعات العالم الخارجي</strong><br>
-                            المواءمة عند بياجي هي عملية تعديل الفرد لتصوراته الذهنية لتتناسب مع المعلومات الجديدة التي يتلقاها من البيئة المحيطة.
-                        </div>
-                    </div>
+        <!-- Question 4 -->
+        <div class="question-card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">السؤال 4</h4>
+                <span class="badge bg-primary">1 نقطة</span>
+            </div>
+            <div class="card-body">
+                <p class="card-text">يشير مفهوم المواءمة عند "بياجي" إلى:</p>
+                <div class="list-group">
+                    <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q4" value="a">أ. حالة التوازن نتيجة استيعاب الموضوع</label>
+                    <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q4" value="b">ب. توافق الذوات المتعلمة حول موضوع التعلم</label>
+                    <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q4" value="c">ج. تكيف الذات مع موضوعات العالم الخارجي</label>
+                    <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q4" value="d">د. تغيير في البنيات الذهنية للمتعلم</label>
                 </div>
-
-                <!-- Question 5 -->
-                <div class="question-card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h4 class="mb-0">السؤال 5</h4>
-                        <span class="badge bg-primary">1 نقطة</span>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">نسبة المتعلمين الذين يتوفرون على الحد الأدنى من الكفايات في الرياضيات حسب تقييم "PISA 2018":</p>
-                        <div class="list-group">
-                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q5" value="a">أ. 24%</label>
-                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q5" value="b">ب. 44%</label>
-                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q5" value="c">ج. 42%</label>
-                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q5" value="d">د. 27%</label>
-                        </div>
-                        <div class="explanation">
-                            <strong>الإجابة الصحيحة: أ. 24%</strong><br>
-                            وفقًا لتقرير PISA 2018، حوالي 24% فقط من الطلاب حققوا المستوى الأدنى من الكفاءة في الرياضيات، مما يشير إلى وجود فجوة كبيرة في التعلم.
-                        </div>
-                    </div>
+                <div class="explanation">
+                    <strong>الإجابة الصحيحة: ج. تكيف الذات مع موضوعات العالم الخارجي</strong><br>
+                    المواءمة عند بياجي هي عملية تعديل الفرد لتصوراته الذهنية لتتناسب مع المعلومات الجديدة التي يتلقاها من البيئة المحيطة.
                 </div>
+            </div>
+        </div>
 
-                <!-- Question 6 -->
-                <div class="question-card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h4 class="mb-0">السؤال 6</h4>
-                        <span class="badge bg-primary">1 نقطة</span>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">يستفيد الأطفال في وضعية إعاقة خفيفة من:</p>
-                        <div class="list-group">
-                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q6" value="a">أ. تربية خاصة</label>
-                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q6" value="b">ب. تربية دامجة</label>
-                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q6" value="c">ج. تربية إدماجية</label>
-                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q6" value="d">د. تربية نظامية</label>
-                        </div>
-                        <div class="explanation">
-                            <strong>الإجابة الصحيحة: ب. تربية دامجة</strong><br>
-                            التربية الدامجة تهدف إلى إدماج الأطفال ذوي الإعاقات الخفيفة في الفصول العادية مع توفير الدعم اللازم، بدلاً من عزلهم في مؤسسات خاصة.
-                        </div>
-                    </div>
+        <!-- Question 5 -->
+        <div class="question-card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">السؤال 5</h4>
+                <span class="badge bg-primary">1 نقطة</span>
+            </div>
+            <div class="card-body">
+                <p class="card-text">نسبة المتعلمين الذين يتوفرون على الحد الأدنى من الكفايات في الرياضيات حسب تقييم "PISA 2018":</p>
+                <div class="list-group">
+                    <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q5" value="a">أ. 24%</label>
+                    <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q5" value="b">ب. 44%</label>
+                    <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q5" value="c">ج. 42%</label>
+                    <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q5" value="d">د. 27%</label>
                 </div>
-
-                <!-- Question 7 -->
-                <div class="question-card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h4 class="mb-0">السؤال 7</h4>
-                        <span class="badge bg-primary">1 نقطة</span>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">يعتبر التعاقد الديداكتيكي:</p>
-                        <div class="list-group">
-                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q7" value="a">أ. ملزما للمدرس</label>
-                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q7" value="b">ب. ملزما للمتعلم</label>
-                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q7" value="c">ج. ملزما للمدرس والمتعلم</label>
-                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q7" value="d">د. غير ملزم لأي طرف منهما</label>
-                        </div>
-                        <div class="explanation">
-                            <strong>الإجابة الصحيحة: ج. ملزما للمدرس والمتعلم</strong><br>
-                            التعاقد الديداكتيكي هو اتفاق غير مكتوب يحدد توقعات وأدوار كل من المعلم والمتعلم في العملية التعليمية، وهو ملزم لكليهما.
-                        </div>
-                    </div>
+                <div class="explanation">
+                    <strong>الإجابة الصحيحة: أ. 24%</strong><br>
+                    وفقًا لتقرير PISA 2018، حوالي 24% فقط من الطلاب حققوا المستوى الأدنى من الكفاءة في الرياضيات، مما يشير إلى وجود فجوة كبيرة في التعلم.
                 </div>
+            </div>
+        </div>
 
-                <!-- Question 8 -->
-                <div class="question-card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h4 class="mb-0">السؤال 8</h4>
-                        <span class="badge bg-primary">1 نقطة</span>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">تمثل أعمال "سكينر" الخلفية العلمية للنظرية:</p>
-                        <div class="list-group">
-                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q8" value="a">أ. الجشطلتية</label>
-                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q8" value="b">ب. البنائية</label>
-                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q8" value="c">ج. المعرفية</label>
-                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q8" value="d">د. السلوكية</label>
-                        </div>
-                        <div class="explanation">
-                            <strong>الإجابة الصحيحة: د. السلوكية</strong><br>
-                            بوروس فريدريك سكينر هو أحد أبرز علماء النفس السلوكي، وقد طور مفهوم التعزيز الإيجابي والسلبي في تعديل السلوك.
-                        </div>
+        <!-- Question 6 -->
+        <div class="question-card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">السؤال 6</h4>
+                <span class="badge bg-primary">1 نقطة</span>
+            </div>
+            <div class="card-body">
+                <p class="card-text">يستفيد الأطفال في وضعية إعاقة خفيفة من:</p>
+                <div class="list-group">
+                    <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q6" value="a">أ. تربية خاصة</label>
+                    <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q6" value="b">ب. تربية دامجة</label>
+                    <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q6" value="c">ج. تربية إدماجية</label>
+                    <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q6" value="d">د. تربية نظامية</label>
+                </div>
+                <div class="explanation">
+                    <strong>الإجابة الصحيحة: ب. تربية دامجة</strong><br>
+                    التربية الدامجة تهدف إلى إدماج الأطفال ذوي الإعاقات الخفيفة في الفصول العادية مع توفير الدعم اللازم، بدلاً من عزلهم في مؤسسات خاصة.
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 7 -->
+        <div class="question-card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">السؤال 7</h4>
+                <span class="badge bg-primary">1 نقطة</span>
+            </div>
+            <div class="card-body">
+                <p class="card-text">يعتبر التعاقد الديداكتيكي:</p>
+                <div class="list-group">
+                    <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q7" value="a">أ. ملزما للمدرس</label>
+                    <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q7" value="b">ب. ملزما للمتعلم</label>
+                    <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q7" value="c">ج. ملزما للمدرس والمتعلم</label>
+                    <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q7" value="d">د. غير ملزم لأي طرف منهما</label>
+                </div>
+                <div class="explanation">
+                    <strong>الإجابة الصحيحة: ج. ملزما للمدرس والمتعلم</strong><br>
+                    التعاقد الديداكتيكي هو اتفاق غير مكتوب يحدد توقعات وأدوار كل من المعلم والمتعلم في العملية التعليمية، وهو ملزم لكليهما.
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 8 -->
+        <div class="question-card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">السؤال 8</h4>
+                <span class="badge bg-primary">1 نقطة</span>
+            </div>
+            <div class="card-body">
+                <p class="card-text">تمثل أعمال "سكينر" الخلفية العلمية للنظرية:</p>
+                <div class="list-group">
+                    <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q8" value="a">أ. الجشطلتية</label>
+                    <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q8" value="b">ب. البنائية</label>
+                    <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q8" value="c">ج. المعرفية</label>
+                    <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q8" value="d">د. السلوكية</label>
+                </div>
+                <div class="explanation">
+                    <strong>الإجابة الصحيحة: د. السلوكية</strong><br>
+                    بوروس فريدريك سكينر هو أحد أبرز علماء النفس السلوكي، وقد طور مفهوم التعزيز الإيجابي والسلبي في تعديل السلوك.
+                <}/div>
                     </div>
                 </div>
 
