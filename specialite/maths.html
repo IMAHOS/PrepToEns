@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathématiques | Concours Enseignement</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container">
+            <a class="navbar-brand" href="../../index.html">Concours Enseignement</a>
+            <span class="navbar-text">Mathématiques</span>
+        </div>
+    </nav>
+
+    <div class="container main-container py-5">
+        <div class="text-center header-content mb-5">
+            <h1 class="display-4">Mathématiques</h1>
+            <p class="lead text-muted">Sélectionnez le type d'épreuve à préparer</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- Sciences Éducation -->
+            <div class="col-md-4">
+                <div class="card option-card h-100" data-target="../../qcm/qcm-sciences-education.html">
+                    <div class="card-body text-center p-4">
+                        <div class="icon-container mb-3 text-primary">
+                            <span class="icon">📘</span>
+                        </div>
+                        <h3>Sciences de l'Éducation</h3>
+                        <p class="text-muted small">Partie commune à tous les concours</p>
+                        <ul class="text-start ps-4 mt-3 small">
+                            <li>Pédagogie générale</li>
+                            <li>Système éducatif</li>
+                            <li>Didactique</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Didactique Maths -->
+            <div class="col-md-4">
+                <div class="card option-card h-100" data-target="../../qcm/qcm-maths-didactique.html">
+                    <div class="card-body text-center p-4">
+                        <div class="icon-container mb-3 text-success">
+                            <span class="icon">🎯</span>
+                        </div>
+                        <h3>Didactique Mathématique</h3>
+                        <p class="text-muted small">Spécifique aux mathématiques</p>
+                        <ul class="text-start ps-4 mt-3 small">
+                            <li>Analyse didactique</li>
+                            <li>Erreurs fréquentes</li>
+                            <li>Progressions</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Discipline Maths -->
+            <div class="col-md-4">
+                <div class="card option-card h-100" data-target="../../qcm/qcm-maths-discipline.html">
+                    <div class="card-body text-center p-4">
+                        <div class="icon-container mb-3 text-warning">
+                            <span class="icon">✏️</span>
+                        </div>
+                        <h3>Discipline Mathématique</h3>
+                        <p class="text-muted small">Contenu disciplinaire pur</p>
+                        <ul class="text-start ps-4 mt-3 small">
+                            <li>Analyse</li>
+                            <li>Algèbre</li>
+                            <li>Géométrie</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-5">
+            <button class="btn btn-outline-secondary back-button">
+                ← Retour à la sélection
+            </button>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+</body>
+</html>

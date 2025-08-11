@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار ديداكتيك العلوم - مباراة التعليم 2022</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c786c;
+            --secondary-color: #004445;
+            --accent-color: #f8b400;
+            --light-color: #faf5e4;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            font-family: 'Tajawal', 'Cairo', Arial, sans-serif;
+            padding-top: 80px;
+            color: #333;
+            line-height: 1.7;
+        }
+        
+        .main-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 68, 69, 0.1);
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            border: 2px solid rgba(44, 120, 108, 0.1);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .question-card {
+            margin-bottom: 2.5rem;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 68, 69, 0.08);
+            border: 2px solid rgba(44, 120, 108, 0.15);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 68, 69, 0.15);
+            border-color: rgba(44, 120, 108, 0.3);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            font-weight: 700;
+            border-bottom: none;
+            padding: 1.2rem 1.5rem;
+            border-radius: 13px 13px 0 0 !important;
+        }
+        
+        .card-body {
+            padding: 1.8rem;
+        }
+        
+        .card-title {
+            color: var(--secondary-color);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1.2rem;
+            position: relative;
+            padding-right: 1.5rem;
+        }
+        
+        .card-title:before {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 25px;
+            background: var(--accent-color);
+            border-radius: 5px;
+        }
+        
+        .card-text {
+            color: #444;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .list-group-item {
+            border: none;
+            border-left: 4px solid transparent;
+            margin-bottom: 0.5rem;
+            border-radius: 8px !important;
+            padding: 1rem 1.5rem;
+            font-size: 1.05rem;
+            transition: all 0.2s;
+            background-color: rgba(250, 245, 228, 0.5);
+        }
+        
+        .list-group-item:hover {
+            background-color: rgba(44, 120, 108, 0.08);
+            border-left-color: var(--accent-color);
+        }
+        
+        .form-check-input {
+            width: 1.2em;
+            height: 1.2em;
+            margin-left: 0.8rem;
+            margin-right: 0;
+            margin-top: 0.2rem;
+            border: 2px solid #ced4da;
+        }
+        
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 0.6rem 2.2rem;
+            font-weight: 600;
+            border-radius: 30px;
+            box-shadow: 0 4px 10px rgba(44, 120, 108, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 68, 69, 0.4);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            font-weight: 600;
+            border-radius: 30px;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .correct-answer {
+            background-color: rgba(40, 167, 69, 0.15) !important;
+            border-left: 4px solid var(--success-color) !important;
+        }
+        
+        .incorrect-answer {
+            background-color: rgba(220, 53, 69, 0.1) !important;
+            border-left: 4px solid var(--danger-color) !important;
+        }
+        
+        .explanation {
+            display: none;
+            background-color: rgba(248, 180, 0, 0.08);
+            border-radius: 10px;
+            padding: 1.3rem;
+            margin-top: 1.5rem;
+            border-right: 4px solid var(--accent-color);
+            font-size: 1.05rem;
+        }
+        
+        .explanation strong {
+            color: var(--secondary-color);
+        }
+        
+        .fixed-timer {
+            position: fixed;
+            top: 90px;
+            left: 30px;
+            z-index: 1000;
+            width: 180px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 68, 69, 0.15);
+            padding: 15px;
+            text-align: center;
+            display: none;
+            border: 2px solid rgba(44, 120, 108, 0.2);
+        }
+        
+        .fixed-timer.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        .fixed-timer .timer-text {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        
+        .fixed-timer #fixed-timer-display {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--secondary-color);
+            letter-spacing: 1px;
+        }
+        
+        .navbar {
+            box-shadow: 0 3px 15px rgba(0, 68, 69, 0.1);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+            padding: 0.8rem 1rem;
+        }
+        
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white !important;
+        }
+        
+        .navbar-brand i {
+            color: var(--accent-color);
+        }
+        
+        .navbar-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9) !important;
+        }
+        
+        .nav-link {
+            font-weight: 600;
+            padding: 0.5rem 1.2rem !important;
+            color: rgba(255, 255, 255, 0.8) !important;
+            transition: all 0.2s;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: white !important;
+            transform: translateY(-2px);
+        }
+        
+        .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 30px;
+        }
+        
+        h1.display-4 {
+            font-weight: 800;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1.display-4:after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            right: 0;
+            width: 70px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+        
+        .lead {
+            color: #555;
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .progress {
+            height: 35px;
+            background-color: #f1f1f1;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-bar {
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: width 0.6s ease;
+        }
+        
+        #final-score {
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 991.98px) {
+            .main-container {
+                padding: 1.8rem;
+                border-radius: 15px;
+            }
+            
+            .fixed-timer {
+                top: 80px;
+                left: 15px;
+                width: 150px;
+                padding: 12px;
+            }
+            
+            body {
+                padding-top: 70px;
+            }
+            
+            .card-body {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 767.98px) {
+            .main-container {
+                padding: 1.5rem 1rem;
+                border-radius: 12px;
+            }
+            
+            .fixed-timer {
+                top: 70px;
+                left: 10px;
+                width: 120px;
+                padding: 10px;
+            }
+            
+            h1.display-4 {
+                font-size: 1.8rem;
+            }
+            
+            .lead {
+                font-size: 1.1rem;
+            }
+            
+            .card-title {
+                font-size: 1.1rem;
+            }
+            
+            .card-text, .list-group-item {
+                font-size: 1rem;
+            }
+            
+            .btn-primary, .btn-outline-primary {
+                padding: 0.5rem 1.5rem;
+                font-size: 0.95rem;
+            }
+        }
+        
+        /* Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
+    </style>
+</head>
+<body>
+    <!-- Navbar fixe en haut -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-chalkboard-teacher me-2"></i>مباراة التعليم 2022
+            </a>
+            <span class="navbar-text">اختبار ديداكتيك العلوم</span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSciDid">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSciDid">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">العودة</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">الدروس</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">الاختبارات</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Timer fixe qui apparaît quand on commence le test -->
+    <div class="fixed-timer" id="fixedTimer">
+        <div class="timer-text">الوقت المتبقي</div>
+        <div id="fixed-timer-display">30:00</div>
+    </div>
+
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h1 class="display-4">اختبار ديداكتيك العلوم</h1>
+            <p class="lead">اختبار لمباراة توظيف أساتذة التعليم الابتدائي 2022</p>
+        </div>
+
+        <div class="main-container">
+            <div class="card mb-4 border-0 shadow-sm">
+                <div class="card-header">
+                    <h4 class="mb-0">التعليمات</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="mb-4">
+                        <li class="mb-2">يتكون هذا الاختبار من 15 سؤالاً في ديداكتيك العلوم (من Q91 إلى Q105)</li>
+                        <li class="mb-2">لديك 30 دقيقة للإجابة على جميع الأسئلة</li>
+                        <li class="mb-2">لكل سؤال أربعة اختيارات لأجوبة مقترحة (A, B, C, D) واحد منها فقط هو الجواب الصحيح</li>
+                        <li>يتم احتساب النقاط بناء على الإجابات الصحيحة فقط</li>
+                    </ul>
+                    <div class="text-center mt-4">
+                        <button id="start-timer" class="btn btn-primary btn-lg px-5">
+                            <i class="fas fa-play-circle me-2"></i>بدء الاختبار
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section QCM -->
+            <section id="qcm-section">
+                <!-- Question Q91 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q91</h5>
+                        <p class="card-text">يتكون برنامج مادة النشاط العلمي من ثلاثة مكونات أساسية هي:</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q91" value="a">
+                                علوم الحياة والعلوم الفيزيائية وعلوم الأرض والفضاء
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q91" value="b">
+                                المضامين الأساسية والممارسات العلمية ونهج التقصي
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q91" value="c">
+                                المضامين الأساسية والممارسات العلمية والقيم والمواقف
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q91" value="d">
+                                علوم الحياة والأرض والعلوم الفيزيائية والتكنولوجيا
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q91">
+                            <strong>الإجابة الصحيحة:</strong> B - المضامين الأساسية والممارسات العلمية ونهج التقصي هي المكونات الأساسية لبرنامج النشاط العلمي حسب الوثيقة.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q92 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q92</h5>
+                        <p class="card-text">يخصص الأسبوع الخامس من كل وحدة دراسية لمواضيع النشاط العلمي:</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q92" value="a">
+                                لتقويم ودعم وتوثيق تعلمات الوحدة
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q92" value="b">
+                                لتقويم تشخيص للمكتسبات السابقة
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q92" value="c">
+                                لبناء وتقديم الحصص الدراسية
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q92" value="d">
+                                الإنجاز فروض المراقبة المستمرة
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q92">
+                            <strong>الإجابة الصحيحة:</strong> A - يخصص الأسبوع الخامس لتقويم ودعم وتوثيق تعلمات الوحدة حسب تنظيم الزمن المدرسي.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ajoutez les autres questions ici avec la même structure -->
+
+                <div class="text-center mt-5">
+                    <button id="submit-answers" class="btn btn-primary btn-lg px-5">
+                        <i class="fas fa-check-circle me-2"></i>تسليم الإجابات
+                    </button>
+                </div>
+            </section>
+
+            <!-- Section Résultats -->
+            <section id="results-section" class="d-none">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="mb-0">نتائج الاختبار</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mb-5">
+                            <h3 id="final-score">النقاط: 0/15</h3>
+                            <div class="progress mt-3 mb-4">
+                                <div id="final-progress" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between">
+                            <button id="review-answers" class="btn btn-outline-primary">
+                                <i class="fas fa-search me-2"></i>مراجعة الإجابات
+                            </button>
+                            <button id="restart-quiz" class="btn btn-primary">
+                                <i class="fas fa-redo me-2"></i>إعادة الاختبار
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Variables
+            const totalQuestions = 15;
+            let timeLeft = 30 * 60; // 30 minutes en secondes
+            let timerInterval;
+            let userAnswers = {};
+            let quizSubmitted = false;
+            
+            // Éléments DOM
+            const startTimerBtn = document.getElementById('start-timer');
+            const fixedTimer = document.getElementById('fixedTimer');
+            const fixedTimerDisplay = document.getElementById('fixed-timer-display');
+            const submitBtn = document.getElementById('submit-answers');
+            const reviewBtn = document.getElementById('review-answers');
+            const restartBtn = document.getElementById('restart-quiz');
+            const qcmSection = document.getElementById('qcm-section');
+            const resultsSection = document.getElementById('results-section');
+            
+            // Démarrer le timer
+            startTimerBtn.addEventListener('click', function() {
+                startTimer();
+                this.disabled = true;
+                fixedTimer.classList.add('active');
+                qcmSection.scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Fonction pour démarrer le timer
+            function startTimer() {
+                updateTimerDisplay();
+                
+                timerInterval = setInterval(function() {
+                    timeLeft--;
+                    updateTimerDisplay();
+                    
+                    if (timeLeft <= 0) {
+                        clearInterval(timerInterval);
+                        submitQuiz();
+                    }
+                }, 1000);
+            }
+            
+            // Fonction pour afficher الوقت المتبقي
+            function updateTimerDisplay() {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                fixedTimerDisplay.textContent = timeString;
+                if (timeLeft < 300) {
+                    fixedTimerDisplay.classList.add('text-danger');
+                    fixedTimerDisplay.classList.remove('text-dark');
+                }
+            }
+            
+            // Soumettre les réponses
+            submitBtn.addEventListener('click', function() {
+                if (confirm("هل أنت متأكد أنك تريد تسليم إجاباتك؟")) {
+                    submitQuiz();
+                }
+            });
+            
+            // Revoir les réponses
+            reviewBtn.addEventListener('click', function() {
+                reviewAnswers();
+            });
+            
+            // Recommencer le quiz
+            restartBtn.addEventListener('click', function() {
+                if (confirm("هل تريد حقاً إعادة الاختبار؟ سيتم فقدان جميع إجاباتك.")) {
+                    resetQuiz();
+                    fixedTimer.classList.remove('active');
+                }
+            });
+            
+            // Fonction pour soumettre le quiz
+            function submitQuiz() {
+                if (quizSubmitted) return;
+                
+                clearInterval(timerInterval);
+                quizSubmitted = true;
+                fixedTimer.classList.remove('active');
+                
+                collectAnswers();
+                const score = calculateScore();
+                showResults(score);
+                disableInputs();
+            }
+            
+            // Fonction pour collecter les réponses
+            function collectAnswers() {
+                userAnswers = {};
+                for (let i = 91; i <= 105; i++) {
+                    const selectedOption = document.querySelector(`input[name="q${i}"]:checked`);
+                    if (selectedOption) {
+                        userAnswers[`q${i}`] = selectedOption.value;
+                    }
+                }
+            }
+            
+            // Fonction pour calculer le score
+            function calculateScore() {
+                let score = 0;
+                const correctAnswers = {
+                    q91: 'b',
+                    q92: 'a',
+                    q93: 'b',
+                    q94: 'd',
+                    q95: 'c',
+                    q96: 'd',
+                    q97: 'c',
+                    q98: 'c',
+                    q99: 'c',
+                    q100: 'b',
+                    q101: 'c',
+                    q102: 'b',
+                    q103: 'c',
+                    q104: 'a',
+                    q105: 'b'
+                };
+                
+                for (const question in userAnswers) {
+                    if (userAnswers[question] === correctAnswers[question]) {
+                        score++;
+                    }
+                }
+                
+                return score;
+            }
+            
+            // Fonction pour afficher les résultats
+            function showResults(score) {
+                qcmSection.classList.add('d-none');
+                resultsSection.classList.remove('d-none');
+                document.getElementById('final-score').textContent = `النقاط: ${score}/${totalQuestions}`;
+                const percentage = Math.round((score / totalQuestions) * 100);
+                const progressBar = document.getElementById('final-progress');
+                progressBar.style.width = `${percentage}%`;
+                progressBar.textContent = `${percentage}%`;
+                if (percentage < 50) {
+                    progressBar.className = 'progress-bar bg-danger';
+                } else if (percentage < 75) {
+                    progressBar.className = 'progress-bar bg-warning';
+                } else {
+                    progressBar.className = 'progress-bar bg-success';
+                }
+                resultsSection.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            // Fonction pour désactiver les inputs
+            function disableInputs() {
+                const inputs = document.querySelectorAll('input[type="radio"]');
+                inputs.forEach(input => {
+                    input.disabled = true;
+                });
+            }
+            
+            // Fonction pour revoir les réponses
+            function reviewAnswers() {
+                qcmSection.classList.remove('d-none');
+                resultsSection.classList.add('d-none');
+                const correctAnswers = {
+                    q91: 'b',
+                    q92: 'a',
+                    q93: 'b',
+                    q94: 'd',
+                    q95: 'c',
+                    q96: 'd',
+                    q97: 'c',
+                    q98: 'c',
+                    q99: 'c',
+                    q100: 'b',
+                    q101: 'c',
+                    q102: 'b',
+                    q103: 'c',
+                    q104: 'a',
+                    q105: 'b'
+                };
+                for (const question in userAnswers) {
+                    document.getElementById(`explanation-${question}`).style.display = 'block';
+                    if (userAnswers[question]) {
+                        const userAnswerElement = document.querySelector(`input[name="${question}"][value="${userAnswers[question]}"]`).parentElement;
+                        if (userAnswers[question] === correctAnswers[question]) {
+                            userAnswerElement.classList.add('correct-answer');
+                        } else {
+                            userAnswerElement.classList.add('incorrect-answer');
+                            const correctAnswerElement = document.querySelector(`input[name="${question}"][value="${correctAnswers[question]}"]`).parentElement;
+                            correctAnswerElement.classList.add('correct-answer');
+                        }
+                    }
+                }
+                qcmSection.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            // Fonction pour réinitialiser le quiz
+            function resetQuiz() {
+                timeLeft = 30 * 60;
+                userAnswers = {};
+                quizSubmitted = false;
+                
+                clearInterval(timerInterval);
+                fixedTimerDisplay.textContent = '30:00';
+                fixedTimerDisplay.classList.remove('text-danger');
+                startTimerBtn.disabled = false;
+                
+                const inputs = document.querySelectorAll('input[type="radio"]');
+                inputs.forEach(input => {
+                    input.checked = false;
+                    input.disabled = false;
+                    input.parentElement.classList.remove('correct-answer', 'incorrect-answer');
+                });
+                
+                const explanations = document.querySelectorAll('.explanation');
+                explanations.forEach(explanation => {
+                    explanation.style.display = 'none';
+                });
+                
+                qcmSection.classList.remove('d-none');
+                resultsSection.classList.add('d-none');
+                
+                window.scrollTo(0, 0);
+            }
+        });
+    </script>
+</body>
+</html>
+

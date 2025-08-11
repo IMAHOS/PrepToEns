@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concours de Mathématiques - CRPE Maroc 2024</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c786c;
+            --secondary-color: #004445;
+            --accent-color: #f8b400;
+            --light-color: #faf5e4;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-top: 80px;
+            color: #333;
+            line-height: 1.7;
+        }
+        
+        .main-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 68, 69, 0.1);
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            border: 2px solid rgba(44, 120, 108, 0.1);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .question-card {
+            margin-bottom: 2.5rem;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 68, 69, 0.08);
+            border: 2px solid rgba(44, 120, 108, 0.15);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 68, 69, 0.15);
+            border-color: rgba(44, 120, 108, 0.3);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            font-weight: 700;
+            border-bottom: none;
+            padding: 1.2rem 1.5rem;
+            border-radius: 13px 13px 0 0 !important;
+        }
+        
+        .card-body {
+            padding: 1.8rem;
+        }
+        
+        .card-title {
+            color: var(--secondary-color);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1.2rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .card-title:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 25px;
+            background: var(--accent-color);
+            border-radius: 5px;
+        }
+        
+        .card-text {
+            color: #444;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .list-group-item {
+            border: none;
+            border-left: 4px solid transparent;
+            margin-bottom: 0.5rem;
+            border-radius: 8px !important;
+            padding: 1rem 1.5rem;
+            font-size: 1.05rem;
+            transition: all 0.2s;
+            background-color: rgba(250, 245, 228, 0.5);
+        }
+        
+        .list-group-item:hover {
+            background-color: rgba(44, 120, 108, 0.08);
+            border-left-color: var(--accent-color);
+        }
+        
+        .form-check-input {
+            width: 1.2em;
+            height: 1.2em;
+            margin-right: 0.8rem;
+            margin-top: 0.2rem;
+            border: 2px solid #ced4da;
+        }
+        
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 0.6rem 2.2rem;
+            font-weight: 600;
+            border-radius: 30px;
+            box-shadow: 0 4px 10px rgba(44, 120, 108, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 68, 69, 0.4);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            font-weight: 600;
+            border-radius: 30px;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .correct-answer {
+            background-color: rgba(40, 167, 69, 0.15) !important;
+            border-left: 4px solid var(--success-color) !important;
+        }
+        
+        .incorrect-answer {
+            background-color: rgba(220, 53, 69, 0.1) !important;
+            border-left: 4px solid var(--danger-color) !important;
+        }
+        
+        .explanation {
+            display: none;
+            background-color: rgba(248, 180, 0, 0.08);
+            border-radius: 10px;
+            padding: 1.3rem;
+            margin-top: 1.5rem;
+            border-left: 4px solid var(--accent-color);
+            font-size: 1.05rem;
+        }
+        
+        .explanation strong {
+            color: var(--secondary-color);
+        }
+        
+        .fixed-timer {
+            position: fixed;
+            top: 90px;
+            right: 30px;
+            z-index: 1000;
+            width: 180px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 68, 69, 0.15);
+            padding: 15px;
+            text-align: center;
+            display: none;
+            border: 2px solid rgba(44, 120, 108, 0.2);
+        }
+        
+        .fixed-timer.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        .fixed-timer .timer-text {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        
+        .fixed-timer #fixed-timer-display {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--secondary-color);
+            letter-spacing: 1px;
+        }
+        
+        .navbar {
+            box-shadow: 0 3px 15px rgba(0, 68, 69, 0.1);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+            padding: 0.8rem 1rem;
+        }
+        
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white !important;
+        }
+        
+        .navbar-brand i {
+            color: var(--accent-color);
+        }
+        
+        .navbar-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9) !important;
+        }
+        
+        .nav-link {
+            font-weight: 600;
+            padding: 0.5rem 1.2rem !important;
+            color: rgba(255, 255, 255, 0.8) !important;
+            transition: all 0.2s;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: white !important;
+            transform: translateY(-2px);
+        }
+        
+        .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 30px;
+        }
+        
+        h1.display-4 {
+            font-weight: 800;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1.display-4:after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 70px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+        .correct-answer {
+    background-color: rgba(40, 167, 69, 0.15) !important;
+    border-left: 4px solid var(--success-color) !important;
+}
+
+.incorrect-answer {
+    background-color: rgba(220, 53, 69, 0.1) !important;
+    border-left: 4px solid var(--danger-color) !important;
+}
+        .lead {
+            color: #555;
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .progress {
+            height: 35px;
+            background-color: #f1f1f1;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-bar {
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: width 0.6s ease;
+        }
+        
+        #final-score {
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 991.98px) {
+            .main-container {
+                padding: 1.8rem;
+                border-radius: 15px;
+            }
+            
+            .fixed-timer {
+                top: 80px;
+                right: 15px;
+                width: 150px;
+                padding: 12px;
+            }
+            
+            body {
+                padding-top: 70px;
+            }
+            
+            .card-body {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 767.98px) {
+            .main-container {
+                padding: 1.5rem 1rem;
+                border-radius: 12px;
+            }
+            
+            .fixed-timer {
+                top: 70px;
+                right: 10px;
+                width: 120px;
+                padding: 10px;
+            }
+            
+            h1.display-4 {
+                font-size: 1.8rem;
+            }
+            
+            .lead {
+                font-size: 1.1rem;
+            }
+            
+            .card-title {
+                font-size: 1.1rem;
+            }
+            
+            .card-text, .list-group-item {
+                font-size: 1rem;
+            }
+            
+            .btn-primary, .btn-outline-primary {
+                padding: 0.5rem 1.5rem;
+                font-size: 0.95rem;
+            }
+        }
+        
+        /* Style spécifique pour les formules mathématiques */
+        .math-formula {
+            font-size: 1.2rem;
+            margin: 1rem 0;
+            padding: 0.5rem;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        
+        /* Style pour les figures géométriques */
+        .figure-container {
+            text-align: center;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .figure-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+        
+        .figure-description {
+            font-style: italic;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+        
+        /* Style pour les images des figures */
+        .figure-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        
+        /* Style pour les questions avec des tableaux */
+        .question-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        
+        .question-table th, .question-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        .question-table th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar fixe en haut -->
+   
+    <!-- Timer fixe qui apparaît quand on commence le test -->
+    <div class="fixed-timer" id="fixedTimer">
+        <div class="timer-text">Temps restant</div>
+        <div id="fixed-timer-display">30:00</div>
+    </div>
+
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h1 class="display-4">Concours de science/h1>
+            <p class="lead">Épreuve de science</p>
+        </div>
+
+        <div class="main-container">
+            <div class="card mb-4 border-0 shadow-sm">
+                <div class="card-header">
+                    <h4 class="mb-0">Instructions</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="mb-4">
+                        <li class="mb-2">L'épreuve contient 20 questions (de Q1 à Q20)</li>
+                        <li class="mb-2">Vous disposez de 30 minutes pour répondre à toutes les questions</li>
+                        <li class="mb-2">Pour chaque question, 4 choix de réponses sont proposés (A, B, C, D)</li>
+                        <li class="mb-2">Une seule réponse est correcte pour chaque question</li>
+                        <li>Chaque réponse correcte rapporte 1 point</li>
+                    </ul>
+                    <div class="text-center mt-4">
+                        <button id="start-timer" class="btn btn-primary btn-lg px-5">
+                            <i class="fas fa-play-circle me-2"></i>Commencer le test
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section QCM -->
+<section id="qcm-section" class="d-none">
+    <form id="qcm-form">
+        <!-- Q1 -->
+        <div class="card question-card">
+            <div class="card-body">
+                <h5 class="card-title">Question 1</h5>
+                <p class="card-text">Thème : Démarche scientifique<br>Quelle est la première étape de la démarche scientifique ?</p>
+                <div class="list-group mb-2">
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q1" value="a">A. Formuler une hypothèse</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q1" value="b">B. Observer un phénomène</label>
+                    <label class="form-check-label" for="q1a">C. Expérimenter</label>
+                    <label class="form-check-label" for="q1b">D. Conclure</label>
+                </div>
+                <div class="explanation" id="explanation-q1"><strong>Réponse correcte :</strong> B<br>L'observation est la base de toute démarche scientifique, car elle permet d'identifier un problème ou un phénomène à étudier.</div>
+            </div>
+        </div>
+        <!-- Q2 -->
+        <div class="card question-card">
+            <div class="card-body">
+                <h5 class="card-title">Question 2</h5>
+                <p class="card-text">Thème : Représentations des élèves<br>Pourquoi est-il important de prendre en compte les représentations initiales des élèves en sciences ?</p>
+                <div class="list-group mb-2">
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q2" value="a">A. Pour les évaluer immédiatement</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q2" value="b">B. Pour identifier et dépasser leurs conceptions erronées</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q2" value="c">C. Pour éviter de leur donner trop d'informations</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q2" value="d">D. Pour gagner du temps en classe</label>
+                </div>
+                <div class="explanation" id="explanation-q2"><strong>Réponse correcte :</strong> B<br>Les représentations initiales permettent à l'enseignant de construire son enseignement en partant des idées des élèves pour les faire évoluer.</div>
+            </div>
+        </div>
+        <!-- Q3 -->
+        <div class="card question-card">
+            <div class="card-body">
+                <h5 class="card-title">Question 3</h5>
+                <p class="card-text">Thème : Évaluation formative<br>Quel est l'objectif principal de l'évaluation formative en sciences ?</p>
+                <div class="list-group mb-2">
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q3" value="a">A. Noter les élèves</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q3" value="b">B. Identifier les difficultés pour y remédier</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q3" value="c">C. Classer les élèves par niveau</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q3" value="d">D. Valider les acquis en fin de séquence</label>
+                </div>
+                <div class="explanation" id="explanation-q3"><strong>Réponse correcte :</strong> B<br>L'évaluation formative vise à aider les élèves à progresser en ciblant leurs besoins.</div>
+            </div>
+        </div>
+        <!-- Q4 -->
+        <div class="card question-card">
+            <div class="card-body">
+                <h5 class="card-title">Question 4</h5>
+                <p class="card-text">Thème : Obstacles épistémologiques<br>Selon Bachelard, quel est un exemple d'obstacle épistémologique en sciences ?</p>
+                <div class="list-group mb-2">
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q4" value="a">A. Le manque de matériel en classe</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q4" value="b">B. Les conceptions spontanées des élèves (ex. : "le soleil tourne autour de la Terre")</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q4" value="c">C. La complexité du vocabulaire scientifique</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q4" value="d">D. Le manque de motivation des élèves</label>
+                </div>
+                <div class="explanation" id="explanation-q4"><strong>Réponse correcte :</strong> B<br>Les obstacles épistémologiques sont des idées préconçues qui entravent l'apprentissage des concepts scientifiques.</div>
+            </div>
+        </div>
+        <!-- Q5 -->
+        <div class="card question-card">
+            <div class="card-body">
+                <h5 class="card-title">Question 5</h5>
+                <p class="card-text">Thème : Expérimentation<br>Pourquoi privilégier les activités expérimentales en sciences à l'école primaire ?</p>
+                <div class="list-group mb-2">
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q5" value="a">A. Pour occuper les élèves</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q5" value="b">B. Pour développer leur esprit critique et leur démarche d'investigation</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q5" value="c">C. Parce que c'est plus facile à enseigner</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q5" value="d">D. Pour éviter de faire cours</label>
+                </div>
+                <div class="explanation" id="explanation-q5"><strong>Réponse correcte :</strong> B<br>L'expérimentation permet aux élèves de construire activement leurs savoirs en manipulant et en testant des hypothèses.</div>
+            </div>
+        </div>
+        <!-- Q6 -->
+        <div class="card question-card">
+            <div class="card-body">
+                <h5 class="card-title">Question 6</h5>
+                <p class="card-text">Thème : Problématisation<br>Quelle est la caractéristique d'une bonne situation-problème en sciences ?</p>
+                <div class="list-group mb-2">
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q6" value="a">A. Elle a une réponse unique et évidente</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q6" value="b">B. Elle suscite le questionnement et la recherche</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q6" value="c">C. Elle ne nécessite pas de matériel</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q6" value="d">D. Elle est tirée directement du manuel scolaire</label>
+                </div>
+                <div class="explanation" id="explanation-q6"><strong>Réponse correcte :</strong> B<br>Une situation-problème doit être stimulante et amener les élèves à chercher des solutions.</div>
+            </div>
+        </div>
+        <!-- Q7 -->
+        <div class="card question-card">
+            <div class="card-body">
+                <h5 class="card-title">Question 7</h5>
+                <p class="card-text">Thème : Différenciation pédagogique<br>Comment différencier une activité en sciences pour des élèves de niveaux hétérogènes ?</p>
+                <div class="list-group mb-2">
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q7" value="a">A. Donner la même consigne à tous</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q7" value="b">B. Proposer des supports ou des tâches adaptés aux besoins de chacun</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q7" value="c">C. Faire travailler uniquement les meilleurs élèves</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q7" value="d">D. Ignorer les difficultés des élèves en retard</label>
+                </div>
+                <div class="explanation" id="explanation-q7"><strong>Réponse correcte :</strong> B<br>La différenciation permet d'adapter les apprentissages aux capacités de chaque élève.</div>
+            </div>
+        </div>
+        <!-- Q8 -->
+        <div class="card question-card">
+            <div class="card-body">
+                <h5 class="card-title">Question 8</h5>
+                <p class="card-text">Thème : Matériel concret<br>Quel est l'avantage d'utiliser du matériel concret (ex. : balances, aimants) en sciences ?</p>
+                <div class="list-group mb-2">
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q8" value="a">A. Rendre les concepts abstraits plus accessibles</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q8" value="b">B. Économiser du temps</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q8" value="c">C. Éviter de faire réfléchir les élèves</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q8" value="d">D. Limiter les discussions en classe</label>
+                </div>
+                <div class="explanation" id="explanation-q8"><strong>Réponse correcte :</strong> A<br>La manipulation d'objets réels aide les élèves à comprendre des notions complexes.</div>
+            </div>
+        </div>
+        <!-- Q9 -->
+        <div class="card question-card">
+            <div class="card-body">
+                <h5 class="card-title">Question 9</h5>
+                <p class="card-text">Thème : Erreurs des élèves<br>Comment exploiter pédagogiquement les erreurs des élèves en sciences ?</p>
+                <div class="list-group mb-2">
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q9" value="a">A. Les ignorer pour ne pas les décourager</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q9" value="b">B. Les corriger immédiatement sans explication</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q9" value="c">C. En faire un point de départ pour des discussions et des recherches</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q9" value="d">D. Punir les élèves qui se trompent</label>
+                </div>
+                <div class="explanation" id="explanation-q9"><strong>Réponse correcte :</strong> C<br>Les erreurs sont des indices précieux pour comprendre les raisonnements des élèves et les faire progresser.</div>
+            </div>
+        </div>
+        <!-- Q10 -->
+        <div class="card question-card">
+            <div class="card-body">
+                <h5 class="card-title">Question 10</h5>
+                <p class="card-text">Thème : Interdisciplinarité<br>Pourquoi associer les sciences à d'autres disciplines (maths, français, etc.) ?</p>
+                <div class="list-group mb-2">
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q10" value="a">A. Pour compliquer les apprentissages</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q10" value="b">B. Pour donner plus de travail aux élèves</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q10" value="c">C. Pour montrer les liens entre les savoirs et renforcer les compétences</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q10" value="d">D. Parce que c'est obligatoire dans les programmes</label>
+                </div>
+                <div class="explanation" id="explanation-q10"><strong>Réponse correcte :</strong> C<br>L'interdisciplinarité donne du sens aux apprentissages et montre leur utilité dans divers contextes.</div>
+            </div>
+        </div>
+        <!-- Q11 -->
+        <div class="card question-card">
+            <div class="card-body">
+                <h5 class="card-title">Question 11</h5>
+                <p class="card-text">Thème : Démarche scientifique<br>Quel est le rôle de l'hypothèse dans la démarche scientifique ?</p>
+                <div class="list-group mb-2">
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q11" value="a">A. Elle remplace l'observation</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q11" value="b">B. Elle guide la collecte de données</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q11" value="c">C. Elle est la dernière étape de la démarche</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q11" value="d">D. Elle n'a pas d'importance</label>
+                </div>
+                <div class="explanation" id="explanation-q11"><strong>Réponse correcte :</strong> B<br>L'hypothèse permet de formuler des prévisions qui seront vérifiées par l'expérimentation.</div>
+            </div>
+        </div>
+        <!-- Q12 -->
+        <div class="card question-card">
+            <div class="card-body">
+                <h5 class="card-title">Question 12</h5>
+                <p class="card-text">Thème : Représentations des élèves<br>Comment les représentations initiales des élèves peuvent-elles être un obstacle à l'apprentissage des sciences ?</p>
+                <div class="list-group mb-2">
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q12" value="a">A. Elles sont toujours correctes</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q12" value="b">B. Elles peuvent être des idées reçues ou des simplifications excessives</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q12" value="c">C. Elles n'ont aucun impact sur l'apprentissage</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q12" value="d">D. Elles sont faciles à changer</label>
+                </div>
+                <div class="explanation" id="explanation-q12"><strong>Réponse correcte :</strong> B<br>Les représentations initiales peuvent limiter la compréhension des élèves si elles ne correspondent pas aux concepts scientifiques.</div>
+            </div>
+        </div>
+        <!-- Q13 -->
+        <div class="card question-card">
+            <div class="card-body">
+                <h5 class="card-title">Question 13</h5>
+                <p class="card-text">Thème : Évaluation formative<br>Quelle est la différence principale entre évaluation formative et évaluation sommative ?</p>
+                <div class="list-group mb-2">
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q13" value="a">A. Il n'y a pas de différence</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q13" value="b">B. L'évaluation formative est à but diagnostique et l'évaluation sommative est à but certificatif</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q13" value="c">C. L'évaluation formative se fait en fin d'apprentissage, l'évaluation sommative en cours d'apprentissage</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q13" value="d">D. L'évaluation formative est plus facile à réaliser</label>
+                </div>
+                <div class="explanation" id="explanation-q13"><strong>Réponse correcte :</strong> B<br>L'évaluation formative a pour but d'améliorer l'apprentissage en cours de route, tandis que l'évaluation sommative juge des acquis à un moment donné.</div>
+            </div>
+        </div>
+        <!-- Q14 -->
+        <div class="card question-card">
+            <div class="card-body">
+                <h5 class="card-title">Question 14</h5>
+                <p class="card-text">Thème : Obstacles épistémologiques<br>Comment surmonter un obstacle épistémologique en classe ?</p>
+                <div class="list-group mb-2">
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q14" value="a">A. En l'ignorant</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q14" value="b">B. En confrontant les élèves à des situations qui contredisent leurs idées reçues</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q14" value="c">C. En répétant les mêmes explications</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q14" value="d">D. En changeant le programme scolaire</label>
+                </div>
+                <div class="explanation" id="explanation-q14"><strong>Réponse correcte :</strong> B<br>La confrontation avec des données ou des expériences nouvelles permet de faire évoluer les conceptions erronées.</div>
+            </div>
+        </div>
+        <!-- Q15 -->
+        <div class="card question-card">
+            <div class="card-body">
+                <h5 class="card-title">Question 15</h5>
+                <p class="card-text">Thème : Expérimentation<br>Quel est l'objectif principal des activités expérimentales en sciences ?</p>
+                <div class="list-group mb-2">
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q15" value="a">A. Faire plaisir aux élèves</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q15" value="b">B. Développer la créativité des élèves</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q15" value="c">C. Vérifier des hypothèses et comprendre des phénomènes</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q15" value="d">D. Remplacer les cours théoriques</label>
+                </div>
+                <div class="explanation" id="explanation-q15"><strong>Réponse correcte :</strong> C<br>Les activités expérimentales permettent aux élèves de tester leurs hypothèses et d'observer les résultats de leurs manipulations.</div>
+            </div>
+        </div>
+        <!-- Q16 -->
+        <div class="card question-card">
+            <div class="card-body">
+                <h5 class="card-title">Question 16</h5>
+                <p class="card-text">Thème : Problématisation<br>Comment formuler une bonne question scientifique ?</p>
+                <div class="list-group mb-2">
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q16" value="a">A. En étant très vague</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q16" value="b">B. En se basant sur des observations précises</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q16" value="c">C. En copiant les questions du manuel</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q16" value="d">D. En posant plusieurs questions à la fois</label>
+                </div>
+                <div class="explanation" id="explanation-q16"><strong>Réponse correcte :</strong> B<br>Une bonne question scientifique est claire, précise et basée sur des faits observables.</div>
+            </div>
+        </div>
+        <!-- Q17 -->
+        <div class="card question-card">
+            <div class="card-body">
+                <h5 class="card-title">Question 17</h5>
+                <p class="card-text">Thème : Différenciation pédagogique<br>Quel est l'objectif de la différenciation pédagogique en sciences ?</p>
+                <div class="list-group mb-2">
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q17" value="a">A. Rendre l'enseignement plus facile pour le professeur</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q17" value="b">B. Adapter l'enseignement aux besoins et aux rythmes de chaque élève</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q17" value="c">C. Standardiser les apprentissages pour tous les élèves</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q17" value="d">D. Évaluer les élèves de manière plus précise</label>
+                </div>
+                <div class="explanation" id="explanation-q17"><strong>Réponse correcte :</strong> B<br>La différenciation pédagogique vise à répondre aux divers besoins des élèves pour favoriser leur réussite.</div>
+            </div>
+        </div>
+        <!-- Q18 -->
+        <div class="card question-card">
+            <div class="card-body">
+                <h5 class="card-title">Question 18</h5>
+                <p class="card-text">Thème : Matériel concret<br>Comment choisir le matériel concret en fonction des objectifs pédagogiques ?</p>
+                <div class="list-group mb-2">
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q18" value="a">A. En fonction du budget disponible</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q18" value="b">B. En fonction des préférences personnelles de l'enseignant</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q18" value="c">C. En fonction des compétences visées et des activités prévues</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q18" value="d">D. En fonction de la disponibilité dans l'établissement</label>
+                </div>
+                <div class="explanation" id="explanation-q18"><strong>Réponse correcte :</strong> C<br>Le choix du matériel doit être guidé par les objectifs d'apprentissage et les activités pédagogiques prévues.</div>
+            </div>
+        </div>
+        <!-- Q19 -->
+        <div class="card question-card">
+            <div class="card-body">
+                <h5 class="card-title">Question 19</h5>
+                <p class="card-text">Thème : Erreurs des élèves<br>Pourquoi est-il important d'analyser les erreurs des élèves en sciences ?</p>
+                <div class="list-group mb-2">
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q19" value="a">A. Pour punir les élèves</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q19" value="b">B. Pour comprendre leurs raisonnements et adapter l'enseignement</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q19" value="c">C. Pour prouver qu'ils ont tort</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q19" value="d">D. Pour éviter de refaire les mêmes erreurs</label>
+                </div>
+                <div class="explanation" id="explanation-q19"><strong>Réponse correcte :</strong> B<br>Analyser les erreurs permet de mieux comprendre les difficultés des élèves et d'ajuster les stratégies d'enseignement.</div>
+            </div>
+        </div>
+        <!-- Q20 -->
+        <div class="card question-card">
+            <div class="card-body">
+                <h5 class="card-title">Question 20</h5>
+                <p class="card-text">Thème : Interdisciplinarité<br>Comment l'interdisciplinarité peut-elle enrichir l'enseignement des sciences ?</p>
+                <div class="list-group mb-2">
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q20" value="a">A. En rendant l'enseignement plus complexe</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q20" value="b">B. En montrant les liens entre les différentes disciplines et en renforçant les compétences transversales</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q20" value="c">C. En augmentant la charge de travail des élèves</label>
+                    <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q20" value="d">D. En simplifiant les contenus scientifiques</label>
+                </div>
+                <div class="explanation" id="explanation-q20"><strong>Réponse correcte :</strong> B<br>L'interdisciplinarité enrichit les apprentissages en montrant leur pertinence et leur application dans différents contextes.</div>
+            </div>
+        </div>
+          <!-- Bouton de soumission -->
+        <div class="text-center mt-5" id="submit-btn-container">
+            <button id="submit-answers" type="button" class="btn btn-primary btn-lg px-5">
+                <i class="fas fa-check-circle me-2"></i>Soumettre les réponses
+            </button>
+        </div>
+    </form>
+</section>
+                  <!-- Section Résultats -->
+            <section id="results-section" class="d-none">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="mb-0">Résultats du test</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mb-5">
+                            <h3 id="final-score">Score: 0/20</h3>
+                            <div class="progress mt-3 mb-2">
+                                <div id="final-progress" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                            </div>
+                            <div id="final-progress-text" class="fw-bold" style="font-size:1.2rem;">0%</div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <button id="review-answers" class="btn btn-outline-primary">
+                                <i class="fas fa-search me-2"></i>Voir les réponses
+                            </button>
+                            <button id="restart-quiz" class="btn btn-primary">
+                                <i class="fas fa-redo me-2"></i>Recommencer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+                
+            
+        </div>
+    </div>
+
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Ajout du bouton de validation du quiz
+        const submitQuizBtn = document.getElementById('submit-answers');
+        if (submitQuizBtn) {
+            submitQuizBtn.addEventListener('click', function() {
+                submitQuiz();
+            });
+        }
+
+        // Variables
+        const totalQuestions = 20; // Nombre total de questions
+        let timeLeft = 30 * 60; // 30 minutes en secondes
+        let timerInterval;
+        let userAnswers = {};
+        let quizSubmitted = false;
+
+        // Éléments DOM
+        const startTimerBtn = document.getElementById('start-timer');
+        const fixedTimer = document.getElementById('fixedTimer');
+        const fixedTimerDisplay = document.getElementById('fixed-timer-display');
+        const reviewBtn = document.getElementById('review-answers');
+        const restartBtn = document.getElementById('restart-quiz');
+        const qcmSection = document.getElementById('qcm-section');
+        const resultsSection = document.getElementById('results-section');
+        
+        // Démarrer le timer
+        startTimerBtn.addEventListener('click', function() {
+            startTimer();
+            this.disabled = true;
+            fixedTimer.classList.add('active');
+            qcmSection.classList.remove('d-none'); // Affiche les questions au démarrage
+            qcmSection.scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        // Fonction pour démarrer le timer
+        function startTimer() {
+            updateTimerDisplay();
+            
+            timerInterval = setInterval(function() {
+                timeLeft--;
+                updateTimerDisplay();
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    submitQuiz();
+                }
+            }, 1000);
+        }
+        
+        // Fonction pour afficher le temps restant
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            fixedTimerDisplay.textContent = timeString;
+            
+            if (timeLeft < 300) { // 5 minutes restantes
+                fixedTimerDisplay.classList.add('text-danger');
+            }
+        }
+        
+        // Revoir les réponses
+        if (reviewBtn) {
+            reviewBtn.addEventListener('click', function() {
+                reviewAnswers();
+                replaceSubmitWithRetourButton(); // Ajout : remplace le bouton "Soumettre" par "Retour"
+            });
+        }
+        
+        // Recommencer le quiz
+        if (restartBtn) {
+            restartBtn.addEventListener('click', function() {
+                if (confirm("Voulez-vous vraiment recommencer le test ? Toutes vos réponses seront perdues.")) {
+                    resetQuiz();
+                    fixedTimer.classList.remove('active');
+                }
+            });
+        }
+        
+        // Fonction pour soumettre le quiz
+        function submitQuiz() {
+            if (quizSubmitted) return;
+            
+            clearInterval(timerInterval);
+            quizSubmitted = true;
+            fixedTimer.classList.remove('active');
+            
+            collectAnswers();
+            const score = calculateScore();
+            showResults(score);
+            showAnswers();
+            disableInputs();
+        }
+        
+        // Fonction pour collecter les réponses
+        function collectAnswers() {
+            userAnswers = {};
+            for (let i = 1; i <= totalQuestions; i++) { // Correction : Q1 à Q20
+                const selectedOption = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selectedOption) {
+                    userAnswers[`q${i}`] = selectedOption.value;
+                }
+            }
+        }
+
+        // Fonction pour calculer le score
+        function calculateScore() {
+            let score = 0;
+            const correctAnswers = {
+                q1: 'b',
+                q2: 'b',
+                q3: 'b',
+                q4: 'b',
+                q5: 'b',
+                q6: 'b',
+                q7: 'b',
+                q8: 'a',
+                q9: 'c',
+                q10: 'c',
+                q11: 'b',
+                q12: 'b',
+                q13: 'b',
+                q14: 'b',
+                q15: 'c',
+                q16: 'b',
+                q17: 'b',
+                q18: 'c',
+                q19: 'b',
+                q20: 'b'
+            };
+            for (const question in userAnswers) {
+                if (correctAnswers[question] && userAnswers[question] === correctAnswers[question]) {
+                    score++;
+                }
+            }
+            return score;
+        }
+
+        // Fonction pour afficher les réponses correctes/incorrectes
+        function showAnswers() {
+            const correctAnswers = {
+                q1: 'b',
+                q2: 'b',
+                q3: 'b',
+                q4: 'b',
+                q5: 'b',
+                q6: 'b',
+                q7: 'b',
+                q8: 'a',
+                q9: 'c',
+                q10: 'c',
+                q11: 'b',
+                q12: 'b',
+                q13: 'b',
+                q14: 'b',
+                q15: 'c',
+                q16: 'b',
+                q17: 'b',
+                q18: 'c',
+                q19: 'b',
+                q20: 'b'
+            };
+            for (let i = 1; i <= totalQuestions; i++) {
+                const questionId = `q${i}`;
+                const explanation = document.getElementById(`explanation-${questionId}`);
+                if (explanation) {
+                    explanation.style.display = 'block';
+                }
+                if (userAnswers[questionId]) {
+                    const selectedInput = document.querySelector(`input[name="${questionId}"][value="${userAnswers[questionId]}"]`);
+                    if (selectedInput) {
+                        const userAnswerElement = selectedInput.parentElement;
+                        if (userAnswers[questionId] === correctAnswers[questionId]) {
+                            userAnswerElement.classList.add('correct-answer');
+                        } else {
+                            userAnswerElement.classList.add('incorrect-answer');
+                            const correctInput = document.querySelector(`input[name="${questionId}"][value="${correctAnswers[questionId]}"]`);
+                            if (correctInput) {
+                                correctInput.parentElement.classList.add('correct-answer');
+                            }
+                        }
+                    }
+                } else {
+                    const correctInput = document.querySelector(`input[name="${questionId}"][value="${correctAnswers[questionId]}"]`);
+                    if (correctInput) {
+                        correctInput.parentElement.classList.add('correct-answer');
+                    }
+                }
+            }
+        }
+
+        // Fonction pour afficher les résultats
+        function showResults(score) {
+            qcmSection.classList.add('d-none');
+            resultsSection.classList.remove('d-none');
+            document.getElementById('final-score').textContent = `Score: ${score}/${totalQuestions}`;
+            const percentage = Math.round((score / totalQuestions) * 100);
+            const progressBar = document.getElementById('final-progress');
+            const progressText = document.getElementById('final-progress-text');
+            progressBar.style.width = `${percentage}%`;
+            progressBar.textContent = `${percentage}%`;
+            if (progressText) {
+                progressText.textContent = `${percentage}%`;
+            }
+            if (percentage < 50) {
+                progressBar.className = 'progress-bar bg-danger';
+            } else if (percentage < 75) {
+                progressBar.className = 'progress-bar bg-warning';
+            } else {
+                progressBar.className = 'progress-bar bg-success';
+            }
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Fonction pour désactiver les inputs
+        function disableInputs() {
+            const inputs = document.querySelectorAll('input[type="radio"]');
+            inputs.forEach(input => {
+                input.disabled = true;
+            });
+        }
+        
+        // Fonction pour revoir les réponses
+        function reviewAnswers() {
+            qcmSection.classList.remove('d-none');
+            resultsSection.classList.add('d-none');
+            qcmSection.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Fonction pour réinitialiser le quiz
+        function resetQuiz() {
+            timeLeft = 30 * 60;
+            userAnswers = {};
+            quizSubmitted = false;
+            
+            clearInterval(timerInterval);
+            fixedTimerDisplay.textContent = '30:00';
+            fixedTimerDisplay.classList.remove('text-danger');
+            startTimerBtn.disabled = false;
+            
+            const inputs = document.querySelectorAll('input[type="radio"]');
+            inputs.forEach(input => {
+                input.checked = false;
+                input.disabled = false;
+                input.parentElement.classList.remove('correct-answer', 'incorrect-answer');
+            });
+            
+            const explanations = document.querySelectorAll('.explanation');
+            explanations.forEach(explanation => {
+                explanation.style.display = 'none';
+            });
+            
+            qcmSection.classList.remove('d-none');
+            resultsSection.classList.add('d-none');
+            
+            window.scrollTo(0, 0);
+        }
+
+        // Function to replace "Soumettre les réponses" with "Retour"
+        function replaceSubmitWithRetourButton() {
+            const submitButton = document.getElementById('submit-answers');
+            if (submitButton) {
+                submitButton.remove(); // Remove "Soumettre les réponses" button
+            }
+
+            const retourButton = document.createElement('a');
+            retourButton.href = "../didactique.html";
+            retourButton.className = 'btn btn-outline-primary btn-lg px-5';
+            retourButton.innerHTML = '<i class="fas fa-arrow-left me-2"></i>Retour';
+
+            const submitBtnContainer = document.getElementById('submit-btn-container');
+            if (submitBtnContainer) {
+                submitBtnContainer.innerHTML = ''; // Clear existing content
+                submitBtnContainer.appendChild(retourButton);
+            }
+        }
+    });
+</script>
+</body>
+</html>

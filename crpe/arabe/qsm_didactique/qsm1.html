@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار ديداكتيك اللغة العربية - مباراة التعليم 2022</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c786c;
+            --secondary-color: #004445;
+            --accent-color: #f8b400;
+            --light-color: #faf5e4;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            font-family: 'Tajawal', 'Cairo', Arial, sans-serif;
+            padding-top: 80px;
+            color: #333;
+            line-height: 1.7;
+        }
+        
+        .main-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 68, 69, 0.1);
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            border: 2px solid rgba(44, 120, 108, 0.1);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .question-card {
+            margin-bottom: 2.5rem;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 68, 69, 0.08);
+            border: 2px solid rgba(44, 120, 108, 0.15);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 68, 69, 0.15);
+            border-color: rgba(44, 120, 108, 0.3);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            font-weight: 700;
+            border-bottom: none;
+            padding: 1.2rem 1.5rem;
+            border-radius: 13px 13px 0 0 !important;
+        }
+        
+        .card-body {
+            padding: 1.8rem;
+        }
+        
+        .card-title {
+            color: var(--secondary-color);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1.2rem;
+            position: relative;
+            padding-right: 1.5rem;
+        }
+        
+        .card-title:before {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 25px;
+            background: var(--accent-color);
+            border-radius: 5px;
+        }
+        
+        .card-text {
+            color: #444;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 1.4rem;
+            margin: 2rem 0 1rem;
+            padding-right: 1rem;
+            border-right: 5px solid var(--accent-color);
+        }
+        
+        .text-content {
+            font-size: 1.1rem;
+            text-align: justify;
+            margin-bottom: 1.5rem;
+        }
+        
+        .text-emphasis {
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+        
+        .list-group-item {
+            border: none;
+            border-left: 4px solid transparent;
+            margin-bottom: 0.5rem;
+            border-radius: 8px !important;
+            padding: 1rem 1.5rem;
+            font-size: 1.05rem;
+            transition: all 0.2s;
+            background-color: rgba(250, 245, 228, 0.5);
+        }
+        
+        .list-group-item:hover {
+            background-color: rgba(44, 120, 108, 0.08);
+            border-left-color: var(--accent-color);
+        }
+        
+        .form-check-input {
+            width: 1.2em;
+            height: 1.2em;
+            margin-left: 0.8rem;
+            margin-right: 0;
+            margin-top: 0.2rem;
+            border: 2px solid #ced4da;
+        }
+        
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 0.6rem 2.2rem;
+            font-weight: 600;
+            border-radius: 30px;
+            box-shadow: 0 4px 10px rgba(44, 120, 108, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 68, 69, 0.4);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            font-weight: 600;
+            border-radius: 30px;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .correct-answer {
+            background-color: rgba(40, 167, 69, 0.15) !important;
+            border-left: 4px solid var(--success-color) !important;
+        }
+        
+        .incorrect-answer {
+            background-color: rgba(220, 53, 69, 0.1) !important;
+            border-left: 4px solid var(--danger-color) !important;
+        }
+        
+        .explanation {
+            display: none;
+            background-color: rgba(248, 180, 0, 0.08);
+            border-radius: 10px;
+            padding: 1.3rem;
+            margin-top: 1.5rem;
+            border-right: 4px solid var(--accent-color);
+            font-size: 1.05rem;
+        }
+        
+        .explanation strong {
+            color: var(--secondary-color);
+        }
+        
+        .fixed-timer {
+            position: fixed;
+            top: 90px;
+            left: 30px;
+            z-index: 1000;
+            width: 180px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 68, 69, 0.15);
+            padding: 15px;
+            text-align: center;
+            display: none;
+            border: 2px solid rgba(44, 120, 108, 0.2);
+        }
+        
+        .fixed-timer.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        .fixed-timer .timer-text {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        
+        .fixed-timer #fixed-timer-display {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--secondary-color);
+            letter-spacing: 1px;
+        }
+        
+        .navbar {
+            box-shadow: 0 3px 15px rgba(0, 68, 69, 0.1);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+            padding: 0.8rem 1rem;
+        }
+        
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white !important;
+        }
+        
+        .navbar-brand i {
+            color: var(--accent-color);
+        }
+        
+        .navbar-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9) !important;
+        }
+        
+        .nav-link {
+            font-weight: 600;
+            padding: 0.5rem 1.2rem !important;
+            color: rgba(255, 255, 255, 0.8) !important;
+            transition: all 0.2s;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: white !important;
+            transform: translateY(-2px);
+        }
+        
+        .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 30px;
+        }
+        
+        h1.display-4 {
+            font-weight: 800;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1.display-4:after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            right: 0;
+            width: 70px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+        
+        .lead {
+            color: #555;
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .progress {
+            height: 35px;
+            background-color: #f1f1f1;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-bar {
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: width 0.6s ease;
+        }
+        
+        #final-score {
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 991.98px) {
+            .main-container {
+                padding: 1.8rem;
+                border-radius: 15px;
+            }
+            
+            .fixed-timer {
+                top: 80px;
+                left: 15px;
+                width: 150px;
+                padding: 12px;
+            }
+            
+            body {
+                padding-top: 70px;
+            }
+            
+            .card-body {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 767.98px) {
+            .main-container {
+                padding: 1.5rem 1rem;
+                border-radius: 12px;
+            }
+            
+            .fixed-timer {
+                top: 70px;
+                left: 10px;
+                width: 120px;
+                padding: 10px;
+            }
+            
+            h1.display-4 {
+                font-size: 1.8rem;
+            }
+            
+            .lead {
+                font-size: 1.1rem;
+            }
+            
+            .card-title {
+                font-size: 1.1rem;
+            }
+            
+            .card-text, .list-group-item {
+                font-size: 1rem;
+            }
+            
+            .btn-primary, .btn-outline-primary {
+                padding: 0.5rem 1.5rem;
+                font-size: 0.95rem;
+            }
+        }
+        
+        /* Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
+    </style>
+</head>
+<body>
+    <!-- Navbar fixe en haut -->
+   
+
+    <!-- Timer fixe qui apparaît quand on commence le test -->
+    <div class="fixed-timer" id="fixedTimer">
+        <div class="timer-text">الوقت المتبقي</div>
+        <div id="fixed-timer-display">30:00</div>
+    </div>
+
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h1 class="display-4">اختبار ديداكتيك اللغة العربية</h1>
+            <p class="lead">اختبار لمباراة توظيف أساتذة التعليم الابتدائي  - تخصص اللغة العربية</p>
+        </div>
+
+        <div class="main-container">
+            <div class="card mb-4 border-0 shadow-sm">
+                <div class="card-header bg-white" style="border-bottom: 1px solid #eee; border-radius: 16px 16px 0 0;">
+                    <h4 class="mb-0" style="color: var(--primary-color); font-weight: 700;">
+                        <i class="fas fa-info-circle me-2" style="color: var(--accent-color);"></i>
+                        تعليمات الاختبار
+                    </h4>
+                </div>
+                <div class="card-body" style="background: linear-gradient(90deg, #faf5e4 80%, #f8b40010 100%); border-radius: 0 0 16px 16px;">
+                    <ul class="mb-4" style="font-size: 1.08rem; color: #444;">
+                        <li class="mb-2">يتكون هذا الاختبار من <span style="color: var(--primary-color); font-weight:600;">15 سؤالاً</span> في ديداكتيك اللغة العربية</li>
+                        <li class="mb-2">لديك <span style="color: var(--accent-color); font-weight:600;">30 دقيقة</span> للإجابة على جميع الأسئلة</li>
+                        <li class="mb-2">لكل سؤال أربعة اختيارات لأجوبة مقترحة (<span style="color: var(--secondary-color); font-weight:600;">A, B, C, D</span>) واحد منها فقط هو الجواب الصحيح</li>
+                        <li>يتم احتساب النقاط بناء على الإجابات الصحيحة فقط</li>
+                    </ul>
+                    <div class="text-center mt-4">
+                        <button id="start-timer" class="btn btn-primary btn-lg px-5"><i class="fas fa-play-circle me-2"></i>بدء الاختبار 
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <section id="qcm-section" class="d-none">
+                <!-- Question Q1 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q1</h5>
+                        <p class="card-text">تركز الوضعيات التواصلية بالمستوين الأول والثاني على استثمار:</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q1" value="a">
+                                نص سماعي ومواقف تعبيرة ومقامات تواصيلية وأفعال كلامية.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q1" value="b">
+                                نص قربي ومواقف تعبيرة ومقامات تواصيلية وأفعال كلامية.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q1" value="c">
+                                وضعيات ومواقف تعبيرة ومقامات تواصيلية وأفعال كلامية.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q1" value="d">
+                                نص سماعي ووضعيات ومقامات تواصيلية وأفعال كلامية.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q2 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q2</h5>
+                        <p class="card-text">من خاصيات الوعي الصوتي:</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q2" value="a">
+                                قراءة المتعلم (5) مقاطع بدقة وسرعة وإيقاع.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q2" value="b">
+                                تميز المتعلم (5) للمقاطع الصوتية المسموعة وتعرفها واللعب بها.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q2" value="c">
+                                تعرف المتعلم (5) رصيد معجمي لفهم معاني الكلمات المكتوبة التي يقرؤها.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q2" value="d">
+                                تمكن المتعلم (5) من التوافقات الخطية الصوتية بناء على التعليم الصريح والمباشر للمقاطع.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q3 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q3</h5>
+                        <p class="card-text">أنواع القراءة باعتبار الأداء هي:</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q3" value="a">
+                                جهوية - هامسة - فردية - جماعية
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q3" value="b">
+                                جهوية - هامسة - وظيفية - جماعية
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q3" value="c">
+                                جهوية - هامسة - وظيفية - مسترسلة
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q3" value="d">
+                                جهوية - هامسة - فردية - مسترسلة
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q4 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q4</h5>
+                        <p class="card-text">عناصر مكون الكتابة في السنة الثالثة هي:</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q4" value="a">
+                                نقل - تمارين كتابية - تعبير كتابي
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q4" value="b">
+                                نقل - تطبيقات كتابية - تعبير كتابي
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q4" value="c">
+                                إملاء - تمارين كتابية - تعبير كتابي
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q4" value="d">
+                                إملاء - تطبيقات كتابية - تعبير كتابي
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q5 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q5</h5>
+                        <p class="card-text">تستثمر الحكاية في السنوات:</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q5" value="a">
+                                الأولى والثانية والرابعة
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q5" value="b">
+                                الأولى والثانية والخامسة
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q5" value="c">
+                                الأولى والثانية والثالثة
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q5" value="d">
+                                الأولى والثانية والسادسة
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q6 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q6</h5>
+                        <p class="card-text">من بين أهداف الطلاقة:</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q6" value="a">
+                                استظهار نص بسرعة وبطريقة معبرة.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q6" value="b">
+                                تميز المقاطع الصوتية والكلمات في الجمل المسموعة.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q6" value="c">
+                                ترجمة الحروف والحركات المكتوبة إلى أصوات منطوقة.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q6" value="d">
+                                قراءة نص بدقة وسرعة وبطريقة معبرة.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q7 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q7</h5>
+                        <p class="card-text">تستثمر الحكاية عبر المراحل المنتالية الآتية:</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q7" value="a">
+                                الملاحظة والتوقع - عناصر الحكاية - القيم - بنية الحكاية - الأساليب والظواهر الفيولوغرافي - الشخيص - الإنتاج
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q7" value="b">
+                                الملاحظة والتوقع - عناصر الحكاية - بنية الحكاية - الرصيد اللغوي - الأساليب والظواهر الفيولوغرافي - الشخيص - الإنتاج
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q7" value="c">
+                                الملاحظة والتوقع - عناصر الحكاية - الرصيد اللغوي - بنية الحكاية - الأساليب والظواهر الفيولوغرافي - الشخيص - الإنتاج
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q7" value="d">
+                                الملاحظة والتوقع - بنية الحكاية - عناصر الحكاية - القيم - الرصيد اللغوي - الأساليب والظواهر الفيولوغرافي - الشخيص - الإنتاج
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q8 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q8</h5>
+                        <p class="card-text">مراحل الكتابة التفاعلية هي:</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q8" value="a">
+                                التخطيط - الممارسة الموجهة - الممارسة المستقلة - العرض
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q8" value="b">
+                                التخطيط - الممارسة الموجهة - المراجعة - العرض
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q8" value="c">
+                                التخطيط - المستودة - الممارسة المستقلة - العرض
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q8" value="d">
+                                التخطيط - المستودة - المراجعة - العرض
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q9 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q9</h5>
+                        <p class="card-text">من بين استراتيجيات ما قبل القراءة:</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q9" value="a">
+                                التصفح الأولى - تحديد الهدف من القراءة - وضع توقعات قبلية - استثمار المعرفة القبلية
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q9" value="b">
+                                التصفح الأولى - تحديد الهدف من القراءة - وضع توقعات قبلية - تقديم تلخيص للنص
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q9" value="c">
+                                التصفح الأولى - تحديد الهدف من القراءة - وضع توقعات قبلية - تقديم الفكرة العامة
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q9" value="d">
+                                التصفح الأولى - تحديد الهدف من القراءة - وضع توقعات قبلية - إغناء الرصيد المجحي
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q10 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q10</h5>
+                        <p class="card-text">عناصر مكون الكتابة في السنة السادسة هي:</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q10" value="a">
+                                الإملاء والتطبيقات الكتابية - التعبير الكتايب
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q10" value="b">
+                                الإملاء والتمارين الكتابية - التعبير الكتايب
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q10" value="c">
+                                الشكل والتطبيقات الكتابية - التعبير الكتايب
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q10" value="d">
+                                الشكل والتمارين الكتابية - التعبير الكتايب
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q11 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q11</h5>
+                        <p class="card-text">من بين أهداف أنشطة الاستماع والتحدث:</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q11" value="a">
+                                تحليل المشروع وتحديد عناصره.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q11" value="b">
+                                تميز عناصر الحكاية التي استمع المتعلم إليها.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q11" value="c">
+                                إعادة إنتاج المشروع بلغة عربية فصيحة.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q11" value="d">
+                                التحقق من التوقع بعد قراءة النص ومناقشته.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q12 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q12</h5>
+                        <p class="card-text">من بين أهداف مكون الكتابة في السنتين الخامسة والسادسة:</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q12" value="a">
+                                استحضار التعلمات والمكتسبات السابقة، واستثمارها الاستثمار الأنسب في الكتابة.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q12" value="b">
+                                التواصل شفهيا باستعمال رصيد معجمي وظيفي حسب سياقات تواصلية.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q12" value="c">
+                                دعم المتعلم(5) رأيه في المشروع بحجج وأدلة مناسبة.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q12" value="d">
+                                اكتساب آليات التعامل مع مختلف أنواع الفصوص للقرائية.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q13 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q13</h5>
+                        <p class="card-text">من بين أهداف مكون الكتابة في السنوات الثلاث الأولى:</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q13" value="a">
+                                إعادة إنتاج المشروع بلغة عربية فصيحة.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q13" value="b">
+                                نقل كلمات وجمل ونصوص قصيرة بتطبيق مقاييس الخط.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q13" value="c">
+                                تحليل المشروع وتحديد عناصره.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q13" value="d">
+                                إعادة المتعلم(5) ما سمعه بأسلوبه الخاص.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q14 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q14</h5>
+                        <p class="card-text">يعتبر النص الوظيفي مجالا لتنمية:</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q14" value="a">
+                                الطلاقة وإغناء المجمو والفهم الصريح واستثمار الأساليب والتزاكيب والقيم.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q14" value="b">
+                                الطلاقة وإغناء المجمو والفهم الضمني واستثمار الأساليب والتزاكيب والقيم.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q14" value="c">
+                                الطلاقة وإغناء المجمو والفهم الصريح والضمني واستثمار الأساليب والتزاكيب والقيم.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q14" value="d">
+                                الطلاقة والفهم الصريح والضمني واستثمار الأساليب والتزاكيب والقيم.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q15 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q15</h5>
+                        <p class="card-text">تكتسب اللغة في المستويات الثلاثة الأولى، عبر التسلسل الآتي:</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q15" value="a">
+                                القراءة - الاستماع - الكتابة - التحدث
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q15" value="b">
+                                القراءة - الاستماع - التحدث - الكتابة - الكتابة - القراءة
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q15" value="c">
+                                الاستماع - التحدث - الكتابة - القراءة - الكتابة
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q15" value="d">
+                                الاستماع - التحدث - القراءة - الكتابة
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-5" id="submit-btn-container">
+                    <button id="submit-answers" class="btn btn-primary btn-lg px-5">
+                        <i class="fas fa-check-circle me-2"></i>تسليم الإجابات
+                    </button>
+                </div>
+            </section>
+
+            <!-- Section Résultats -->
+            <section id="results-section" class="d-none">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="mb-0">نتائج الاختبار</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mb-5">
+                            <h3 id="final-score">النقاط: 0/15</h3>
+                            <div class="progress mt-3 mb-4">
+                                <div id="final-progress" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between">
+                            <button id="review-answers" class="btn btn-outline-primary">
+                                <i class="fas fa-search me-2"></i>مراجعة الإجابات
+                            </button>
+                            <button id="restart-quiz" class="btn btn-primary">
+                                <i class="fas fa-redo me-2"></i>إعادة الاختبار
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Variables
+            const totalQuestions = 15;
+            let timeLeft = 30 * 60; // 30 minutes en secondes
+            let timerInterval;
+            let userAnswers = {};
+            let quizSubmitted = false;
+            
+            // Éléments DOM
+            const startTimerBtn = document.getElementById('start-timer');
+            const fixedTimer = document.getElementById('fixedTimer');
+            const fixedTimerDisplay = document.getElementById('fixed-timer-display');
+            const submitBtn = document.getElementById('submit-answers');
+            const reviewBtn = document.getElementById('review-answers');
+            const restartBtn = document.getElementById('restart-quiz');
+            const qcmSection = document.getElementById('qcm-section');
+            const resultsSection = document.getElementById('results-section');
+            
+            // Démarrer le timer
+            startTimerBtn.addEventListener('click', function() {
+                startTimer();
+                this.disabled = true;
+                fixedTimer.classList.add('active');
+                qcmSection.classList.remove('d-none'); // Afficher الQCM بعد النقر
+                qcmSection.scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Fonction pour démarrer le timer
+            function startTimer() {
+                updateTimerDisplay();
+                
+                timerInterval = setInterval(function() {
+                    timeLeft--;
+                    updateTimerDisplay();
+                    
+                    if (timeLeft <= 0) {
+                        clearInterval(timerInterval);
+                        submitQuiz();
+                    }
+                }, 1000);
+            }
+            
+            // Fonction pour afficher الوقت المتبقي
+            function updateTimerDisplay() {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                fixedTimerDisplay.textContent = timeString;
+                
+                if (timeLeft < 300) {
+                    fixedTimerDisplay.classList.add('text-danger');
+                    fixedTimerDisplay.classList.remove('text-dark');
+                }
+            }
+            
+            // Soumettre les réponses
+            submitBtn.addEventListener('click', function() {
+                if (confirm("هل أنت متأكد أنك تريد تسليم إجاباتك؟")) {
+                    submitQuiz();
+                }
+            });
+            
+            // Revoir les réponses
+            reviewBtn.addEventListener('click', function() {
+                reviewAnswers();
+            });
+            
+            // Recommencer le quiz
+            restartBtn.addEventListener('click', function() {
+                if (confirm("هل تريد حقاً إعادة الاختبار؟ سيتم فقدان جميع إجاباتك.")) {
+                    resetQuiz();
+                    fixedTimer.classList.remove('active');
+                }
+            });
+            
+            // Fonction pour soumettre le quiz
+            function submitQuiz() {
+                if (quizSubmitted) return;
+                
+                clearInterval(timerInterval);
+                quizSubmitted = true;
+                fixedTimer.classList.remove('active');
+                
+                collectAnswers();
+                const score = calculateScore();
+                showResults(score);
+                disableInputs();
+            }
+            
+            // Fonction pour collecter les réponses
+            function collectAnswers() {
+                userAnswers = {};
+                
+                for (let i = 1; i <= totalQuestions; i++) {
+                    const selectedOption = document.querySelector(`input[name="q${i}"]:checked`);
+                    if (selectedOption) {
+                        userAnswers[`q${i}`] = selectedOption.value;
+                    }
+                }
+            }
+            
+            // Fonction pour calculer le score
+            function calculateScore() {
+                let score = 0;
+                const correctAnswers = {
+                    q1: 'a',
+                    q2: 'b',
+                    q3: 'a',
+                    q4: 'd',
+                    q5: 'c',
+                    q6: 'd',
+                    q7: 'c',
+                    q8: 'b',
+                    q9: 'a',
+                    q10: 'a',
+                    q11: 'b',
+                    q12: 'a',
+                    q13: 'b',
+                    q14: 'c',
+                    q15: 'd'
+                };
+                
+                for (const question in userAnswers) {
+                    if (userAnswers[question] === correctAnswers[question]) {
+                        score++;
+                    }
+                }
+                
+                return score;
+            }
+            
+            // Fonction pour afficher les résultats
+            function showResults(score) {
+                qcmSection.classList.add('d-none');
+                resultsSection.classList.remove('d-none');
+                
+                document.getElementById('final-score').textContent = `النقاط: ${score}/${totalQuestions}`;
+                
+                const percentage = Math.round((score / totalQuestions) * 100);
+                const progressBar = document.getElementById('final-progress');
+                progressBar.style.width = `${percentage}%`;
+                progressBar.textContent = `${percentage}%`;
+                
+                if (percentage < 50) {
+                    progressBar.className = 'progress-bar bg-danger';
+                } else if (percentage < 75) {
+                    progressBar.className = 'progress-bar bg-warning';
+                } else {
+                    progressBar.className = 'progress-bar bg-success';
+                }
+                
+                resultsSection.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            // Fonction pour désactiver les inputs
+            function disableInputs() {
+                const inputs = document.querySelectorAll('input[type="radio"]');
+                inputs.forEach(input => {
+                    input.disabled = true;
+                });
+            }
+            
+            // Fonction pour revoir les réponses
+            function reviewAnswers() {
+                // Nettoyer les anciennes classes de correction
+                const allLabels = document.querySelectorAll('#qcm-section .list-group-item');
+                allLabels.forEach(label => {
+                    label.classList.remove('correct-answer', 'incorrect-answer');
+                });
+
+                qcmSection.classList.remove('d-none');
+                resultsSection.classList.add('d-none');
+
+                const correctAnswers = {
+                    q1: 'a',
+                    q2: 'b',
+                    q3: 'a',
+                    q4: 'd',
+                    q5: 'c',
+                    q6: 'd',
+                    q7: 'c',
+                    q8: 'b',
+                    q9: 'a',
+                    q10: 'a',
+                    q11: 'b',
+                    q12: 'a',
+                    q13: 'b',
+                    q14: 'c',
+                    q15: 'd'
+                };
+
+                for (let i = 1; i <= totalQuestions; i++) {
+                    const userVal = userAnswers[`q${i}`];
+                    const correctVal = correctAnswers[`q${i}`];
+                    if (userVal) {
+                        const userLabel = document.querySelector(`input[name="q${i}"][value="${userVal}"]`);
+                        if (userLabel) {
+                            const labelElem = userLabel.parentElement;
+                            if (userVal === correctVal) {
+                                labelElem.classList.add('correct-answer');
+                            } else {
+                                labelElem.classList.add('incorrect-answer');
+                                const correctLabel = document.querySelector(`input[name="q${i}"][value="${correctVal}"]`);
+                                if (correctLabel) correctLabel.parentElement.classList.add('correct-answer');
+                            }
+                        }
+                    } else {
+                        const correctLabel = document.querySelector(`input[name="q${i}"][value="${correctVal}"]`);
+                        if (correctLabel) correctLabel.parentElement.classList.add('correct-answer');
+                    }
+                }
+
+                // Remplacer le bouton "تسليم الإجابات" par un bouton "العودة"
+                const submitBtnContainer = document.getElementById('submit-btn-container');
+                submitBtnContainer.innerHTML = `
+                    <a href="../sp.html" class="btn btn-outline-primary btn-lg px-5">
+                        <i class="fas fa-arrow-left me-2"></i>العودة
+                    </a>
+                `;
+
+                qcmSection.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            // Fonction pour réinitialiser le quiz
+            function resetQuiz() {
+                timeLeft = 30 * 60;
+                userAnswers = {};
+                quizSubmitted = false;
+
+                clearInterval(timerInterval);
+                fixedTimerDisplay.textContent = '30:00';
+                fixedTimerDisplay.classList.remove('text-danger');
+                startTimerBtn.disabled = false;
+
+                const inputs = document.querySelectorAll('input[type="radio"]');
+                inputs.forEach(input => {
+                    input.checked = false;
+                    input.disabled = false;
+                    input.parentElement.classList.remove('correct-answer', 'incorrect-answer');
+                });
+
+                // Supprimer جميع الإجابات السابقة للمستخدم (بصريا وفي الذاكرة)
+                const allLabels = document.querySelectorAll('#qcm-section .list-group-item');
+                allLabels.forEach(label => {
+                    label.classList.remove('correct-answer', 'incorrect-answer');
+                });
+
+                qcmSection.classList.remove('d-none');
+                resultsSection.classList.add('d-none');
+
+                window.scrollTo(0, 0);
+            }
+        });
+    </script>
+</body>
+</html>

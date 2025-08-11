@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مسابقة الرياضيات - CRFPE 2024</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap RTL -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-rtl@5.3.0/dist/css/bootstrap-rtl.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c786c;
+            --secondary-color: #004445;
+            --accent-color: #f8b400;
+            --light-color: #faf5e4;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+        }
+        body {
+            background-color: var(--light-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-top: 80px;
+            color: #333;
+            line-height: 1.7;
+            text-align: right;
+        }
+        .main-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 68, 69, 0.1);
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            border: 2px solid rgba(44, 120, 108, 0.1);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .question-card {
+            margin-bottom: 2.5rem;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 68, 69, 0.08);
+            border: 2px solid rgba(44, 120, 108, 0.15);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 68, 69, 0.15);
+            border-color: rgba(44, 120, 108, 0.3);
+        }
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            font-weight: 700;
+            border-bottom: none;
+            padding: 1.2rem 1.5rem;
+            border-radius: 13px 13px 0 0 !important;
+        }
+        .card-body {
+            padding: 1.8rem;
+        }
+        .card-title {
+            color: var(--secondary-color);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1.2rem;
+            position: relative;
+            padding-right: 1.5rem;
+        }
+        .card-title:before {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 25px;
+            background: var(--accent-color);
+            border-radius: 5px;
+        }
+        .card-text {
+            color: #444;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        .list-group-item {
+            border: none;
+            border-right: 4px solid transparent;
+            margin-bottom: 0.5rem;
+            border-radius: 8px !important;
+            padding: 1rem 1.5rem;
+            font-size: 1.05rem;
+            transition: all 0.2s;
+            background-color: rgba(250, 245, 228, 0.5);
+            text-align: right;
+        }
+        .list-group-item:hover {
+            background-color: rgba(44, 120, 108, 0.08);
+            border-right-color: var(--accent-color);
+        }
+        .form-check-input {
+            width: 1.2em;
+            height: 1.2em;
+            margin-left: 0.8rem;
+            margin-top: 0.2rem;
+            border: 2px solid #ced4da;
+        }
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 0.6rem 2.2rem;
+            font-weight: 600;
+            border-radius: 30px;
+            box-shadow: 0 4px 10px rgba(44, 120, 108, 0.3);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 68, 69, 0.4);
+        }
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            font-weight: 600;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+        .correct-answer {
+            background-color: rgba(40, 167, 69, 0.15) !important;
+            border-right: 4px solid var(--success-color) !important;
+        }
+        .incorrect-answer {
+            background-color: rgba(220, 53, 69, 0.1) !important;
+            border-right: 4px solid var(--danger-color) !important;
+        }
+        .explanation {
+            display: none;
+            background-color: rgba(248, 180, 0, 0.08);
+            border-radius: 10px;
+            padding: 1.3rem;
+            margin-top: 1.5rem;
+            border-right: 4px solid var(--accent-color);
+            font-size: 1.05rem;
+            animation: fadeIn 0.5s ease-out;
+        }
+        .explanation strong {
+            color: var(--secondary-color);
+        }
+        .fixed-timer {
+            position: fixed;
+            top: 90px;
+            left: 30px;
+            z-index: 1000;
+            width: 180px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 68, 69, 0.15);
+            padding: 15px;
+            text-align: center;
+            display: none;
+            border: 2px solid rgba(44, 120, 108, 0.2);
+            animation: fadeIn 0.5s ease-out;
+        }
+        .fixed-timer.active {
+            display: block;
+        }
+        .fixed-timer .timer-text {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        .fixed-timer #fixed-timer-display {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--secondary-color);
+            letter-spacing: 1px;
+        }
+        .fixed-timer.warning {
+            background-color: #fff3cd;
+            border-color: var(--warning-color);
+        }
+        .fixed-timer.danger {
+            background-color: #f8d7da;
+            border-color: var(--danger-color);
+            animation: pulse 1s infinite;
+        }
+        .navbar {
+            box-shadow: 0 3px 15px rgba(0, 68, 69, 0.1);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+            padding: 0.8rem 1rem;
+            transition: all 0.3s ease;
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white !important;
+            display: flex;
+            align-items: center;
+        }
+        .navbar-brand i {
+            color: var(--accent-color);
+            margin-left: 10px;
+            font-size: 1.3em;
+        }
+        .navbar-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9) !important;
+        }
+        .nav-link {
+            font-weight: 600;
+            padding: 0.5rem 1.2rem !important;
+            color: rgba(255, 255, 255, 0.8) !important;
+            transition: all 0.2s;
+            border-radius: 30px;
+            margin: 0 2px;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: white !important;
+            transform: translateY(-2px);
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        h1.display-4 {
+            font-weight: 800;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        h1.display-4:after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            right: 0;
+            width: 70px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+        .lead {
+            color: #555;
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .progress {
+            height: 35px;
+            background-color: #f1f1f1;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .progress-bar {
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: width 0.6s ease;
+        }
+        #final-score {
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+        .score-feedback {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+        .score-excellent {
+            color: var(--success-color);
+        }
+        .score-good {
+            color: var(--primary-color);
+        }
+        .score-average {
+            color: var(--warning-color);
+        }
+        .score-poor {
+            color: var(--danger-color);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+        .math-formula {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 1.1em;
+            margin: 10px 0;
+            padding: 5px;
+            background-color: rgba(250, 245, 228, 0.5);
+            border-radius: 5px;
+            display: inline-block;
+        }
+        .section-divider {
+            border-top: 3px solid var(--primary-color);
+            margin: 40px 0;
+            position: relative;
+        }
+        .section-divider-text {
+            position: absolute;
+            top: -15px;
+            right: 50%;
+            transform: translateX(50%);
+            background-color: white;
+            padding: 0 20px;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .hidden-section {
+            display: none;
+        }
+        .question-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        /* Styles responsives */
+        @media (max-width: 991.98px) {
+            .main-container {
+                padding: 1.8rem;
+                border-radius: 15px;
+            }
+            .fixed-timer {
+                top: 80px;
+                left: 15px;
+                width: 150px;
+                padding: 12px;
+            }
+            body {
+                padding-top: 70px;
+            }
+            .card-body {
+                padding: 1.5rem;
+            }
+            h1.display-4 {
+                font-size: 2.2rem;
+            }
+        }
+        @media (max-width: 767.98px) {
+            .main-container {
+                padding: 1.5rem 1rem;
+                border-radius: 12px;
+            }
+            .fixed-timer {
+                top: 70px;
+                left: 10px;
+                width: 120px;
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+            #fixed-timer-display {
+                font-size: 1.2rem;
+            }
+            h1.display-4 {
+                font-size: 1.8rem;
+            }
+            .lead {
+                font-size: 1.1rem;
+            }
+            .card-title {
+                font-size: 1.1rem;
+            }
+            .card-text, .list-group-item {
+                font-size: 1rem;
+            }
+            .btn-primary, .btn-outline-primary {
+                padding: 0.5rem 1.5rem;
+                font-size: 0.95rem;
+            }
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+            .navbar-text {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- شريط التنقل -->
+  
+    <!-- المؤقت الثابت -->
+    <div class="fixed-timer" id="fixedTimer">
+        <div class="timer-text">الوقت المتبقي</div>
+        <div id="fixed-timer-display">30:00</div>
+    </div>
+<div class="container py-5">
+        <div class="text-center mb-5">
+            <h1 class="display-4"> Concours de sciences education </h1>
+            <p class="lead">Épreuve </p>
+        </div>
+    <!-- التعليمات -->
+    <div class="main-container" id="instructions-section">
+        <div class="card mb-4 border-0 shadow-sm">
+            <div class="card-header">
+                <h4 class="mb-0"><i class="fas fa-info-circle ms-2"></i>التعليمات</h4>
+            </div>
+            <div class="card-body">
+                <ul class="mb-4">
+                    <li class="mb-2"><i class="fas fa-check-circle text-primary ms-2"></i>يحتوي الاختبار على 20 سؤالاً (من 1 إلى 20)</li>
+                    <li class="mb-2"><i class="fas fa-check-circle text-primary ms-2"></i>لديك 30 دقيقة للإجابة على جميع الأسئلة</li>
+                    <li class="mb-2"><i class="fas fa-check-circle text-primary ms-2"></i>لكل سؤال، هناك 4 خيارات للإجابة (أ، ب، ج، د)</li>
+                    <li class="mb-2"><i class="fas fa-check-circle text-primary ms-2"></i>يوجد إجابة واحدة صحيحة فقط لكل سؤال</li>
+                    <li><i class="fas fa-check-circle text-primary ms-2"></i>كل إجابة صحيحة تحصل على نقطة واحدة</li>
+                </ul>
+                <div class="alert alert-info">
+                    <i class="fas fa-exclamation-circle ms-2"></i><strong>تنبيه:</strong> يبدأ المؤقت بمجرد النقر على "بدء الاختبار" ولا يمكن إيقافه.
+                </div>
+                <div class="text-center mt-4">
+                    <button id="start-timer" class="btn btn-primary btn-lg px-5">
+                        <i class="fas fa-play-circle ms-2"></i>بدء الاختبار
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- قسم الأسئلة -->
+    <div class="main-container hidden-section" id="qcm-section">
+        <section>
+            <div class="section-divider">
+                <span class="section-divider-text">الجزء 2 (أسئلة 1-20)</span>
+            </div>
+
+            <!-- Question 1 (remplacée) -->
+            <div class="question-card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">السؤال 1</h4>
+                    <span class="badge bg-primary">1 نقطة</span>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">تمثل أعمال "سكيني" الخلفية العلمية للتغذية:</p>
+                    <div class="list-group">
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q1" value="a">أ. الجنسانية</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q1" value="b">ب. البنائية</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q1" value="c">ج. المعرفية</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q1" value="d">د. السلوكية</label>
+                    </div>
+                    <div class="explanation" style="display:none;">
+                        <strong>الإجابة الصحيحة: د. السلوكية</strong><br>
+                        أعمال "سكيني" ترتبط بالنظرية السلوكية (Behaviorism)، التي تركز على التعلم من خلال التكرار والتعزيز.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 2 (remplacée) -->
+            <div class="question-card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">السؤال 2</h4>
+                    <span class="badge bg-primary">1 نقطة</span>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">من خصائص القدرة أنها:</p>
+                    <div class="list-group">
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q2" value="a">أ. نوعية</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q2" value="b">ب. خاصة بمادة دراسية واحدة</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q2" value="c">ج. قابلة للتحويل</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q2" value="d">د. غير قابلة للتحويل</label>
+                    </div>
+                    <div class="explanation" style="display:none;">
+                        <strong>الإجابة الصحيحة: ج. قابلة للتحويل</strong><br>
+                        القدرة قابلة للتحويل بين المواد والمواقف المختلفة.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 3 (remplacée) -->
+            <div class="question-card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">السؤال 3</h4>
+                    <span class="badge bg-primary">1 نقطة</span>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">من القوانين الأساسية في التغذية السلكية قانون:</p>
+                    <div class="list-group">
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q3" value="a">أ. الإصطفاء</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q3" value="b">ب. الاكتمال</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q3" value="c">ج. الانطفاء</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q3" value="d">د. الاحتمال</label>
+                    </div>
+                    <div class="explanation" style="display:none;">
+                        <strong>الإجابة الصحيحة: ج. الانطفاء</strong><br>
+                        في النظرية السلوكية، "الانطفاء" (Extinction) يعني اختفاء السلوك عند توقف التعزيز.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question-card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">السؤال 4</h4>
+                    <span class="badge bg-primary">1 نقطة</span>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">يُقصد بالمنهاج الدفع:</p>
+                    <div class="list-group">
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q4" value="a">أ. ممارسات تربوية لتصريف مضامين تتعارض مع المنهاج</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q4" value="b">ب. المنهاج القابل لأن يطبق على محتويات مختلفة</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q4" value="c">ج. الأهداف والغايات غير الملموسة لعملية التدريس</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q4" value="d">د. منهاج غير قابل للتطبيق</label>
+                    </div>
+                    <div class="explanation mt-3">
+                        <strong>الإجابة الصحيحة: ج. الأهداف والغايات غير الملموسة لعملية التدريس</strong><br>
+                        المنهاج الدفع (Curriculum Hidden) يشير إلى المضامين والأهداف غير المعلنة التي تؤثر في العملية التعليمية.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question-card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">السؤال 5</h4>
+                    <span class="badge bg-primary">1 نقطة</span>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">يشير مفهوم المواءمة عند "بيايجي" إلى:</p>
+                    <div class="list-group">
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q5" value="a">أ. حالة التوازن نتيجة استيعاب الموضوع</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q5" value="b">ب. توافق اللوات المتعلقة حول موضع التعلم</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q5" value="c">ج. تكثيف الذات مع موضوعات العالم الخارجي</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q5" value="d">د. تغيير في البيانات الذهنية للمتعلم</label>
+                    </div>
+                    <div class="explanation mt-3">
+                        <strong>الإجابة الصحيحة: د. تغيير في البيانات الذهنية للمتعلم</strong><br>
+                        المواءمة (Accommodation) عند بياجيه تعني تعديل البنى الذهنية لاستيعاب معلومات جديدة.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question-card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">السؤال 6</h4>
+                    <span class="badge bg-primary">1 نقطة</span>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">نسبة المتعلمين الذين يتوفروون على الحد الأدنى من الكفايات في الرياضيات، حسب تقييم "2018 PISA" هي:</p>
+                    <div class="list-group">
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q6" value="a">أ. 10%</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q6" value="b">ب. 20%</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q6" value="c">ج. 30%</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q6" value="d">د. 40%</label>
+                    </div>
+                    <div class="explanation mt-3">
+                        <strong>الإجابة الصحيحة: أ. 10%</strong><br>
+                        هذه النسبة تختلف حسب البلد، ولكن في السياق المغربي، النسبة الأقرب هي أ (10%).
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="question-card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">السؤال 7</h4>
+                    <span class="badge bg-primary">1 نقطة</span>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">المستفيد الأطفال في وضعية إعاقة خفيفة من:</p>
+                    <div class="list-group">
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q7" value="a">أ. تربية خاصة</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q7" value="b">ب. تربية دامجة</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q7" value="c">ج. تربية إدماجية</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q7" value="d">د. تربية نظامية</label>
+                    </div>
+                    <div class="explanation mt-3">
+                        <strong>الإجابة الصحيحة: ب. تربية دامجة</strong><br>
+                        التربية الدامجة (Inclusive Education) تهدف إلى دمج الأطفال ذوي الإعاقة في المدارس العادية.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="question-card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">السؤال 8</h4>
+                    <span class="badge bg-primary">1 نقطة</span>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">يعتبر التعاقد الديداديكي:</p>
+                    <div class="list-group">
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q8" value="a">أ. ملزما للمدرس</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q8" value="b">ب. ملزما للمتعلم</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q8" value="c">ج. ملزما للمدرس والمتعلم</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q8" value="d">د. غير ملزم لأي طرف منهما</label>
+                    </div>
+                    <div class="explanation mt-3">
+                        <strong>الإجابة الصحيحة: ج. ملزما للمدرس والمتعلم</strong><br>
+                        التعاقد الديداكتيكي (Didactic Contract) هو اتفاق ضمني بين المدرس والمتعلم حول أدوارهما.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="question-card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">السؤال 9</h4>
+                    <span class="badge bg-primary">1 نقطة</span>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">المقصود بالتجم السوسيومتري فرد:</p>
+                    <div class="list-group">
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q9" value="a">أ. يرغب أغلب أفراد الجماعة في ربط علاقة به</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q9" value="b">ب. يحصل على أعلى تقييم في جميع أشكال القياس الاجتماعي</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q9" value="c">ج. يتوفر على رأسمال رمزي يرغب أغلب أفراد الجماعة فيه</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q9" value="d">د. يتميز ظاهرياً عن غيره من أعضاء الجماعة</label>
+                    </div>
+                    <div class="explanation mt-3">
+                        <strong>الإجابة الصحيحة: أ. يرغب أغلب أفراد الجماعة في ربط علاقة به</strong><br>
+                        التجم السوسيومتري (Sociometric Star) هو الفرد الأكثر شعبية في الجماعة.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="question-card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">السؤال 10</h4>
+                    <span class="badge bg-primary">1 نقطة</span>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">يعتبر الانتقال من الطاقة إلى الإرادة حسب البنائيين من المظاهر الذاتية على:</p>
+                    <div class="list-group">
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q10" value="a">أ. الانتقال إلى مرحلة العمليات المجردة</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q10" value="b">ب. اختلال في التوازن المعرفي</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q10" value="c">ج. تحقيق الكفايات الوجدانية الأساسية</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q10" value="d">د. تكيّف المتعلم مع المحيط الاجتماعي</label>
+                    </div>
+                    <div class="explanation mt-3">
+                        <strong>الإجابة الصحيحة: أ. الانتقال إلى مرحلة العمليات المجردة</strong><br>
+                        الانتقال من الطاقة إلى الإرادة يشير إلى تطور القدرات العقلية نحو المراحل الأعلى.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 11 -->
+            <div class="question-card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">السؤال 11</h4>
+                    <span class="badge bg-primary">1 نقطة</span>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">تسعى التربية القائمة إلى:</p>
+                    <div class="list-group">
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q11" value="a">أ. إدماج المتعلمين الوافدين من بلدان أخرى</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q11" value="b">ب. إدماج المتعلمين في وضعية إعاقة في أقسام عادية</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q11" value="c">ج. خلق أقسام تضم مختلف الفئات التي تعاني من صعوبات في التعلم</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q11" value="d">د. تكييف المضامين الدراسية مع الخصوصيات المجالية</label>
+                    </div>
+                    <div class="explanation mt-3">
+                        <strong>الإجابة الصحيحة: ب. إدماج المتعلمين في وضعية إعاقة في أقسام عادية</strong><br>
+                        التربية الدامجة تركز على إدماج ذوي الإعاقة في الأقسام العادية.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 12 -->
+            <div class="question-card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">السؤال 12</h4>
+                    <span class="badge bg-primary">1 نقطة</span>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">يتولى رئيس المؤسسة رئاسة:</p>
+                    <div class="list-group">
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q12" value="a">أ. المجلس التعليمي</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q12" value="b">ب. مكتب جمعية دعم مدرسة اللجاح</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q12" value="c">ج. جمعية آباء وأمهات وأولياء التلاميذ</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q12" value="d">د. الأندية التربوية</label>
+                    </div>
+                    <div class="explanation mt-3">
+                        <strong>الإجابة الصحيحة: أ. المجلس التعليمي</strong><br>
+                        رئيس المؤسسة يرأس المجلس التعليمي.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 13 -->
+            <div class="question-card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">السؤال 13</h4>
+                    <span class="badge bg-primary">1 نقطة</span>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">الصراع السياسي معرفي هو صراع بين:</p>
+                    <div class="list-group">
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q13" value="a">أ. ذات المتعلم وموضوع المعرفة</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q13" value="b">ب. المتعلم ووضعيتها الاجتماعية</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q13" value="c">ج. المتعلم والأطر الاجتماعية للمعرفة</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q13" value="d">د. تمثلات المتعلمين</label>
+                    </div>
+                    <div class="explanation mt-3">
+                        <strong>الإجابة الصحيحة: ج. المتعلم والأطر الاجتماعية للمعرفة</strong><br>
+                        الصراع المعرفي (Cognitive Conflict) ينشأ بين تمثلات المتعلمين والواقع.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 14 -->
+            <div class="question-card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">السؤال 14</h4>
+                    <span class="badge bg-primary">1 نقطة</span>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">تصف مدارس التعليم الأصيل ضمن:</p>
+                    <div class="list-group">
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q14" value="a">أ. التربية النظامية</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q14" value="b">ب. التعليم العقيق</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q14" value="c">ج. التعليم الموازي</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q14" value="d">د. التربية غير النظامية</label>
+                    </div>
+                    <div class="explanation mt-3">
+                        <strong>الإجابة الصحيحة: ج. التعليم الموازي</strong><br>
+                        التعليم الأصيل جزء من التعليم الموازي.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 15 -->
+            <div class="question-card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">السؤال 15</h4>
+                    <span class="badge bg-primary">1 نقطة</span>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">تقوم مقاربة "ماريا مونتيسوري" البيداغوجية على:</p>
+                    <div class="list-group">
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q15" value="a">أ. الاشتغال وفق إيقاع الأطفال الأدنى مستوى</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q15" value="b">ب. الاشتغال وفق إيقاع الأطفال الأعلى مستوى</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q15" value="c">ج. التعامل مع كل طفل بحسب إمكاناته الخاصة</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q15" value="d">د. البحث عن مستوى وسط يناسب جميع المتعلمين</label>
+                    </div>
+                    <div class="explanation mt-3">
+                        <strong>الإجابة الصحيحة: ج. التعامل مع كل طفل بحسب إمكاناته الخاصة</strong><br>
+                        منهج مونتيسوري يركز على التكيف مع إيقاع كل طفل.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 16 -->
+            <div class="question-card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">السؤال 16</h4>
+                    <span class="badge bg-primary">1 نقطة</span>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">تعتبر الأسرة بالنسبة إلى المتعلم:</p>
+                    <div class="list-group">
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q16" value="a">أ. جماعة أولية</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q16" value="b">ب. جماعة ثانوية</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q16" value="c">ج. جماعة منطقة</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q16" value="d">د. جماعة متوسطة</label>
+                    </div>
+                    <div class="explanation mt-3">
+                        <strong>الإجابة الصحيحة: أ. جماعة أولية</strong><br>
+                        الأسرة هي جماعة أولية (Primary Group) لأنها تؤثر مباشرة في التنشئة.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 17 -->
+            <div class="question-card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">السؤال 17</h4>
+                    <span class="badge bg-primary">1 نقطة</span>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">يقصد بالميتا معرفية قدرة المتعلم على:</p>
+                    <div class="list-group">
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q17" value="a">أ. التفكير في أدواته المعرفية واستراتيجيات تعلمه</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q17" value="b">ب. إدراك موضوع التعلم وفهمه وضبطه وتصنيفه</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q17" value="c">ج. تجريد المضامين المعرفية</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q17" value="d">د. استدراك النواقص وتعويضها بالتكوين الذاتي</label>
+                    </div>
+                    <div class="explanation mt-3">
+                        <strong>الإجابة الصحيحة: أ. التفكير في أدواته المعرفية واستراتيجيات تعلمه</strong><br>
+                        الميتا معرفية (Metacognition) تعني التفكير في التفكير.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 18 -->
+            <div class="question-card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">السؤال 18</h4>
+                    <span class="badge bg-primary">1 نقطة</span>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">يعتبر التموقع في المكان كافية:</p>
+                    <div class="list-group">
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q18" value="a">أ. معرفية</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q18" value="b">ب. منهجية</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q18" value="c">ج. استراتيجية</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q18" value="d">د. ثقافية</label>
+                    </div>
+                    <div class="explanation mt-3">
+                        <strong>الإجابة الصحيحة: أ. معرفية</strong><br>
+                        التموقع في المكان يرتبط بالمهارات المعرفية.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 19 -->
+            <div class="question-card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">السؤال 19</h4>
+                    <span class="badge bg-primary">1 نقطة</span>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">من الأدوات المساعدة في تخطيط سيناريو حصة دراسية:</p>
+                    <div class="list-group">
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q19" value="a">أ. التخطيط المجالي</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q19" value="b">ب. التخطيط الكلي</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q19" value="c">ج. الملف الشخصي للتراكمي</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q19" value="d">د. الجدولة</label>
+                    </div>
+                    <div class="explanation mt-3">
+                        <strong>الإجابة الصحيحة: ب. التخطيط الكلي</strong><br>
+                        التخطيط الكلي (Macro-planning) يساعد في تنظيم الحصة.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 20 -->
+            <div class="question-card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">السؤال 20</h4>
+                    <span class="badge bg-primary">1 نقطة</span>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">يعتبر الحكم على إنتاجات المتعلمين ومنحها تقديرات عدنية جزائية، هدفاً من أهداف التقويم:</p>
+                    <div class="list-group">
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q20" value="a">أ. الإشهادي</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q20" value="b">ب. الداعم</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q20" value="c">ج. التشخيصي</label>
+                        <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q20" value="d">د. الفوري</label>
+                    </div>
+                    <div class="explanation mt-3">
+                        <strong>الإجابة الصحيحة: أ. الإشهادي</strong><br>
+                        التقويم الإشهادي (Summative Evaluation) يهدف إلى منح شهادات.
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <button id="submit-answers" class="btn btn-primary btn-lg px-5">
+                    <i class="fas fa-check-circle ms-2"></i>تقديم الإجابات
+                </button>
+                <button id="return-to-results" class="btn btn-outline-primary btn-lg px-5 d-none">
+                    <i class="fas fa-arrow-left ms-2"></i>Retour aux résultats
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <!-- قسم النتائج -->
+    <div class="main-container hidden-section" id="results-section">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header">
+                <h4 class="mb-0"><i class="fas fa-chart-bar ms-2"></i>نتائج الاختبار</h4>
+            </div>
+            <div class="card-body">
+                <div class="text-center mb-5">
+                    <h3 id="final-score">النتيجة: 0/20</h3>
+                    <p id="score-feedback" class="score-feedback"></p>
+                    <div class="progress mt-3 mb-4">
+                        <div id="final-progress" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                    </div>
+                </div>
+               
+                    <div class="d-flex justify-content-center gap-3 flex-wrap">
+                        <button id="review-answers" class="btn btn-outline-primary mb-2">
+                            <i class="fas fa-search me-2"></i>Voir les réponses
+                        </button>
+                        <button id="restart-quiz" class="btn btn-primary mb-2">
+                            <i class="fas fa-redo me-2"></i>Recommencer
+                        </button>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // الإجابات الصحيحة (تأكد من مطابقة القيم مع خيارات أ-ب-ج-د)
+        const correctAnswers = {
+            q1: "d", // Q61
+            q2: "c", // Q62
+            q3: "c", // Q63
+            q4: "c",
+            q5: "d",
+            q6: "a",
+            q7: "b",
+            q8: "c",
+            q9: "a",
+            q10: "a",
+            q11: "b",
+            q12: "a",
+            q13: "d",
+            q14: "c",
+            q15: "c",
+            q16: "a",
+            q17: "a",
+            q18: "a",
+            q19: "b",
+            q20: "a"
+        };
+        let timer;
+        let timeLeft = 1800; // 30 minutes in seconds
+        let quizStarted = false;
+        const totalQuestions = Object.keys(correctAnswers).length;
+        const startBtn = document.getElementById('start-timer');
+        const submitBtn = document.getElementById('submit-answers');
+        const reviewBtn = document.getElementById('review-answers');
+        const restartBtn = document.getElementById('restart-quiz');
+        const downloadBtn = document.getElementById('download-results');
+        const fixedTimer = document.getElementById('fixedTimer');
+        const timerDisplay = document.getElementById('fixed-timer-display');
+        const instructionsSection = document.getElementById('instructions-section');
+        const qcmSection = document.getElementById('qcm-section');
+        const resultsSection = document.getElementById('results-section');
+        const finalScore = document.getElementById('final-score');
+        const finalProgress = document.getElementById('final-progress');
+        const scoreFeedback = document.getElementById('score-feedback');
+
+        startBtn.addEventListener('click', function() {
+            if (!quizStarted) {
+                quizStarted = true;
+                instructionsSection.classList.add('hidden-section');
+                qcmSection.classList.remove('hidden-section');
+                fixedTimer.classList.add('active');
+                timer = setInterval(updateTimer, 1000);
+                updateTimer();
+                document.querySelector('.question-card')?.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                });
+            }
+        });
+
+        function updateTimer() {
+            timeLeft--;
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            if (timeLeft <= 300) {
+                fixedTimer.classList.add('warning');
+                fixedTimer.classList.remove('danger');
+            }
+            if (timeLeft <= 60) {
+                fixedTimer.classList.remove('warning');
+                fixedTimer.classList.add('danger');
+            }
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                validateQuiz();
+            }
+        }
+
+        function validateQuiz() {
+            clearInterval(timer);
+            fixedTimer.classList.remove('active');
+            
+            let score = 0;
+            const userAnswers = {};
+            
+            for (let i = 1; i <= totalQuestions; i++) {
+                const qName = `q${i}`;
+                const selected = document.querySelector(`input[name="${qName}"]:checked`);
+                const correct = correctAnswers[qName];
+                
+                userAnswers[qName] = selected ? selected.value : null;
+                
+                if (selected) {
+                    if (selected.value === correct) {
+                        selected.parentElement.classList.add('correct-answer');
+                        score++;
+                    } else {
+                        selected.parentElement.classList.add('incorrect-answer');
+                        const correctOption = document.querySelector(`input[name="${qName}"][value="${correct}"]`);
+                        if (correctOption) correctOption.parentElement.classList.add('correct-answer');
+                    }
+                } else {
+                    const correctOption = document.querySelector(`input[name="${qName}"][value="${correct}"]`);
+                    if (correctOption) correctOption.parentElement.classList.add('correct-answer');
+                }
+                // Afficher l'explication
+                const explanation = document.getElementById(`explanation-${qName}`);
+                if (explanation) explanation.style.display = 'block';
+            }
+            
+            const percent = Math.round((score / totalQuestions) * 100);
+            
+            finalScore.textContent = `النتيجة: ${score}/${totalQuestions}`;
+            finalProgress.style.width = `${percent}%`;
+            finalProgress.textContent = `${percent}%`;
+            finalProgress.classList.remove('bg-success', 'bg-warning', 'bg-danger');
+            
+            if (percent >= 75) {
+                finalProgress.classList.add('bg-success');
+                scoreFeedback.textContent = "عمل ممتاز! لديك فهم قوي للمفاهيم.";
+                scoreFeedback.className = "score-feedback score-excellent";
+            } else if (percent >= 50) {
+                finalProgress.classList.add('bg-warning');
+                scoreFeedback.textContent = "عمل جيد، ولكن هناك مجالات للتحسين.";
+                scoreFeedback.className = "score-feedback score-good";
+            } else {
+                finalProgress.classList.add('bg-danger');
+                scoreFeedback.textContent = "استمر في الممارسة، يمكنك تحقيق نتائج أفضل!";
+                scoreFeedback.className = "score-feedback score-poor";
+            }
+            
+            qcmSection.classList.add('hidden-section');
+            resultsSection.classList.remove('hidden-section');
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+            
+            localStorage.setItem('quizResults', JSON.stringify({
+                score: score,
+                total: totalQuestions,
+                percentage: percent,
+                answers: userAnswers,
+                date: new Date().toLocaleString()
+            }));
+        }
+
+        submitBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const confirmed = confirm("هل أنت متأكد أنك تريد تقديم إجاباتك؟ لن تتمكن من تعديلها بعد ذلك.");
+            if (confirmed) {
+                validateQuiz();
+            }
+        });
+
+        reviewBtn.addEventListener('click', function() {
+            resultsSection.classList.add('hidden-section');
+            qcmSection.classList.remove('hidden-section');
+            qcmSection.scrollIntoView({ behavior: 'smooth' });
+
+            // Show "Retour aux résultats" button and hide "Soumettre les réponses"
+            document.getElementById('submit-answers').classList.add('d-none');
+            document.getElementById('return-to-results').classList.remove('d-none');
+        });
+
+        document.getElementById('return-to-results').addEventListener('click', function() {
+            qcmSection.classList.add('hidden-section');
+            resultsSection.classList.remove('hidden-section');
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+
+            // Show "Soumettre les réponses" button and hide "Retour aux résultats"
+            document.getElementById('submit-answers').classList.remove('d-none');
+            document.getElementById('return-to-results').classList.add('d-none');
+        });
+
+        restartBtn.addEventListener('click', function() {
+            location.reload();
+        });
+
+        downloadBtn.addEventListener('click', function() {
+            const results = JSON.parse(localStorage.getItem('quizResults')) || {};
+            const data = `
+                نتائج مسابقة الرياضيات CRFPE 2024
+                ==============================================
+                
+                التاريخ: ${results.date || 'غير متوفر'}
+                النتيجة: ${results.score || 0}/${results.total || 20} (${results.percentage || 0}%)
+                
+                تفاصيل الإجابات:
+                ${Object.entries(results.answers || {}).map(([q, a]) => 
+                    `السؤال ${q.substring(1)}: ${a ? a.toUpperCase() : 'غير مجاب عليه'} (صحيح: ${correctAnswers[q].toUpperCase()})`
+                ).join('\n')}
+                
+                شكرًا لمشاركتك!
+            `;
+            
+            const blob = new Blob([data], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `نتائج-مسابقة-الرياضيات-${new Date().toISOString().slice(0,10)}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'Enter') {
+                submitBtn.click();
+            }
+        });
+    </script>
+</body>
+</html>

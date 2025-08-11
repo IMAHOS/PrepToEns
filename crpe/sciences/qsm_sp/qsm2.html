@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concours de Mathématiques - CRPE Maroc 2024</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c786c;
+            --secondary-color: #004445;
+            --accent-color: #f8b400;
+            --light-color: #faf5e4;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-top: 80px;
+            color: #333;
+            line-height: 1.7;
+        }
+        
+        .main-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 68, 69, 0.1);
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            border: 2px solid rgba(44, 120, 108, 0.1);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .question-card {
+            margin-bottom: 2.5rem;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 68, 69, 0.08);
+            border: 2px solid rgba(44, 120, 108, 0.15);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 68, 69, 0.15);
+            border-color: rgba(44, 120, 108, 0.3);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            font-weight: 700;
+            border-bottom: none;
+            padding: 1.2rem 1.5rem;
+            border-radius: 13px 13px 0 0 !important;
+        }
+        
+        .card-body {
+            padding: 1.8rem;
+        }
+        
+        .card-title {
+            color: var(--secondary-color);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1.2rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .card-title:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 25px;
+            background: var(--accent-color);
+            border-radius: 5px;
+        }
+        
+        .card-text {
+            color: #444;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .list-group-item {
+            border: none;
+            border-left: 4px solid transparent;
+            margin-bottom: 0.5rem;
+            border-radius: 8px !important;
+            padding: 1rem 1.5rem;
+            font-size: 1.05rem;
+            transition: all 0.2s;
+            background-color: rgba(250, 245, 228, 0.5);
+        }
+        
+        .list-group-item:hover {
+            background-color: rgba(44, 120, 108, 0.08);
+            border-left-color: var(--accent-color);
+        }
+        
+        .form-check-input {
+            width: 1.2em;
+            height: 1.2em;
+            margin-right: 0.8rem;
+            margin-top: 0.2rem;
+            border: 2px solid #ced4da;
+        }
+        
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 0.6rem 2.2rem;
+            font-weight: 600;
+            border-radius: 30px;
+            box-shadow: 0 4px 10px rgba(44, 120, 108, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 68, 69, 0.4);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            font-weight: 600;
+            border-radius: 30px;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .correct-answer {
+            background-color: rgba(40, 167, 69, 0.15) !important;
+            border-left: 4px solid var(--success-color) !important;
+        }
+        
+        .incorrect-answer {
+            background-color: rgba(220, 53, 69, 0.1) !important;
+            border-left: 4px solid var(--danger-color) !important;
+        }
+        
+        .explanation {
+            display: none;
+            background-color: rgba(248, 180, 0, 0.08);
+            border-radius: 10px;
+            padding: 1.3rem;
+            margin-top: 1.5rem;
+            border-left: 4px solid var(--accent-color);
+            font-size: 1.05rem;
+        }
+        
+        .explanation strong {
+            color: var(--secondary-color);
+        }
+        
+        .fixed-timer {
+            position: fixed;
+            top: 90px;
+            right: 30px;
+            z-index: 1000;
+            width: 180px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 68, 69, 0.15);
+            padding: 15px;
+            text-align: center;
+            display: none;
+            border: 2px solid rgba(44, 120, 108, 0.2);
+        }
+        
+        .fixed-timer.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        .fixed-timer .timer-text {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        
+        .fixed-timer #fixed-timer-display {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--secondary-color);
+            letter-spacing: 1px;
+        }
+        
+        .navbar {
+            box-shadow: 0 3px 15px rgba(0, 68, 69, 0.1);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+            padding: 0.8rem 1rem;
+        }
+        
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white !important;
+        }
+        
+        .navbar-brand i {
+            color: var(--accent-color);
+        }
+        
+        .navbar-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9) !important;
+        }
+        
+        .nav-link {
+            font-weight: 600;
+            padding: 0.5rem 1.2rem !important;
+            color: rgba(255, 255, 255, 0.8) !important;
+            transition: all 0.2s;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: white !important;
+            transform: translateY(-2px);
+        }
+        
+        .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 30px;
+        }
+        
+        h1.display-4 {
+            font-weight: 800;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1.display-4:after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 70px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+        .correct-answer {
+    background-color: rgba(40, 167, 69, 0.15) !important;
+    border-left: 4px solid var(--success-color) !important;
+}
+
+.incorrect-answer {
+    background-color: rgba(220, 53, 69, 0.1) !important;
+    border-left: 4px solid var(--danger-color) !important;
+}
+        .lead {
+            color: #555;
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .progress {
+            height: 35px;
+            background-color: #f1f1f1;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-bar {
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: width 0.6s ease;
+        }
+        
+        #final-score {
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 991.98px) {
+            .main-container {
+                padding: 1.8rem;
+                border-radius: 15px;
+            }
+            
+            .fixed-timer {
+                top: 80px;
+                right: 15px;
+                width: 150px;
+                padding: 12px;
+            }
+            
+            body {
+                padding-top: 70px;
+            }
+            
+            .card-body {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 767.98px) {
+            .main-container {
+                padding: 1.5rem 1rem;
+                border-radius: 12px;
+            }
+            
+            .fixed-timer {
+                top: 70px;
+                right: 10px;
+                width: 120px;
+                padding: 10px;
+            }
+            
+            h1.display-4 {
+                font-size: 1.8rem;
+            }
+            
+            .lead {
+                font-size: 1.1rem;
+            }
+            
+            .card-title {
+                font-size: 1.1rem;
+            }
+            
+            .card-text, .list-group-item {
+                font-size: 1rem;
+            }
+            
+            .btn-primary, .btn-outline-primary {
+                padding: 0.5rem 1.5rem;
+                font-size: 0.95rem;
+            }
+        }
+        
+        /* Style spécifique pour les formules mathématiques */
+        .math-formula {
+            font-size: 1.2rem;
+            margin: 1rem 0;
+            padding: 0.5rem;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        
+        /* Style pour les figures géométriques */
+        .figure-container {
+            text-align: center;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .figure-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+        
+        .figure-description {
+            font-style: italic;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+        
+        /* Style pour les images des figures */
+        .figure-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        
+        /* Style pour les questions avec des tableaux */
+        .question-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        
+        .question-table th, .question-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        .question-table th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar fixe en haut -->
+   
+
+    <!-- Timer fixe qui apparaît quand on commence le test -->
+    <div class="fixed-timer" id="fixedTimer">
+        <div class="timer-text">Temps restant</div>
+        <div id="fixed-timer-display">30:00</div>
+    </div>
+
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h1 class="display-4">Concours de sciences</h1>
+            <p class="lead">Épreuve de sciences</p>
+        </div>
+
+        <div class="main-container">
+            <div class="card mb-4 border-0 shadow-sm">
+                <div class="card-header">
+                    <h4 class="mb-0">Instructions</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="mb-4">
+                        <li class="mb-2">L'épreuve contient 30 questions (de Q1 à Q20)</li>
+                        <li class="mb-2">Vous disposez de 30 minutes pour répondre à toutes les questions</li>
+                        <li class="mb-2">Pour chaque question, 4 choix de réponses sont proposés (A, B, C, D)</li>
+                        <li class="mb-2">Une seule réponse est correcte pour chaque question</li>
+                        <li>Chaque réponse correcte rapporte 1 point</li>
+                    </ul>
+                    <div class="text-center mt-4">
+                        <button id="start-timer" class="btn btn-primary btn-lg px-5">
+                            <i class="fas fa-play-circle me-2"></i>Commencer le test
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section QCM -->
+            <section id="qcm-section" class="d-none">
+                <form id="qcm-form">
+                    <!-- Question 1 -->
+<div class="card question-card">
+  <div class="card-body">
+    <h5 class="card-title">Question 1</h5>
+    <p class="card-text">Un satellite en orbite géostationnaire a une période de révolution de&nbsp;:</p>
+    <div class="list-group mb-2">
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q1" value="a">A. 12 heures</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q1" value="b">B. 24 heures</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q1" value="c">C. 48 heures</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q1" value="d">D. 365 jours</label>
+    </div>
+    <div class="explanation" id="explanation-q1">
+      <strong>Réponse correcte&nbsp;:</strong> B<br>
+      Un satellite géostationnaire reste fixe par rapport à la Terre, donc sa période égale celle de la rotation terrestre (24 h).<br>
+      <span class="math-formula">\[ T^2 = \frac{4\pi^2 r^3}{GM} \]</span><br>
+      <span class="text-muted">Niveau augmenté : Si l'altitude était donnée, calculer via la formule ci-dessus.</span>
+    </div>
+  </div>
+</div>
+<!-- Question 2 -->
+<div class="card question-card">
+  <div class="card-body">
+    <h5 class="card-title">Question 2</h5>
+    <p class="card-text">La constante d'équilibre \( K \) d'une réaction \( \ce{A+B <=> C} \) est 10². Si [A]=[B]=0.1M, quelle est [C] à l'équilibre&nbsp;?</p>
+    <div class="list-group mb-2">
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q2" value="a">A. \(10^{-3}\) M</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q2" value="b">B. 0.1 M</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q2" value="c">C. 1 M</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q2" value="d">D. 10 M</label>
+    </div>
+    <div class="explanation" id="explanation-q2">
+      <strong>Réponse correcte&nbsp;:</strong> C<br>
+      \( K = \frac{[C]}{[A][B]} \Rightarrow [C] = 10^2 \times (0.1)^2 = 1 \text{ M} \)<br>
+      <span class="text-muted">Niveau augmenté : Introduire un coefficient stoechiométrique (ex : \(\ce{2A+B <=> C}\)).</span>
+    </div>
+  </div>
+</div>
+<!-- Question 3 -->
+<div class="card question-card">
+  <div class="card-body">
+    <h5 class="card-title">Question 3</h5>
+    <p class="card-text">Un faisceau lumineux passe de l'air (n=1) à un milieu d'indice n=1.5. Quel phénomène est impossible&nbsp;?</p>
+    <div class="list-group mb-2">
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q3" value="a">A. Réflexion totale</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q3" value="b">B. Réfraction</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q3" value="c">C. Dispersion</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q3" value="d">D. Diffraction</label>
+    </div>
+    <div class="explanation" id="explanation-q3">
+      <strong>Réponse correcte&nbsp;:</strong> A<br>
+      La réflexion totale nécessite n<sub>incident</sub> &gt; n<sub>réfracté</sub>.<br>
+      <span class="math-formula">\[ \theta_c = \arcsin\left(\frac{1}{1.5}\right) \approx 41.8^\circ \]</span><br>
+      <span class="text-muted">Niveau augmenté : Calculer l'angle critique pour n=1.5.</span>
+    </div>
+  </div>
+</div>
+<!-- Question 4 -->
+<div class="card question-card">
+  <div class="card-body">
+    <h5 class="card-title">Question 4</h5>
+    <p class="card-text">La résistance équivalente de 3 résistances R en parallèle est&nbsp;:</p>
+    <div class="list-group mb-2">
+      <label class="form-check-label list-group-item"><input class="form-check-input me-1" type="radio" name="q4" value="a">A. R/3</label>
+      <label class="form-check-label list-group-item"><input class="form-check-input me-1" type="radio" name="q4" value="b">B. 3R</label>
+      <label class="form-check-label list-group-item"><input class="form-check-input me-1" type="radio" name="q4" value="c">C. R</label>
+      <label class="form-check-label list-group-item"><input class="form-check-input me-1" type="radio" name="q4" value="d">D. R/9</label>
+    </div>
+    <div class="explanation" id="explanation-q4">
+      <strong>Réponse correcte&nbsp;:</strong> A<br>
+      \( \frac{1}{R_{eq}} = \frac{1}{R} + \frac{1}{R} + \frac{1}{R} = \frac{3}{R} \Rightarrow R_{eq} = \frac{R}{3} \)<br>
+      <span class="text-muted">Niveau augmenté : Ajouter une résistance en série (R<sub>tot</sub> = R/3 + R).</span>
+    </div>
+  </div>
+</div>
+<!-- Question 5 -->
+<div class="card question-card">
+  <div class="card-body">
+    <h5 class="card-title">Question 5</h5>
+    <p class="card-text">L'énergie libérée par la fission d'un noyau d'uranium-235 est d'environ&nbsp;:</p>
+    <div class="list-group mb-2">
+      <label class="form-check-label list-group-item"><input class="form-check-input me-1" type="radio" name="q5" value="a">A. 1 eV</label>
+      <label class="form-check-label list-group-item"><input class="form-check-input me-1" type="radio" name="q5" value="b">B. 200 MeV</label>
+      <label class="form-check-label list-group-item"><input class="form-check-input me-1" type="radio" name="q5" value="c">C. 1 GeV</label>
+      <label class="form-check-label list-group-item"><input class="form-check-input me-1" type="radio" name="q5" value="d">D. 1 J</label>
+    </div>
+    <div class="explanation" id="explanation-q5">
+      <strong>Réponse correcte&nbsp;:</strong> B<br>
+      L'énergie typique par fission nucléaire est ~200 MeV.<br>
+      <span class="text-muted">Niveau augmenté : Calculer l'énergie pour 1 g d'U-235 (N<sub>A</sub> = 6.022 × 10<sup>23</sup> noyaux/mol).</span>
+    </div>
+  </div>
+</div>
+<!-- Question 6 -->
+<div class="card question-card">
+  <div class="card-body">
+    <h5 class="card-title">Question 6</h5>
+    <p class="card-text">La méiose produit des cellules avec&nbsp;:</p>
+    <div class="list-group mb-2">
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q6" value="a">A. 2n chromosomes</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q6" value="b">B. n chromosomes</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q6" value="c">C. 4n chromosomes</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q6" value="d">D. n/2 chromosomes</label>
+    </div>
+    <div class="explanation" id="explanation-q6">
+      <strong>Réponse correcte&nbsp;:</strong> B<br>
+      Réduction chromatique → gamètes haploïdes (n).<br>
+      <span class="text-muted">Niveau augmenté : Décrire les étapes de la méiose I et II.</span>
+    </div>
+  </div>
+</div>
+<!-- Question 7 -->
+<div class="card question-card">
+  <div class="card-body">
+    <h5 class="card-title">Question 7</h5>
+    <p class="card-text">Un croisement Aa × Aa donne un ratio phénotypique de&nbsp;:</p>
+    <div class="list-group mb-2">
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q7" value="a">A. 100% dominant</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q7" value="b">B. 3:1</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q7" value="c">C. 1:2:1</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q7" value="d">D. 9:3:3:1</label>
+    </div>
+    <div class="explanation" id="explanation-q7">
+      <strong>Réponse correcte&nbsp;:</strong> B<br>
+      Loi de Mendel (3/4 dominant, 1/4 récessif).<br>
+      <span class="text-muted">Niveau augmenté : Croisement dihybride (AaBb × AaBb → 9:3:3:1).</span>
+    </div>
+  </div>
+</div>
+<!-- Question 8 -->
+<div class="card question-card">
+  <div class="card-body">
+    <h5 class="card-title">Question 8</h5>
+    <p class="card-text">La transcription de l'ADN produit&nbsp;:</p>
+    <div class="list-group mb-2">
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q8" value="a">A. Une protéine</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q8" value="b">B. Un ARNm</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q8" value="c">C. Un ARNt</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q8" value="d">D. Un ribosome</label>
+    </div>
+    <div class="explanation" id="explanation-q8">
+      <strong>Réponse correcte&nbsp;:</strong> B<br>
+      L'ARNm est le transcrit de l'ADN.<br>
+      <span class="text-muted">Niveau augmenté : Décrire les modifications post-transcriptionnelles (épissage, coiffe, queue poly-A).</span>
+    </div>
+  </div>
+</div>
+<!-- Question 9 -->
+<div class="card question-card">
+  <div class="card-body">
+    <h5 class="card-title">Question 9</h5>
+    <p class="card-text">La sélection naturelle agit sur&nbsp;:</p>
+    <div class="list-group mb-2">
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q9" value="a">A. Les mutations aléatoires</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q9" value="b">B. Les caractères acquis</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q9" value="c">C. Les variants phénotypiques héréditaires</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q9" value="d">D. L'ARN viral</label>
+    </div>
+    <div class="explanation" id="explanation-q9">
+      <strong>Réponse correcte&nbsp;:</strong> C<br>
+      Darwinisme → avantage sélectif des variants adaptés.<br>
+      <span class="text-muted">Niveau augmenté : Exemple de la résistance aux antibiotiques.</span>
+    </div>
+  </div>
+</div>
+<!-- Question 10 -->
+<div class="card question-card">
+  <div class="card-body">
+    <h5 class="card-title">Question 10</h5>
+    <p class="card-text">Le cycle de Calvin a lieu dans&nbsp;:</p>
+    <div class="list-group mb-2">
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q10" value="a">A. Les mitochondries</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q10" value="b">B. Le stroma des chloroplastes</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q10" value="c">C. Le cytoplasme</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q10" value="d">D. Le noyau</label>
+    </div>
+    <div class="explanation" id="explanation-q10">
+      <strong>Réponse correcte&nbsp;:</strong> B<br>
+      Phase indépendante de la lumière dans les chloroplastes.<br>
+      <span class="text-muted">Niveau augmenté : Détail des réactions (fixation CO₂, réduction, régénération RuBP).</span>
+    </div>
+  </div>
+</div>
+<!-- Question 11 -->
+<div class="card question-card">
+  <div class="card-body">
+    <h5 class="card-title">Question 11</h5>
+    <p class="card-text">La force électrostatique entre deux charges q et -q séparées par d est&nbsp;:</p>
+    <div class="list-group mb-2">
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q11" value="a">A. Toujours attractive</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q11" value="b">B. Toujours répulsive</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q11" value="c">C. Attractive ou répulsive</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q11" value="d">D. Toujours nulle</label>
+    </div>
+    <div class="explanation" id="explanation-q11">
+      <strong>Réponse correcte&nbsp;:</strong> A<br>
+      Deux charges de signes opposés s'attirent, de même signe se repoussent.<br>
+      <span class="math-formula">\( F = k \frac{|q_1q_2|}{d^2} \)</span><br>
+      <span class="text-muted">Niveau augmenté : Loi de Coulomb.</span>
+    </div>
+  </div>
+</div>
+<!-- Question 12 -->
+<div class="card question-card">
+  <div class="card-body">
+    <h5 class="card-title">Question 12</h5>
+    <p class="card-text">Le pH d'une solution \(10^{-3}\) M de HCl est&nbsp;:</p>
+    <div class="list-group mb-2">
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q12" value="a">A. 3</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q12" value="b">B. 7</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q12" value="c">C. 11</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q12" value="d">D. 14</label>
+    </div>
+    <div class="explanation" id="explanation-q12">
+      <strong>Réponse correcte&nbsp;:</strong> A<br>
+      HCl est un acide fort &rArr; \(\text{pH} = -\log[H^+] = 3\)<br>
+      <span class="text-muted">Niveau augmenté : Calculer le pH d'un acide faible (ex : \(\ce{CH_3COOH}\)).</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- Question 13 -->
+<div class="card question-card">
+  <div class="card-body">
+    <h5 class="card-title">Question 13</h5>
+    <p class="card-text">Un objet de 2 kg a une énergie cinétique de 16 J. Sa vitesse est :</p>
+    <div class="list-group mb-2">
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q13" value="a">A. 2 m/s</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q13" value="b">B. 4 m/s</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q13" value="c">C. 8 m/s</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q13" value="d">D. 16 m/s</label>
+    </div>
+    <div class="explanation" id="explanation-q13">
+      <strong>Réponse correcte :</strong> B<br>
+      \(E_c = \frac{1}{2}mv^2\) &rArr; \(v = \sqrt{\frac{2E_c}{m}} = 4\) m/s.<br>
+      <span class="text-muted">Niveau augmenté : Ajouter une énergie potentielle (\(E_m = E_c + E_p\)).</span>
+    </div>
+  </div>
+</div>
+<!-- Question 14 -->
+<div class="card question-card">
+  <div class="card-body">
+    <h5 class="card-title">Question 14</h5>
+    <p class="card-text">La loi des gaz parfaits s'écrit :</p>
+    <div class="list-group mb-2">
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q14" value="a">A. \(PV = nRT\)</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q14" value="b">B. \(P = \frac{nT}{V}\)</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q14" value="c">C. \(V = \frac{nT}{P}\)</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q14" value="d">D. \(T = \frac{PV}{n}\)</label>
+    </div>
+    <div class="explanation" id="explanation-q14">
+      <strong>Réponse correcte :</strong> A<br>
+      Équation d'état des gaz parfaits.<br>
+      <span class="text-muted">Niveau augmenté : Calculer \(V\) pour \(P = 1\) atm, \(n = 1\) mol, \(T = 273\) K.</span>
+    </div>
+  </div>
+</div>
+<!-- Question 15 -->
+<div class="card question-card">
+  <div class="card-body">
+    <h5 class="card-title">Question 15</h5>
+    <p class="card-text">La demi-vie d'un élément radioactif est de 10 ans. Après 30 ans, la fraction restante est :</p>
+    <div class="list-group mb-2">
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q15" value="a">A. \(\frac{1}{2}\)</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q15" value="b">B. \(\frac{1}{4}\)</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q15" value="c">C. \(\frac{1}{8}\)</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q15" value="d">D. \(\frac{1}{16}\)</label>
+    </div>
+    <div class="explanation" id="explanation-q15">
+      <strong>Réponse correcte :</strong> C<br>
+      \(30\) ans \(= 3 \times t_{1/2}\) &rArr; \(\left(\frac{1}{2}\right)^3 = \frac{1}{8}\).<br>
+      <span class="text-muted">Niveau augmenté : Utiliser \(N(t) = N_0 e^{-\lambda t}\) avec \(\lambda = \frac{\ln 2}{t_{1/2}}\).</span>
+    </div>
+  </div>
+</div>
+
+
+<div class="card question-card">
+  <div class="card-body">
+    <h5 class="card-title">Question 16</h5>
+    <p class="card-text">La PCR amplifie&nbsp;:</p>
+    <div class="list-group mb-2">
+      <label class="form-check-label list-group-item"><input class="form-check-input me-1" type="radio" name="q16" value="a">A. Des protéines</label>
+      <label class="form-check-label list-group-item"><input class="form-check-input me-1" type="radio" name="q16" value="b">B. Des fragments d'ADN</label>
+      <label class="form-check-label list-group-item"><input class="form-check-input me-1" type="radio" name="q16" value="c">C. Des lipides</label>
+      <label class="form-check-label list-group-item"><input class="form-check-input me-1" type="radio" name="q16" value="d">D. Des glucides</label>
+    </div>
+    <div class="explanation" id="explanation-q16">
+      <strong>Réponse correcte&nbsp;:</strong> B<br>
+      Technique de réplication in vitro de l'ADN.<br>
+      <span class="text-muted">Niveau augmenté : Décrire les étapes (dénaturation, hybridation, élongation).</span>
+    </div>
+  </div>
+</div>
+<!-- Question 17 -->
+<div class="card question-card">
+  <div class="card-body">
+    <h5 class="card-title">Question 17</h5>
+    <p class="card-text">Un gène codant pour une enzyme est muté. Quel mécanisme peut restaurer sa fonction&nbsp;?</p>
+    <div class="list-group mb-2">
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q17" value="a">A. La transcription inverse</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q17" value="b">B. La recombinaison homologue</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q17" value="c">C. La glycosylation</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q17" value="d">D. La phosphorylation</label>
+    </div>
+    <div class="explanation" id="explanation-q17">
+      <strong>Réponse correcte&nbsp;:</strong> B<br>
+      Réparation de l'ADN par échange de séquences homologues.<br>
+      <span class="text-muted">Niveau augmenté : Lien avec les maladies génétiques (ex : drépanocytose).</span>
+    </div>
+  </div>
+</div>
+<!-- Question 18 -->
+<div class="card question-card">
+  <div class="card-body">
+    <h5 class="card-title">Question 18</h5>
+    <p class="card-text">La sérotonine est un&nbsp;:</p>
+    <div class="list-group mb-2">
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q18" value="a">A. Neurotransmetteur</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q18" value="b">B. Hormone stéroïde</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q18" value="c">C. Enzyme digestive</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q18" value="d">D. Anticorps</label>
+    </div>
+    <div class="explanation" id="explanation-q18">
+      <strong>Réponse correcte&nbsp;:</strong> A<br>
+      Neurotransmetteur impliqué dans l'humeur.<br>
+      <span class="text-muted">Niveau augmenté : Mécanisme d'action des antidépresseurs (ISRS).</span>
+    </div>
+  </div>
+</div>
+<!-- Question 19 -->
+<div class="card question-card">
+  <div class="card-body">
+    <h5 class="card-title">Question 19</h5>
+    <p class="card-text">La sélection naturelle favorise&nbsp;:</p>
+    <div class="list-group mb-2">
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q19" value="a">A. Les mutations aléatoires</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q19" value="b">B. Les traits augmentant la fitness</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q19" value="c">C. Les caractères neutres</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q19" value="d">D. Les gènes dominants</label>
+    </div>
+    <div class="explanation" id="explanation-q19">
+      <strong>Réponse correcte&nbsp;:</strong> B<br>
+      Adaptation = succès reproductif accru.<br>
+      <span class="text-muted">Niveau augmenté : Exemple du mélanisme industriel (phalène du bouleau).</span>
+    </div>
+  </div>
+</div>
+
+<!-- Question 20 -->
+<div class="card question-card">
+  <div class="card-body">
+    <h5 class="card-title">Question 20</h5>
+    <p class="card-text">
+      La respiration cellulaire produit&nbsp;:
+    </p>
+    <div class="list-group mb-2">
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q20" value="a">A. O₂ et glucose</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q20" value="b">B. CO₂ et H₂O</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q20" value="c">C. ATP et O₂</label>
+      <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q20" value="d">D. NADH et FADH₂</label>
+    </div>
+    <div class="explanation" id="explanation-q20">
+      <strong>Réponse correcte&nbsp;:</strong> B<br>
+      <span class="math-formula">\[ \ce{C6H12O6 + 6O2 -> 6CO2 + 6H2O + 38ATP} \]</span><br>
+      <span class="text-muted">Niveau augmenté : Détail de la glycolyse, cycle de Krebs, et chaîne respiratoire.</span>
+    </div>
+  </div>
+</div>
+
+        <!-- Bouton de soumission -->
+        <div class="text-center mt-5" id="submit-btn-container">
+            <button id="submit-answers" type="button" class="btn btn-primary btn-lg px-5">
+                <i class="fas fa-check-circle me-2"></i>Soumettre les réponses
+            </button>
+        </div>
+
+       
+    </form>
+</section>
+
+                  <!-- Section Résultats -->
+            <section id="results-section" class="d-none">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="mb-0">Résultats du test</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mb-5">
+                            <h3 id="final-score">Score: 0/20</h3>
+                            <div class="progress mt-3 mb-2">
+                                <div id="final-progress" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                            </div>
+                            <div id="final-progress-text" class="fw-bold" style="font-size:1.2rem;">0%</div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <button id="review-answers" class="btn btn-outline-primary">
+                                <i class="fas fa-search me-2"></i>Voir les réponses
+                            </button>
+                            <button id="restart-quiz" class="btn btn-primary">
+                                <i class="fas fa-redo me-2"></i>Recommencer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+                
+            
+        </div>
+    </div>
+
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Ajout du bouton de validation du quiz
+        // Supporte à la fois l'ID original et la nouvelle version ajoutée par l'utilisateur
+        const submitQuizBtn = document.getElementById('submit-answers') || document.getElementById('submit-quiz');
+        if (submitQuizBtn) {
+            submitQuizBtn.addEventListener('click', function() {
+                submitQuiz();
+            });
+        }
+
+        // Variables
+        const totalQuestions = 20; // 20 questions dans votre QCM
+        let timeLeft = 30 * 60; // 30 minutes en secondes
+        let timerInterval;
+        let userAnswers = {};
+        let quizSubmitted = false;
+
+        // Éléments DOM
+        const startTimerBtn = document.getElementById('start-timer');
+        const fixedTimer = document.getElementById('fixedTimer');
+        const fixedTimerDisplay = document.getElementById('fixed-timer-display');
+        const reviewBtn = document.getElementById('review-answers');
+        const restartBtn = document.getElementById('restart-quiz');
+        const qcmSection = document.getElementById('qcm-section');
+        const resultsSection = document.getElementById('results-section');
+        
+        // Démarrer le timer
+        startTimerBtn.addEventListener('click', function() {
+            startTimer();
+            this.disabled = true;
+            fixedTimer.classList.add('active');
+            qcmSection.classList.remove('d-none'); // <-- Affiche les questions au démarrage
+            qcmSection.scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        // Fonction pour démarrer le timer
+        function startTimer() {
+            updateTimerDisplay();
+            
+            timerInterval = setInterval(function() {
+                timeLeft--;
+                updateTimerDisplay();
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    submitQuiz();
+                }
+            }, 1000);
+        }
+        
+        // Fonction pour afficher le temps restant
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            fixedTimerDisplay.textContent = timeString;
+            
+            if (timeLeft < 300) { // 5 minutes restantes
+                fixedTimerDisplay.classList.add('text-danger');
+            }
+        }
+        
+        // Revoir les réponses
+        if (reviewBtn) {
+            reviewBtn.addEventListener('click', function() {
+                reviewAnswers();
+                replaceSubmitWithRetourButton(); // Remplace le bouton "Soumettre" par "Retour"
+            });
+        }
+        
+        // Recommencer le quiz
+        if (restartBtn) {
+            restartBtn.addEventListener('click', function() {
+                if (confirm("Voulez-vous vraiment recommencer le test ? Toutes vos réponses seront perdues.")) {
+                    resetQuiz();
+                    fixedTimer.classList.remove('active');
+                }
+            });
+        }
+        
+        // Fonction pour soumettre le quiz (peut être appelée par un bouton ou quand le temps est écoulé)
+        function submitQuiz() {
+            if (quizSubmitted) return;
+            
+            clearInterval(timerInterval);
+            quizSubmitted = true;
+            fixedTimer.classList.remove('active');
+            
+            collectAnswers();
+            const score = calculateScore();
+            showResults(score);
+            showAnswers(); // Afficher immédiatement les réponses correctes/incorrectes
+            disableInputs();
+        }
+        
+        // Fonction pour collecter les réponses
+        function collectAnswers() {
+            userAnswers = {};
+            for (let i = 1; i <= totalQuestions; i++) {
+                const selectedOption = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selectedOption) {
+                    userAnswers[`q${i}`] = selectedOption.value;
+                }
+            }
+        }
+
+        // Fonction pour calculer le score
+        function calculateScore() {
+            let score = 0;
+            const correctAnswers = {
+                q1: 'b',
+                q2: 'c',
+                q3: 'a',
+                q4: 'a',
+                q5: 'b',
+                q6: 'b',
+                q7: 'b',
+                q8: 'b',
+                q9: 'c',
+                q10: 'b',
+                q11: 'a',
+                q12: 'a',
+                q13: 'b',
+                q14: 'a',
+                q15: 'c',
+                q16: 'b',
+                q17: 'b',
+                q18: 'a',
+                q19: 'b',
+                q20: 'b'
+            };
+            for (const question in userAnswers) {
+                if (correctAnswers[question] && userAnswers[question] === correctAnswers[question]) {
+                    score++;
+                }
+            }
+            return score;
+        }
+
+        // Fonction pour afficher les réponses correctes/incorrectes
+        function showAnswers() {
+            const correctAnswers = {
+                q1: 'b',
+                q2: 'c',
+                q3: 'a',
+                q4: 'a',
+                q5: 'b',
+                q6: 'b',
+                q7: 'b',
+                q8: 'b',
+                q9: 'c',
+                q10: 'b',
+                q11: 'a',
+                q12: 'a',
+                q13: 'b',
+                q14: 'a',
+                q15: 'c',
+                q16: 'b',
+                q17: 'b',
+                q18: 'a',
+                q19: 'b',
+                q20: 'b'
+            };
+            for (let i = 1; i <= totalQuestions; i++) {
+                const questionId = `q${i}`;
+                const explanation = document.getElementById(`explanation-${questionId}`);
+                if (explanation) {
+                    explanation.style.display = 'block';
+                }
+                if (userAnswers[questionId]) {
+                    const selectedInput = document.querySelector(`input[name="${questionId}"][value="${userAnswers[questionId]}"]`);
+                    if (selectedInput) {
+                        const userAnswerElement = selectedInput.parentElement;
+                        if (userAnswers[questionId] === correctAnswers[questionId]) {
+                            userAnswerElement.classList.add('correct-answer');
+                        } else {
+                            userAnswerElement.classList.add('incorrect-answer');
+                            const correctInput = document.querySelector(`input[name="${questionId}"][value="${correctAnswers[questionId]}"]`);
+                            if (correctInput) {
+                                correctInput.parentElement.classList.add('correct-answer');
+                            }
+                        }
+                    }
+                } else {
+                    const correctInput = document.querySelector(`input[name="${questionId}"][value="${correctAnswers[questionId]}"]`);
+                    if (correctInput) {
+                        correctInput.parentElement.classList.add('correct-answer');
+                    }
+                }
+            }
+        }
+
+        // Fonction pour afficher les résultats
+        function showResults(score) {
+            qcmSection.classList.add('d-none');
+            resultsSection.classList.remove('d-none');
+            document.getElementById('final-score').textContent = `Score: ${score}/${totalQuestions}`;
+            const percentage = Math.round((score / totalQuestions) * 100);
+            const progressBar = document.getElementById('final-progress');
+            const progressText = document.getElementById('final-progress-text');
+            progressBar.style.width = `${percentage}%`;
+            progressBar.textContent = `${percentage}%`;
+            if (progressText) {
+                progressText.textContent = `${percentage}%`;
+            }
+            if (percentage < 50) {
+                progressBar.className = 'progress-bar bg-danger';
+            } else if (percentage < 75) {
+                progressBar.className = 'progress-bar bg-warning';
+            } else {
+                progressBar.className = 'progress-bar bg-success';
+            }
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Fonction pour désactiver les inputs
+        function disableInputs() {
+            const inputs = document.querySelectorAll('input[type="radio"]');
+            inputs.forEach(input => {
+                input.disabled = true;
+            });
+        }
+        
+        // Fonction pour revoir les réponses
+        function reviewAnswers() {
+            qcmSection.classList.remove('d-none');
+            resultsSection.classList.add('d-none');
+            qcmSection.scrollIntoView({ behavior: 'smooth' });
+            replaceSubmitWithRetourButton(); // Remplace le bouton "Soumettre" par "Retour"
+        }
+
+        // Fonction pour remplacer "Soumettre les réponses" par "Retour"
+        function replaceSubmitWithRetourButton() {
+            const submitButton = document.getElementById('submit-answers');
+            if (submitButton) {
+                submitButton.remove(); // Supprime le bouton "Soumettre les réponses"
+            }
+
+            const retourButton = document.createElement('a'); // Utilisation d'un lien <a> pour la redirection
+            retourButton.id = 'back-to-results';
+            retourButton.className = 'btn btn-outline-primary btn-lg px-5';
+            retourButton.innerHTML = '<i class="fas fa-arrow-left me-2"></i>Retour';
+            retourButton.href = '../sp.html'; // Redirection vers ../sp.html
+
+            const submitBtnContainer = document.getElementById('submit-btn-container');
+            if (submitBtnContainer) {
+                submitBtnContainer.innerHTML = ''; // Vide le conteneur
+                submitBtnContainer.appendChild(retourButton); // Ajoute le bouton "Retour"
+            }
+        }
+        
+        // Fonction pour réinitialiser le quiz
+        function resetQuiz() {
+            timeLeft = 30 * 60;
+            userAnswers = {};
+            quizSubmitted = false;
+            
+            clearInterval(timerInterval);
+            fixedTimerDisplay.textContent = '30:00';
+            fixedTimerDisplay.classList.remove('text-danger');
+            startTimerBtn.disabled = false;
+            
+            const inputs = document.querySelectorAll('input[type="radio"]');
+            inputs.forEach(input => {
+                input.checked = false;
+                input.disabled = false;
+                input.parentElement.classList.remove('correct-answer', 'incorrect-answer');
+            });
+            
+            const explanations = document.querySelectorAll('.explanation');
+            explanations.forEach(explanation => {
+                explanation.style.display = 'none';
+            });
+            
+            qcmSection.classList.remove('d-none');
+            resultsSection.classList.add('d-none');
+            
+            window.scrollTo(0, 0);
+        }
+        
+        // Ajouter un bouton de soumission manuel si nécessaire
+        const submitButton = document.createElement('button');
+        submitButton.id = 'submit-answers';
+        submitButton.className = 'btn btn-primary btn-lg px-5 mt-4';
+        submitButton.innerHTML = '<i class="fas fa-check-circle me-2"></i>Soumettre les réponses';
+        submitButton.addEventListener('click', function() {
+            if (confirm("Êtes-vous sûr de vouloir soumettre vos réponses ?")) {
+                submitQuiz();
+            }
+        });
+        
+        // Ajouter le bouton après la dernière question
+        const lastQuestion = document.querySelector('.question-card:last-child');
+        if (lastQuestion) {
+            const buttonContainer = document.createElement('div');
+            buttonContainer.className = 'text-center mt-4';
+            buttonContainer.appendChild(submitButton);
+            lastQuestion.appendChild(buttonContainer);
+        }
+    });
+</script>
+</body>
+</html>

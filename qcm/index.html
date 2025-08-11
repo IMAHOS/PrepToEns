@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banque de QCM | Concours Enseignement</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="../css/style.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">
+                <i class="fas fa-chalkboard-teacher me-2"></i>Concours Enseignement
+            </a>
+            <span class="navbar-text">Banque de QCM</span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarQcm">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarQcm">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Accueil</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" id="qcmFilter" role="button" data-bs-toggle="dropdown">
+                            Filtrer par concours
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="?filtre=crpe">CRPE</a></li>
+                            <li><a class="dropdown-item" href="?filtre=capes">CAPES</a></li>
+                            <li><a class="dropdown-item" href="?filtre=agreg">Agrégation</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="index.html">Tous les QCM</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h1 class="display-4">Banque de Questions à Choix Multiple</h1>
+            <p class="lead">Testez vos connaissances avec nos QCM interactifs</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- QCM CRPE -->
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-info text-white">
+                        <h3><i class="fas fa-school me-2"></i> QCM CRPE</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="javascript:initQuiz('qcm-francais-crpe')">Français - Grammaire</a>
+                                <span class="badge bg-primary rounded-pill">10 questions</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="javascript:initQuiz('qcm-maths-crpe')">Mathématiques - Numération</a>
+                                <span class="badge bg-primary rounded-pill">15 questions</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="javascript:initQuiz('qcm-pedagogie-crpe')">Sciences de l'Éducation</a>
+                                <span class="badge bg-primary rounded-pill">12 questions</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- QCM CAPES -->
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h3><i class="fas fa-book me-2"></i> QCM CAPES</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="javascript:initQuiz('qcm-maths-capes')">Mathématiques - Algèbre</a>
+                                <span class="badge bg-success rounded-pill">20 questions</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="javascript:initQuiz('qcm-francais-capes')">Français - Littérature</a>
+                                <span class="badge bg-success rounded-pill">18 questions</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="javascript:initQuiz('qcm-histoire-capes')">Histoire-Géographie</a>
+                                <span class="badge bg-success rounded-pill">15 questions</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- QCM Agrégation -->
+            <div class="col-md-6 mt-4">
+                <div class="card">
+                    <div class="card-header bg-warning text-dark">
+                        <h3><i class="fas fa-graduation-cap me-2"></i> QCM Agrégation</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="javascript:initQuiz('qcm-maths-agreg')">Mathématiques - Analyse</a>
+                                <span class="badge bg-warning rounded-pill">25 questions</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="javascript:initQuiz('qcm-philo-agreg')">Philosophie</a>
+                                <span class="badge bg-warning rounded-pill">20 questions</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="javascript:initQuiz('qcm-sciences-agreg')">Sciences</a>
+                                <span class="badge bg-warning rounded-pill">22 questions</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- QCM transversaux -->
+            <div class="col-md-6 mt-4">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h3><i class="fas fa-random me-2"></i> QCM Transversaux</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="javascript:initQuiz('qcm-pedagogie')">Pédagogie générale</a>
+                                <span class="badge bg-primary rounded-pill">15 questions</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="javascript:initQuiz('qcm-systeme-educatif')">Système éducatif</a>
+                                <span class="badge bg-primary rounded-pill">12 questions</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="javascript:initQuiz('qcm-didactique')">Didactique</a>
+                                <span class="badge bg-primary rounded-pill">10 questions</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Container pour afficher le QCM sélectionné -->
+        <div id="quiz-container" class="mt-5"></div>
+
+        <div class="text-center mt-4">
+            <a href="../index.html" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i> Retour à l'accueil
+            </a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/quiz.js"></script>
+    <script src="../js/navigation.js"></script>
+    <script>
+        // Charger un QCM spécifique si présent dans l'URL
+        const params = new URLSearchParams(window.location.search);
+        const quizId = params.get('quiz');
+        const filtre = params.get('filtre');
+        
+        if (quizId) {
+            initQuiz(quizId);
+        }
+        
+        // Appliquer le filtre s'il est présent
+        if (filtre) {
+            document.querySelectorAll('.card').forEach(card => {
+                if (!card.querySelector('.card-header').textContent.includes(filtre.toUpperCase())) {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // Mettre à jour le texte du bouton de filtre
+            document.getElementById('qcmFilter').textContent = `Filtre : ${filtre.toUpperCase()}`;
+        }
+    </script>
+</body>
+</html>

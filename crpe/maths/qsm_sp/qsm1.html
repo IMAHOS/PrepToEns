@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار الرياضيات - مباراة التعليم 2024</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c786c;
+            --secondary-color: #004445;
+            --accent-color: #f8b400;
+            --light-color: #faf5e4;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            font-family: 'Tajawal', 'Cairo', Arial, sans-serif;
+            padding-top: 80px;
+            color: #333;
+            line-height: 1.7;
+        }
+        
+        .main-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 68, 69, 0.1);
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            border: 2px solid rgba(44, 120, 108, 0.1);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .question-card {
+            margin-bottom: 2.5rem;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 68, 69, 0.08);
+            border: 2px solid rgba(44, 120, 108, 0.15);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 68, 69, 0.15);
+            border-color: rgba(44, 120, 108, 0.3);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            font-weight: 700;
+            border-bottom: none;
+            padding: 1.2rem 1.5rem;
+            border-radius: 13px 13px 0 0 !important;
+        }
+        
+        .card-body {
+            padding: 1.8rem;
+        }
+        
+        .card-title {
+            color: var(--secondary-color);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1.2rem;
+            position: relative;
+            padding-right: 1.5rem;
+        }
+        
+        .card-title:before {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 25px;
+            background: var(--accent-color);
+            border-radius: 5px;
+        }
+        
+        .card-text {
+            color: #444;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 1.4rem;
+            margin: 2rem 0 1rem;
+            padding-right: 1rem;
+            border-right: 5px solid var(--accent-color);
+        }
+        
+        .text-content {
+            font-size: 1.1rem;
+            text-align: justify;
+            margin-bottom: 1.5rem;
+        }
+        
+        .text-emphasis {
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+        
+        .list-group-item {
+            border: none;
+            border-left: 4px solid transparent;
+            margin-bottom: 0.5rem;
+            border-radius: 8px !important;
+            padding: 1rem 1.5rem;
+            font-size: 1.05rem;
+            transition: all 0.2s;
+            background-color: rgba(250, 245, 228, 0.5);
+        }
+        
+        .list-group-item:hover {
+            background-color: rgba(44, 120, 108, 0.08);
+            border-left-color: var(--accent-color);
+        }
+        
+        .form-check-input {
+            width: 1.2em;
+            height: 1.2em;
+            margin-left: 0.8rem;
+            margin-right: 0;
+            margin-top: 0.2rem;
+            border: 2px solid #ced4da;
+        }
+        
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 0.6rem 2.2rem;
+            font-weight: 600;
+            border-radius: 30px;
+            box-shadow: 0 4px 10px rgba(44, 120, 108, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 68, 69, 0.4);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            font-weight: 600;
+            border-radius: 30px;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .correct-answer {
+            background-color: rgba(40, 167, 69, 0.15) !important;
+            border-left: 4px solid var(--success-color) !important;
+        }
+        
+        .incorrect-answer {
+            background-color: rgba(220, 53, 69, 0.1) !important;
+            border-left: 4px solid var(--danger-color) !important;
+        }
+        
+        .explanation {
+            display: none;
+            background-color: rgba(248, 180, 0, 0.08);
+            border-radius: 10px;
+            padding: 1.3rem;
+            margin-top: 1.5rem;
+            border-right: 4px solid var(--accent-color);
+            font-size: 1.05rem;
+        }
+        
+        .explanation strong {
+            color: var(--secondary-color);
+        }
+        
+        .fixed-timer {
+            position: fixed;
+            top: 90px;
+            left: 30px;
+            z-index: 1000;
+            width: 180px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 68, 69, 0.15);
+            padding: 15px;
+            text-align: center;
+            display: none;
+            border: 2px solid rgba(44, 120, 108, 0.2);
+        }
+        
+        .fixed-timer.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        .fixed-timer .timer-text {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        
+        .fixed-timer #fixed-timer-display {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--secondary-color);
+            letter-spacing: 1px;
+        }
+        
+        .navbar {
+            box-shadow: 0 3px 15px rgba(0, 68, 69, 0.1);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+            padding: 0.8rem 1rem;
+        }
+        
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white !important;
+        }
+        
+        .navbar-brand i {
+            color: var(--accent-color);
+        }
+        
+        .navbar-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9) !important;
+        }
+        
+        .nav-link {
+            font-weight: 600;
+            padding: 0.5rem 1.2rem !important;
+            color: rgba(255, 255, 255, 0.8) !important;
+            transition: all 0.2s;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: white !important;
+            transform: translateY(-2px);
+        }
+        
+        .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 30px;
+        }
+        
+        h1.display-4 {
+            font-weight: 800;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1.display-4:after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            right: 0;
+            width: 70px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+        
+        .lead {
+            color: #555;
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .progress {
+            height: 35px;
+            background-color: #f1f1f1;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-bar {
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: width 0.6s ease;
+        }
+        
+        #final-score {
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 991.98px) {
+            .main-container {
+                padding: 1.8rem;
+                border-radius: 15px;
+            }
+            
+            .fixed-timer {
+                top: 80px;
+                left: 15px;
+                width: 150px;
+                padding: 12px;
+            }
+            
+            body {
+                padding-top: 70px;
+            }
+            
+            .card-body {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 767.98px) {
+            .main-container {
+                padding: 1.5rem 1rem;
+                border-radius: 12px;
+            }
+            
+            .fixed-timer {
+                top: 70px;
+                left: 10px;
+                width: 120px;
+                padding: 10px;
+            }
+            
+            h1.display-4 {
+                font-size: 1.8rem;
+            }
+            
+            .lead {
+                font-size: 1.1rem;
+            }
+            
+            .card-title {
+                font-size: 1.1rem;
+            }
+            
+            .card-text, .list-group-item {
+                font-size: 1rem;
+            }
+            
+            .btn-primary, .btn-outline-primary {
+                padding: 0.5rem 1.5rem;
+                font-size: 0.95rem;
+            }
+        }
+        
+        /* Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
+    </style>
+</head>
+<body>
+    <!-- Navbar fixe en haut -->
+    
+    <!-- Timer fixe qui apparaît quand on commence le test -->
+    <div class="fixed-timer" id="fixedTimer">
+        <div class="timer-text">الوقت المتبقي</div>
+        <div id="fixed-timer-display">60:00</div>
+    </div>
+
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h1 class="display-4">concours de Mathématiques </h1>
+            <p class="lead">Concours de recrutement des enseignants du primaire - Spécialité Mathématiques   </p>
+        </div>
+
+        <div class="main-container">
+            <div class="card mb-4 border-0 shadow-sm">
+                <div class="card-header bg-white" style="border-bottom: 1px solid #eee; border-radius: 16px 16px 0 0;">
+                    <h4 class="mb-0" style="color: var(--primary-color); font-weight: 700;">
+                        <i class="fas fa-info-circle me-2" style="color: var(--accent-color);"></i>
+                        Instructions
+                    </h4>
+                </div>
+                <div class="card-body" style="background: linear-gradient(90deg, #faf5e4 80%, #f8b40010 100%); border-radius: 0 0 16px 16px;">
+                    <ul class="mb-4" style="font-size: 1.08rem; color: #444;">
+                        <li class="mb-2">Ce test comprend <span style="color: var(--primary-color); font-weight:600;">20 questions</span> en mathématiques (de Q1 à Q20)</li>
+                        <li class="mb-2">Vous avez <span style="color: var(--accent-color); font-weight:600;">30 minutes</span> pour répondre à toutes les questions</li>
+                        <li class="mb-2">Chaque question a quatre choix de réponses (<span style="color: var(--secondary-color); font-weight:600;">A, B, C, D</span>), une seule est correcte</li>
+                        <li>Le score est calculé uniquement sur les bonnes réponses</li>
+                    </ul>
+                    <div class="text-center mt-4">
+                        <button id="start-timer" class="btn btn-primary btn-lg px-5"><i class="fas fa-play-circle me-2"></i>Commencer le test</button>
+                    </div>
+                </div>
+            </div>
+            <section id="qcm-section" class="d-none">
+
+                <!-- Question Q1 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q1</h5>
+                        <p class="card-text">ما هو القاسم المشترك الأكبر (PGCD) للعددين 36 و 48؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q1" value="a">
+                                6
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q1" value="b">
+                                12
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q1" value="c">
+                                18
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q1" value="d">
+                                24
+                            </label>
+                        </div>
+                        <div class="explanation">
+                            <strong>الإجابة الصحيحة:</strong> B (12)<br>
+                            <strong>التفسير:</strong> باستخدام خوارزمية إقليدس:<br>
+                            48 ÷ 36 = 1 والباقي 12<br>
+                            36 ÷ 12 = 3 والباقي 0<br>
+                            إذن PGCD هو 12
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q2 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q2</h5>
+                        <p class="card-text">ما هو حل المعادلة: 3x + 5 = 2x + 12؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q2" value="a">
+                                5
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q2" value="b">
+                                7
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q2" value="c">
+                                10
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q2" value="d">
+                                17
+                            </label>
+                        </div>
+                        <div class="explanation">
+                            <strong>الإجابة الصحيحة:</strong> B (7)<br>
+                            <strong>التفسير:</strong> 3x + 5 = 2x + 12 → 3x - 2x = 12 - 5 → x = 7
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q3 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q3</h5>
+                        <p class="card-text">ما هو حل المتراجحة: 2x - 3 < 5؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q3" value="a">
+                                x < 4
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q3" value="b">
+                                x > 4
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q3" value="c">
+                                x < 1
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q3" value="d">
+                                x > 1
+                            </label>
+                        </div>
+                        <div class="explanation">
+                            <strong>الإجابة الصحيحة:</strong> A (x < 4)<br>
+                            <strong>التفسير:</strong> 2x - 3 < 5 → 2x < 8 → x < 4
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q4 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q4</h5>
+                        <p class="card-text">ما هو ميل المستقيم المار بالنقطتين (2, 3) و (5, 9)؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q4" value="a">
+                                1
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q4" value="b">
+                                2
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q4" value="c">
+                                3
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q4" value="d">
+                                4
+                            </label>
+                        </div>
+                        <div class="explanation">
+                            <strong>الإجابة الصحيحة:</strong> B (2)<br>
+                            <strong>التفسير:</strong> الميل = (y2 - y1)/(x2 - x1) = (9 - 3)/(5 - 2) = 6/3 = 2
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q5 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q5</h5>
+                        <p class="card-text">ما هو حل النظام التالي؟<br>2x + y = 7<br>x - y = 2</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q5" value="a">
+                                (3, 1)
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q5" value="b">
+                                (1, 3)
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q5" value="c">
+                                (2, 3)
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q5" value="d">
+                                (3, 2)
+                            </label>
+                        </div>
+                        <div class="explanation">
+                            <strong>الإجابة الصحيحة:</strong> A (3, 1)<br>
+                            <strong>التفسير:</strong> بجمع المعادلتين: 3x = 9 → x = 3<br>
+                            بالتعويض في المعادلة الثانية: 3 - y = 2 → y = 1
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q6 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q6</h5>
+                        <p class="card-text">ما هو العدد التالي في المتتالية: 3, 6, 12, 24, ...؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q6" value="a">
+                                36
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q6" value="b">
+                                30
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q6" value="c">
+                                48
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q6" value="d">
+                                27
+                            </label>
+                        </div>
+                        <div class="explanation">
+                            <strong>الإجابة الصحيحة:</strong> C (48)<br>
+                            <strong>التفسير:</strong> هذه متتالية هندسية أساسها 2 (كل حد يساوي الضعف الذي قبله)
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q7 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q7</h5>
+                        <p class="card-text">ما هو مساحة مثلث طول قاعدته 8 سم وارتفاعه 5 سم؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q7" value="a">
+                                13 سم²
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q7" value="b">
+                                20 سم²
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q7" value="c">
+                                40 سم²
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q7" value="d">
+                                10 سم²
+                            </label>
+                        </div>
+                        <div class="explanation">
+                            <strong>الإجابة الصحيحة:</strong> B (20 سم²)<br>
+                            <strong>التفسير:</strong> مساحة المثلث = (القاعدة × الارتفاع)/2 = (8 × 5)/2 = 20 سم²
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q8 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q8</h5>
+                        <p class="card-text">ما هو محيط دائرة نصف قطرها 7 سم؟ (π ≈ 3.14)</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q8" value="a">
+                                21.98 سم
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q8" value="b">
+                                43.96 سم
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q8" value="c">
+                                153.86 سم
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q8" value="d">
+                                14 سم
+                            </label>
+                        </div>
+                        <div class="explanation">
+                            <strong>الإجابة الصحيحة:</strong> B (43.96 سم)<br>
+                            <strong>التفسير:</strong> محيط الدائرة = 2πr = 2 × 3.14 × 7 = 43.96 سم
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q9 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q9</h5>
+                        <p class="card-text">ما هو حجم مكعب طول حرفه 4 سم؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q9" value="a">
+                                12 سم³
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q9" value="b">
+                                16 سم³
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q9" value="c">
+                                64 سم³
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q9" value="d">
+                                24 سم³
+                            </label>
+                        </div>
+                        <div class="explanation">
+                            <strong>الإجابة الصحيحة:</strong> C (64 سم³)<br>
+                            <strong>التفسير:</strong> حجم المكعب = طول الحرف³ = 4 × 4 × 4 = 64 سم³
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q10 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q10</h5>
+                        <p class="card-text">ما هو المتوسط الحسابي للأعداد: 5, 7, 9, 11؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q10" value="a">
+                                7
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q10" value="b">
+                                8
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q10" value="c">
+                                9
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q10" value="d">
+                                10
+                            </label>
+                        </div>
+                        <div class="explanation">
+                            <strong>الإجابة الصحيحة:</strong> B (8)<br>
+                            <strong>التفسير:</strong> المتوسط = (5 + 7 + 9 + 11)/4 = 32/4 = 8
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q11 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q11</h5>
+                        <p class="card-text">ما هي قيمة x في المعادلة: x² - 5x + 6 = 0؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q11" value="a">
+                                1 و 6
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q11" value="b">
+                                2 و 3
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q11" value="c">
+                                -2 و -3
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q11" value="d">
+                                5 و 6
+                            </label>
+                        </div>
+                        <div class="explanation">
+                            <strong>الإجابة الصحيحة:</strong> B (2 و 3)<br>
+                            <strong>التفسير:</strong> x² - 5x + 6 = (x - 2)(x - 3) = 0 → x = 2 أو x = 3
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q12 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q12</h5>
+                        <p class="card-text">ما هو ناتج تبسيط العبارة: (2x + 3)²؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q12" value="a">
+                                4x² + 9
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q12" value="b">
+                                4x² + 6x + 9
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q12" value="c">
+                                4x² + 12x + 9
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q12" value="d">
+                                2x² + 12x + 3
+                            </label>
+                        </div>
+                        <div class="explanation">
+                            <strong>الإجابة الصحيحة:</strong> C (4x² + 12x + 9)<br>
+                            <strong>التفسير:</strong> (a + b)² = a² + 2ab + b² → (2x)² + 2(2x)(3) + 3² = 4x² + 12x + 9
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q13 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q13</h5>
+                        <p class="card-text">ما هو العدد الذي إذا أضفنا إليه 5 يصبح الناتج 12؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q13" value="a">
+                                5
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q13" value="b">
+                                7
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q13" value="c">
+                                12
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q13" value="d">
+                                17
+                            </label>
+                        </div>
+                        <div class="explanation">
+                            <strong>الإجابة الصحيحة:</strong> B (7)<br>
+                            <strong>التفسير:</strong> x + 5 = 12 → x = 12 - 5 = 7
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q14 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q14</h5>
+                        <p class="card-text">ما هو العدد الأولي من بين الأعداد التالية؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q14" value="a">
+                                15
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q14" value="b">
+                                21
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q14" value="c">
+                                23
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q14" value="d">
+                                27
+                            </label>
+                        </div>
+                        <div class="explanation">
+                            <strong>الإجابة الصحيحة:</strong> C (23)<br>
+                            <strong>التفسير:</strong> العدد الأولي هو الذي لا يقبل القسمة إلا على نفسه والواحد، و23 هو العدد الوحيد في الخيارات الذي يحقق هذا الشرط
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q15 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q15</h5>
+                        <p class="card-text">ما هو ناتج العملية: 3/4 + 1/2؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q15" value="a">
+                                4/6
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q15" value="b">
+                                1
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q15" value="c">
+                                5/4
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q15" value="d">
+                                3/8
+                            </label>
+                        </div>
+                        <div class="explanation">
+                            <strong>الإجابة الصحيحة:</strong> C (5/4)<br>
+                            <strong>التفسير:</strong> 3/4 + 1/2 = 3/4 + 2/4 = 5/4
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q16 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q16</h5>
+                        <p class="card-text">ما هو العدد العشري الذي يمثل الكسر 3/8؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q16" value="a">
+                                0.125
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q16" value="b">
+                                0.25
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q16" value="c">
+                                0.375
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q16" value="d">
+                                0.5
+                            </label>
+                        </div>
+                        <div class="explanation">
+                            <strong>الإجابة الصحيحة:</strong> C (0.375)<br>
+                            <strong>التفسير:</strong> 3 ÷ 8 = 0.375
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q17 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q17</h5>
+                        <p class="card-text">ما هو محيط مستطيل طوله 12 سم وعرضه 8 سم؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q17" value="a">
+                                20 سم
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q17" value="b">
+                                40 سم
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q17" value="c">
+                                96 سم
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q17" value="d">
+                                48 سم
+                            </label>
+                        </div>
+                        <div class="explanation">
+                            <strong>الإجابة الصحيحة:</strong> B (40 سم)<br>
+                            <strong>التفسير:</strong> محيط المستطيل = 2(الطول + العرض) = 2(12 + 8) = 2 × 20 = 40 سم
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q18 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q18</h5>
+                        <p class="card-text">ما هو ناتج العملية: 2³ × 2²؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q18" value="a">
+                                4⁵
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q18" value="b">
+                                2⁵
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q18" value="c">
+                                2⁶
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q18" value="d">
+                                4⁶
+                            </label>
+                        </div>
+                        <div class="explanation">
+                            <strong>الإجابة الصحيحة:</strong> B (2⁵)<br>
+                            <strong>التفسير:</strong> عند ضرب الأسس بنفس الأساس، نجمع الأسس: 2³ × 2² = 2^(3+2) = 2⁵
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q19 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q19</h5>
+                        <p class="card-text">ما هو العدد الذي يمثل 25% من 80؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q19" value="a">
+                                20
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q19" value="b">
+                                25
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q19" value="c">
+                                30
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q19" value="d">
+                                40
+                            </label>
+                        </div>
+                        <div class="explanation">
+                            <strong>الإجابة الصحيحة:</strong> A (20)<br>
+                            <strong>التفسير:</strong> 25% من 80 = (25/100) × 80 = 0.25 × 80 = 20
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q20 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q20</h5>
+                        <p class="card-text">ما هو مجموع زوايا المثلث؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q20" value="a">
+                                90 درجة
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q20" value="b">
+                                180 درجة
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q20" value="c">
+                                270 درجة
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q20" value="d">
+                                360 درجة
+                            </label>
+                        </div>
+                        <div class="explanation">
+                            <strong>الإجابة الصحيحة:</strong> B (180 درجة)<br>
+                            <strong>التفسير:</strong> مجموع زوايا أي مثلث يساوي دائمًا 180 درجة
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-5" id="submit-btn-container">
+                    <button id="submit-answers" class="btn btn-primary btn-lg px-5">
+                        <i class="fas fa-check-circle me-2"></i>تسليم الإجابات
+                    </button>
+                </div>
+            </section>
+
+            <!-- Section Résultats -->
+            <section id="results-section" class="d-none">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="mb-0">نتائج الاختبار</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mb-5">
+                            <h3 id="final-score">النقاط: 0/20</h3>
+                            <div class="progress mt-3 mb-4">
+                                <div id="final-progress" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between">
+                            <button id="review-answers" class="btn btn-outline-primary">
+                                <i class="fas fa-search me-2"></i>مراجعة الإجابات
+                            </button>
+                            <button id="restart-quiz" class="btn btn-primary">
+                                <i class="fas fa-redo me-2"></i>إعادة الاختبار
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Variables
+            const totalQuestions = 20;
+            let timeLeft = 30 * 60; // 30 minutes en secondes
+            let timerInterval;
+            let userAnswers = {};
+            let quizSubmitted = false;
+            
+            // Éléments DOM
+            const startTimerBtn = document.getElementById('start-timer');
+            const fixedTimer = document.getElementById('fixedTimer');
+            const fixedTimerDisplay = document.getElementById('fixed-timer-display');
+            const submitBtn = document.getElementById('submit-answers');
+            const reviewBtn = document.getElementById('review-answers');
+            const restartBtn = document.getElementById('restart-quiz');
+            const qcmSection = document.getElementById('qcm-section');
+            const resultsSection = document.getElementById('results-section');
+            
+            // Démarrer le timer
+            startTimerBtn.addEventListener('click', function() {
+                startTimer();
+                this.disabled = true;
+                fixedTimer.classList.add('active');
+                qcmSection.classList.remove('d-none');
+                qcmSection.scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Fonction pour démarrer le timer
+            function startTimer() {
+                updateTimerDisplay();
+                
+                timerInterval = setInterval(function() {
+                    timeLeft--;
+                    updateTimerDisplay();
+                    
+                    if (timeLeft <= 0) {
+                        clearInterval(timerInterval);
+                        submitQuiz();
+                    }
+                }, 1000);
+            }
+            
+            // Fonction pour afficher الوقت المتبقي
+            function updateTimerDisplay() {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                fixedTimerDisplay.textContent = timeString;
+                
+                if (timeLeft < 300) { // 5 minutes restantes
+                    fixedTimerDisplay.classList.add('text-danger');
+                    fixedTimerDisplay.classList.remove('text-dark');
+                }
+            }
+            
+            // Soumettre les réponses
+            submitBtn.addEventListener('click', function() {
+                if (confirm("هل أنت متأكد أنك تريد تسليم إجاباتك؟")) {
+                    submitQuiz();
+                }
+            });
+            
+            // Revoir les réponses
+            reviewBtn.addEventListener('click', function() {
+                reviewAnswers();
+            });
+            
+            // Recommencer le quiz
+            restartBtn.addEventListener('click', function() {
+                if (confirm("هل تريد حقاً إعادة الاختبار؟ سيتم فقدان جميع إجاباتك.")) {
+                    resetQuiz();
+                    fixedTimer.classList.remove('active');
+                }
+            });
+            
+            // Fonction pour soumettre le quiz
+            function submitQuiz() {
+                if (quizSubmitted) return;
+                
+                clearInterval(timerInterval);
+                quizSubmitted = true;
+                fixedTimer.classList.remove('active');
+                
+                collectAnswers();
+                const score = calculateScore();
+                showResults(score);
+                disableInputs();
+            }
+            
+            // Fonction pour collecter les réponses
+            function collectAnswers() {
+                userAnswers = {};
+                
+                for (let i = 1; i <= totalQuestions; i++) {
+                    const selectedOption = document.querySelector(`input[name="q${i}"]:checked`);
+                    if (selectedOption) {
+                        userAnswers[`q${i}`] = selectedOption.value;
+                    }
+                }
+            }
+            
+            // Fonction pour calculer le score
+            function calculateScore() {
+                let score = 0;
+                const correctAnswers = {
+                    q1: 'b', q2: 'b', q3: 'a', q4: 'b', q5: 'a',
+                    q6: 'c', q7: 'b', q8: 'b', q9: 'c', q10: 'b',
+                    q11: 'b', q12: 'c', q13: 'b', q14: 'c', q15: 'c',
+                    q16: 'c', q17: 'b', q18: 'b', q19: 'a', q20: 'b'
+                };
+                
+                for (const question in userAnswers) {
+                    if (userAnswers[question] === correctAnswers[question]) {
+                        score++;
+                    }
+                }
+                
+                return score;
+            }
+            
+            // Fonction pour afficher les résultats
+            function showResults(score) {
+                qcmSection.classList.add('d-none');
+                resultsSection.classList.remove('d-none');
+                
+                document.getElementById('final-score').textContent = `النقاط: ${score}/${totalQuestions}`;
+                
+                const percentage = Math.round((score / totalQuestions) * 100);
+                const progressBar = document.getElementById('final-progress');
+                progressBar.style.width = `${percentage}%`;
+                progressBar.textContent = `${percentage}%`;
+                
+                if (percentage < 50) {
+                    progressBar.className = 'progress-bar bg-danger';
+                } else if (percentage < 75) {
+                    progressBar.className = 'progress-bar bg-warning';
+                } else {
+                    progressBar.className = 'progress-bar bg-success';
+                }
+                
+                resultsSection.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            // Fonction pour désactiver les inputs
+            function disableInputs() {
+                const inputs = document.querySelectorAll('input[type="radio"]');
+                inputs.forEach(input => {
+                    input.disabled = true;
+                });
+            }
+            
+            // Fonction pour revoir les réponses
+            function reviewAnswers() {
+                // Nettoyer les anciennes classes de correction
+                const allLabels = document.querySelectorAll('#qcm-section .list-group-item');
+                allLabels.forEach(label => {
+                    label.classList.remove('correct-answer', 'incorrect-answer');
+                });
+
+                qcmSection.classList.remove('d-none');
+                resultsSection.classList.add('d-none');
+
+                const correctAnswers = {
+                    q1: 'b', q2: 'b', q3: 'a', q4: 'b', q5: 'a',
+                    q6: 'c', q7: 'b', q8: 'b', q9: 'c', q10: 'b',
+                    q11: 'b', q12: 'c', q13: 'b', q14: 'c', q15: 'c',
+                    q16: 'c', q17: 'b', q18: 'b', q19: 'a', q20: 'b'
+                };
+
+                // Afficher les bonnes et mauvaises réponses
+                for (let i = 1; i <= totalQuestions; i++) {
+                    const userVal = userAnswers[`q${i}`];
+                    const correctVal = correctAnswers[`q${i}`];
+                    
+                    if (userVal) {
+                        const userLabel = document.querySelector(`input[name="q${i}"][value="${userVal}"]`);
+                        if (userLabel) {
+                            const labelElem = userLabel.parentElement;
+                            if (userVal === correctVal) {
+                                labelElem.classList.add('correct-answer');
+                            } else {
+                                labelElem.classList.add('incorrect-answer');
+                                const correctLabel = document.querySelector(`input[name="q${i}"][value="${correctVal}"]`);
+                                if (correctLabel) correctLabel.parentElement.classList.add('correct-answer');
+                            }
+                        }
+                    } else {
+                        const correctLabel = document.querySelector(`input[name="q${i}"][value="${correctVal}"]`);
+                        if (correctLabel) correctLabel.parentElement.classList.add('correct-answer');
+                    }
+                }
+
+                // Afficher toutes les explications
+                const explanations = document.querySelectorAll('.explanation');
+                explanations.forEach(explanation => {
+                    explanation.style.display = 'block';
+                });
+
+                // Remplacer le bouton "تسليم الإجابات" par un bouton "العودة"
+                const submitBtnContainer = document.getElementById('submit-btn-container');
+                submitBtnContainer.innerHTML = `
+                    <a href="../sp.html" class="btn btn-outline-primary btn-lg px-5">
+                        <i class="fas fa-arrow-left me-2"></i>العودة
+                    </a>
+                `;
+
+                qcmSection.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            // Fonction pour réinitialiser le quiz
+            function resetQuiz() {
+                timeLeft = 30 * 60;
+                userAnswers = {};
+                quizSubmitted = false;
+
+                clearInterval(timerInterval);
+                fixedTimerDisplay.textContent = '60:00';
+                fixedTimerDisplay.classList.remove('text-danger');
+                startTimerBtn.disabled = false;
+
+                const inputs = document.querySelectorAll('input[type="radio"]');
+                inputs.forEach(input => {
+                    input.checked = false;
+                    input.disabled = false;
+                    input.parentElement.classList.remove('correct-answer', 'incorrect-answer');
+                });
+
+                // Cacher toutes les explications
+                const explanations = document.querySelectorAll('.explanation');
+                explanations.forEach(explanation => {
+                    explanation.style.display = 'none';
+                });
+
+                // Réinitialiser le bouton submit
+                const submitBtnContainer = document.getElementById('submit-btn-container');
+                submitBtnContainer.innerHTML = `
+                    <button id="submit-answers" class="btn btn-primary btn-lg px-5">
+                        <i class="fas fa-check-circle me-2"></i>تسليم الإجابات
+                    </button>
+                `;
+
+                // Réattacher l'événement au nouveau bouton
+                document.getElementById('submit-answers').addEventListener('click', function() {
+                    if (confirm("هل أنت متأكد أنك تريد تسليم إجاباتك؟")) {
+                        submitQuiz();
+                    }
+                });
+
+                qcmSection.classList.remove('d-none');
+                resultsSection.classList.add('d-none');
+
+                window.scrollTo(0, 0);
+            }
+        });
+    </script>
+</body>
+</html>

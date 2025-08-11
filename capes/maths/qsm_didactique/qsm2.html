@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concours de Didactique Mathématique - CRFPE 2023</title>
+    <!-- MathJax pour le rendu des formules mathématiques -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c786c;
+            --secondary-color: #004445;
+            --accent-color: #f8b400;
+            --light-color: #faf5e4;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-top: 80px;
+            color: #333;
+            line-height: 1.7;
+        }
+        
+        .main-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 68, 69, 0.1);
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            border: 2px solid rgba(44, 120, 108, 0.1);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .question-card {
+            margin-bottom: 2.5rem;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 68, 69, 0.08);
+            border: 2px solid rgba(44, 120, 108, 0.15);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 68, 69, 0.15);
+            border-color: rgba(44, 120, 108, 0.3);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            font-weight: 700;
+            border-bottom: none;
+            padding: 1.2rem 1.5rem;
+            border-radius: 13px 13px 0 0 !important;
+        }
+        
+        .card-body {
+            padding: 1.8rem;
+        }
+        
+        .card-title {
+            color: var(--secondary-color);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1.2rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .card-title:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 25px;
+            background: var(--accent-color);
+            border-radius: 5px;
+        }
+        
+        .card-text {
+            color: #444;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .list-group-item {
+            border: none;
+            border-left: 4px solid transparent;
+            margin-bottom: 0.5rem;
+            border-radius: 8px !important;
+            padding: 1rem 1.5rem;
+            font-size: 1.05rem;
+            transition: all 0.2s;
+            background-color: rgba(250, 245, 228, 0.5);
+        }
+        
+        .list-group-item:hover {
+            background-color: rgba(44, 120, 108, 0.08);
+            border-left-color: var(--accent-color);
+        }
+        
+        .form-check-input {
+            width: 1.2em;
+            height: 1.2em;
+            margin-right: 0.8rem;
+            margin-top: 0.2rem;
+            border: 2px solid #ced4da;
+        }
+        
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 0.6rem 2.2rem;
+            font-weight: 600;
+            border-radius: 30px;
+            box-shadow: 0 4px 10px rgba(44, 120, 108, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 68, 69, 0.4);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            font-weight: 600;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+        
+        .correct-answer {
+            background-color: rgba(40, 167, 69, 0.15) !important;
+            border-left: 4px solid var(--success-color) !important;
+        }
+        
+        .incorrect-answer {
+            background-color: rgba(220, 53, 69, 0.1) !important;
+            border-left: 4px solid var(--danger-color) !important;
+        }
+        
+        .explanation {
+            display: none;
+            background-color: rgba(248, 180, 0, 0.08);
+            border-radius: 10px;
+            padding: 1.3rem;
+            margin-top: 1.5rem;
+            border-left: 4px solid var(--accent-color);
+            font-size: 1.05rem;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .explanation strong {
+            color: var(--secondary-color);
+        }
+        
+        .fixed-timer {
+            position: fixed;
+            top: 90px;
+            right: 30px;
+            z-index: 1000;
+            width: 180px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 68, 69, 0.15);
+            padding: 15px;
+            text-align: center;
+            display: none;
+            border: 2px solid rgba(44, 120, 108, 0.2);
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .fixed-timer.active {
+            display: block;
+        }
+        
+        .fixed-timer .timer-text {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        
+        .fixed-timer #fixed-timer-display {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--secondary-color);
+            letter-spacing: 1px;
+        }
+        
+        .fixed-timer.warning {
+            background-color: #fff3cd;
+            border-color: var(--warning-color);
+        }
+        
+        .fixed-timer.danger {
+            background-color: #f8d7da;
+            border-color: var(--danger-color);
+            animation: pulse 1s infinite;
+        }
+        
+        .navbar {
+            box-shadow: 0 3px 15px rgba(0, 68, 69, 0.1);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+            padding: 0.8rem 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white !important;
+            display: flex;
+            align-items: center;
+        }
+        
+        .navbar-brand i {
+            color: var(--accent-color);
+            margin-right: 10px;
+            font-size: 1.3em;
+        }
+        
+        .navbar-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9) !important;
+        }
+        
+        .nav-link {
+            font-weight: 600;
+            padding: 0.5rem 1.2rem !important;
+            color: rgba(255, 255, 255, 0.8) !important;
+            transition: all 0.2s;
+            border-radius: 30px;
+            margin: 0 2px;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: white !important;
+            transform: translateY(-2px);
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        
+        h1.display-4 {
+            font-weight: 800;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1.display-4:after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 70px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+        
+        .lead {
+            color: #555;
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .progress {
+            height: 35px;
+            background-color: #f1f1f1;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-bar {
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: width 0.6s ease;
+        }
+        
+        #final-score {
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        .score-feedback {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+        
+        .score-excellent {
+            color: var(--success-color);
+        }
+        
+        .score-good {
+            color: var(--primary-color);
+        }
+        
+        .score-average {
+            color: var(--warning-color);
+        }
+        
+        .score-poor {
+            color: var(--danger-color);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+        
+        .math-formula {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 1.1em;
+            margin: 10px 0;
+            padding: 5px;
+            background-color: rgba(250, 245, 228, 0.5);
+            border-radius: 5px;
+            display: inline-block;
+        }
+        
+        .section-divider {
+            border-top: 3px solid var(--primary-color);
+            margin: 40px 0;
+            position: relative;
+        }
+        
+        .section-divider-text {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: white;
+            padding: 0 20px;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .hidden-section {
+            display: none;
+        }
+        
+        .question-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        /* Styles responsives */
+        @media (max-width: 991.98px) {
+            .main-container {
+                padding: 1.8rem;
+                border-radius: 15px;
+            }
+            .fixed-timer {
+                top: 80px;
+                right: 15px;
+                width: 150px;
+                padding: 12px;
+            }
+            body {
+                padding-top: 70px;
+            }
+            .card-body {
+                padding: 1.5rem;
+            }
+            h1.display-4 {
+                font-size: 2.2rem;
+            }
+        }
+        @media (max-width: 767.98px) {
+            .main-container {
+                padding: 1.5rem 1rem;
+                border-radius: 12px;
+            }
+            .fixed-timer {
+                top: 70px;
+                right: 10px;
+                width: 120px;
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+            #fixed-timer-display {
+                font-size: 1.2rem;
+            }
+            h1.display-4 {
+                font-size: 1.8rem;
+            }
+            .lead {
+                font-size: 1.1rem;
+            }
+            .card-title {
+                font-size: 1.1rem;
+            }
+            .card-text, .list-group-item {
+                font-size: 1rem;
+            }
+            .btn-primary, .btn-outline-primary {
+                padding: 0.5rem 1.5rem;
+                font-size: 0.95rem;
+            }
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+            .navbar-text {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="../../../index.html">
+                <i class="fas fa-chalkboard-teacher me-2"></i>Concours Enseignement
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../../../index.html">Accueil</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../../PROPOS/index.html">À Propos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../../contact/contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Fixed Timer -->
+    <div class="fixed-timer" id="fixedTimer">
+        <div class="timer-text">Temps restant</div>
+        <div id="fixed-timer-display">30:00</div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h1 class="display-4">Didactique des Mathématiques</h1>
+            <p class="lead">Épreuve de Didactique - Spécialité Mathématiques</p>
+        </div>
+
+        <!-- Instructions Section -->
+        <div class="main-container" id="instructions-section">
+            <div class="card mb-4 border-0 shadow-sm">
+                <div class="card-header">
+                    <h4 class="mb-0"><i class="fas fa-info-circle me-2"></i>Instructions</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="mb-4">
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i>L'épreuve contient 20 questions (de Q1 à Q20)</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i>Vous disposez de 30 minutes pour répondre à toutes les questions</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i>Pour chaque question, 4 choix de réponses sont proposés (A, B, C, D)</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i>Une seule réponse est correcte pour chaque question</li>
+                        <li><i class="fas fa-check-circle text-primary me-2"></i>Chaque réponse correcte rapporte 1 point</li>
+                    </ul>
+                    <div class="alert alert-info">
+                        <i class="fas fa-exclamation-circle me-2"></i><strong>Attention :</strong> Le chronomètre démarre dès que vous cliquez sur "Commencer le test" et ne peut pas être mis en pause.
+                    </div>
+                    <div class="text-center mt-4">
+                        <button id="start-timer" class="btn btn-primary btn-lg px-5">
+                            <i class="fas fa-play-circle me-2"></i>Commencer le test
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- QCM Section -->
+        <div class="main-container hidden-section" id="qcm-section">
+            <section>
+                <div class="section-divider">
+                    <span class="section-divider-text">Partie 2 (Questions 1-20)</span>
+                </div>
+
+                <!-- Question 1 -->
+                <div class="question-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">Question 1</h4>
+                        <span class="badge bg-primary">1 point</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Selon le texte, quelle affirmation est correcte concernant la relation entre pédagogie et didactique ?</p>
+                        <div class="list-group">
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q1" value="a">A. La pédagogie et la didactique désignent un même concept.</label>
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q1" value="b">B. La pédagogie intègre strictement la didactique.</label>
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q1" value="c">C. La didactique intègre strictement la pédagogie.</label>
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q1" value="d">D. Des interrelations existent entre la pédagogie et la didactique.</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="question-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">Question 2</h4>
+                        <span class="badge bg-primary">1 point</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">L'un des points de vue exposés dans le texte précise que la prise en compte de la logique des savoirs scientifiques relève du domaine de :</p>
+                        <div class="list-group">
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q2" value="a">A. L'épistémologie.</label>
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q2" value="b">B. La psychologie.</label>
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q2" value="c">C. La sociologie.</label>
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q2" value="d">D. L'anthropologie.</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="question-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">Question 3</h4>
+                        <span class="badge bg-primary">1 point</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">L'analyse des relations inter-conceptuelles est l'une des préoccupations de la didactique. Elle se positionne :</p>
+                        <div class="list-group">
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q3" value="a">A. Après la situation de classe.</label>
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q3" value="b">B. Avant la situation de classe.</label>
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q3" value="c">C. Au cours de la situation de classe.</label>
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q3" value="d">D. Sans relation avec la situation de classe.</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="question-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">Question 4</h4>
+                        <span class="badge bg-primary">1 point</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">La remédiation pédagogique immédiate est l'une des interventions de l'enseignant(e) des mathématiques dont s'occupe la didactique. Elle se situe :</p>
+                        <div class="list-group">
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q4" value="a">A. Après la mise en œuvre de la situation de classe.</label>
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q4" value="b">B. Avant la mise en œuvre de la situation de classe.</label>
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q4" value="c">C. Au cours de la mise en œuvre de la situation de classe.</label>
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q4" value="d">D. Sans relation avec la mise en œuvre de la situation de classe.</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="question-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">Question 5</h4>
+                        <span class="badge bg-primary">1 point</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Les contributions des sciences de l'éducation en didactique se manifestent aux niveaux :</p>
+                        <div class="list-group">
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q5" value="a">A. Anthropologique et économique.</label>
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q5" value="b">B. Historique et culturel.</label>
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q5" value="c">C. Sociologique et psychopédagogique.</label>
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q5" value="d">D. Ethnique et culturel.</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 6 -->
+                <div class="question-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">Question 6</h4>
+                        <span class="badge bg-primary">1 point</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">L'idée de trame conceptuelle renvoie à des énoncés :</p>
+                        <div class="list-group">
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q6" value="a">A. Strictement emboliés pour une même notion.</label>
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q6" value="b">B. Indistinctement équivalents.</label>
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q6" value="c">C. Chronologiquement liés.</label>
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q6" value="d">D. Différenciés et évolutifs pour une même notion.</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 7 -->
+                <div class="question-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">Question 7</h4>
+                        <span class="badge bg-primary">1 point</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Le recours à des exemples concrets pour approcher une notion mathématique abstraite dans un niveau scolaire précis, est une forme de :</p>
+                        <div class="list-group">
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q7" value="a">A. Transposition didactique.</label>
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q7" value="b">B. Pratique sociale de référence.</label>
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q7" value="c">C. Trame conceptuelle.</label>
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q7" value="d">D. Formulation par niveaux.</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 8 -->
+                <div class="question-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">Question 8</h4>
+                        <span class="badge bg-primary">1 point</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">La variété des énoncés possibles pour une même notion mathématique en fonction du cursus scolaire et des problèmes étudiés, renvoie à un concept évoqué dans le texte. Il s'agit :</p>
+                        <div class="list-group">
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q8" value="a">A. Des pratiques sociales de référence relatives à cette notion.</label>
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q8" value="b">B. De la transposition didactique de cette notion.</label>
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q8" value="c">C. Des niveaux de formulation de cette notion.</label>
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q8" value="d">D. De la trame conceptuelle de cette notion.</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 9 -->
+                <div class="question-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">Question 9</h4>
+                        <span class="badge bg-primary">1 point</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">La tendance en didactique des mathématiques qui met l'accent sur la résolution de problèmes tout en prenant en compte l'expérience et l'intuition personnelles et les stratégies optimales de traitement et de récupération de l'information, est l'approche :</p>
+                        <div class="list-group">
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q9" value="a">A. Traditionnelle.</label>
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q9" value="b">B. Heuristique.</label>
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q9" value="c">C. Instrumentale.</label>
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q9" value="d">D. Perceptive.</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 10 -->
+                <div class="question-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">Question 10</h4>
+                        <span class="badge bg-primary">1 point</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Lors de la préparation d'une séquence d'enseignement des mathématiques, se fixer comme but le dépassement d'un blocage repéré et jugé franchissable, caractérise les :</p>
+                        <div class="list-group">
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q10" value="a">A. Objectifs terminaux.</label>
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q10" value="b">B. Obstacles didactiques.</label>
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q10" value="c">C. Objectifs-obstacles.</label>
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q10" value="d">D. Obstacles ontogéniques.</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 11 -->
+                <div class="question-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">Question 11</h4>
+                        <span class="badge bg-primary">1 point</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Parmi les caractérisations suivantes, celle qui correspond à une situation-problème selon Régine Douady, est que :</p>
+                        <div class="list-group">
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q11" value="a">A. La connaissance visée doit être l'outil le plus adapté pour la résolution du problème, au niveau de l'élève.</label>
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q11" value="b">B. Les connaissances de l'élève sont suffisantes pour qu'il résolve immédiatement le problème.</label>
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q11" value="c">C. L'élève est incapable d'envisager ce qui est une solution possible du problème.</label>
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q11" value="d">D. L'élève est incapable de décider si une solution trouvée est convenable ou pas.</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 12 -->
+                <div class="question-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">Question 12</h4>
+                        <span class="badge bg-primary">1 point</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Selon Guy Brousseau, une situation didactique se caractérise par :</p>
+                        <div class="list-group">
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q12" value="a">A. Une organisation intentionnelle pour la diffusion de contenus disciplinaires prédéterminés.</label>
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q12" value="b">B. Le fait que les apprentissages ne sont les enjeux d'aucun enseignant(e).</label>
+                            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q12" value="c">C. Une mise en œuvre des stratégies de résolution sans connaissance mathématique visée.</label>
+<label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q12" value="d">D. Une multitude d’outils et savoirs déployés sans finalité.</label>
+</div>
+</div>
+</div>
+
+<!-- Question 13 -->
+<div class="question-card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h4 class="mb-0">Question 13</h4>
+        <span class="badge bg-primary">1 point</span>
+    </div>
+    <div class="card-body">
+        <p class="card-text">Dans le triangle didactique, les conceptions en relation avec des obstacles d’origine épistémologique se positionnent principalement au niveau :</p>
+        <div class="list-group">
+            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q13" value="a">A. Du pôle « Enseignant ».</label>
+            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q13" value="b">B. Du pôle « Élève ».</label>
+            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q13" value="c">C. De la relation « Enseignant-Élève ».</label>
+            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q13" value="d">D. De la relation « Élève-Savoir ».</label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 14 -->
+<div class="question-card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h4 class="mb-0">Question 14</h4>
+        <span class="badge bg-primary">1 point</span>
+    </div>
+    <div class="card-body">
+        <p class="card-text">Dans le cadre de l’étude des conditions d’efficacité du travail en groupe d’apprentissage, la notion de conflit sociocognitif est largement évoquée. Pour Philippe Meirieu, la mise en œuvre de cette notion requiert trois conditions pour devenir un moyen de progrès intellectuel : « l’exercice d’une contrainte commune », « la présence de compétences minimales permettant l’échange » et la troisième condition est :</p>
+        <div class="list-group">
+            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q14" value="a">A. La bonne organisation du débat et de l’espace de classe.</label>
+            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q14" value="b">B. La prégnance d’un fonctionnement axé sur le caractère cognitif de l’échange.</label>
+            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q14" value="c">C. L’instauration d’un climat propice à l’apprentissage.</label>
+            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q14" value="d">D. L’apparition, chez chaque élève, d’une contradiction entre ses idées et ses représentations.</label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 15 -->
+<div class="question-card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h4 class="mb-0">Question 15</h4>
+        <span class="badge bg-primary">1 point</span>
+    </div>
+    <div class="card-body">
+        <p class="card-text">L’effet du contrat didactique qui se manifeste lorsqu’un enseignant croit qu’une réponse attendue des élèves va de soi pour eux est l’effet :</p>
+        <div class="list-group">
+            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q15" value="a">A. Jourdain.</label>
+            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q15" value="b">B. Topaze.</label>
+            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q15" value="c">C. Pygmalion.</label>
+            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q15" value="d">D. De l’attente incomprise.</label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 16 -->
+<div class="question-card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h4 class="mb-0">Question 16</h4>
+        <span class="badge bg-primary">1 point</span>
+    </div>
+    <div class="card-body">
+        <p class="card-text">La programmation didactique disciplinaire désigne :</p>
+        <div class="list-group">
+            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q16" value="a">A. Le processus de planification des contenus d’enseignement.</label>
+            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q16" value="b">B. Un manuel scolaire de la discipline.</label>
+            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q16" value="c">C. Une méthode d’enseignement spécifique à la discipline.</label>
+            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q16" value="d">D. Un socle de compétences spécifique à la discipline.</label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 17 -->
+<div class="question-card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h4 class="mb-0">Question 17</h4>
+        <span class="badge bg-primary">1 point</span>
+    </div>
+    <div class="card-body">
+        <p class="card-text">Relativement au curriculum, le concept de chronogenèse désigne :</p>
+        <div class="list-group">
+            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q17" value="a">A. La genèse programmée des activités destinées aux élèves.</label>
+            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q17" value="b">B. Le détail chronologique des moments d’évaluation.</label>
+            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q17" value="c">C. L’organisation chronologique des objets de savoir.</label>
+            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q17" value="d">D. La genèse programmée des activités parascolaires.</label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 18 -->
+<div class="question-card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h4 class="mb-0">Question 18</h4>
+        <span class="badge bg-primary">1 point</span>
+    </div>
+    <div class="card-body">
+        <p class="card-text">Selon Philippe Perrenoud, le curriculum prescrit est :</p>
+        <div class="list-group">
+            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q18" value="a">A. Ce que les enseignant(e)s sont censé(e)s enseigner et que les élèves sont censés étudier.</label>
+            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q18" value="b">B. Ce que les enseignant(e)s estiment important à enseigner ultérieurement aux élèves.</label>
+            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q18" value="c">C. Ce que les enseignant(e)s proposent aux instances supérieures d’enseigner aux élèves.</label>
+            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q18" value="d">D. Ce qui est réellement enseigné aux élèves en classe.</label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 19 -->
+<div class="question-card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h4 class="mb-0">Question 19</h4>
+        <span class="badge bg-primary">1 point</span>
+    </div>
+    <div class="card-body">
+        <p class="card-text">Un intérêt de l’organisation chronologique des objets de savoir est de prendre en compte le fait que :</p>
+        <div class="list-group">
+            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q19" value="a">A. Une bonne architecture du savoir garantit la compréhension des élèves.</label>
+            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q19" value="b">B. Le temps de l’enseignement n’est pas le temps des apprentissages.</label>
+            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q19" value="c">C. Un savoir structuré garantit l’implication des élèves.</label>
+            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q19" value="d">D. Les compétences visées exigent, pour être acquises, l’importance quantitative des connaissances.</label>
+        </div>
+    </div>
+</div>
+
+<!-- Question 20 -->
+<div class="question-card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h4 class="mb-0">Question 20</h4>
+        <span class="badge bg-primary">1 point</span>
+    </div>
+    <div class="card-body">
+        <p class="card-text">Les directives pédagogiques officielles de l’enseignement des mathématiques aux cycles du secondaire marocain précisent que l’enseignement des mathématiques devrait être :</p>
+        <div class="list-group">
+            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q20" value="a">A. Aussi rigoureux que possible.</label>
+            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q20" value="b">B. Centré sur les contenus scientifiques, vu leur importance.</label>
+            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q20" value="c">C. Aussi explicite que possible.</label>
+            <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q20" value="d">D. Harmonieux avec les données culturelles, sociales et économiques du pays.</label>
+        </div>
+    </div>
+</div>
+
+                                   <!-- Submit Button -->
+                <div class="text-center mt-5">
+                    <button id="submit-answers" class="btn btn-primary btn-lg px-5">
+                        <i class="fas fa-check-circle me-2"></i>Soumettre les réponses
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <!-- Results Section -->
+        <div class="main-container hidden-section" id="results-section">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header">
+                    <h4 class="mb-0"><i class="fas fa-chart-bar me-2"></i>Résultats du test</h4>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-5">
+                        <h3 id="final-score">Score: 0/20</h3>
+                        <p id="score-feedback" class="score-feedback"></p>
+                        <div class="progress mt-3 mb-4">
+                            <div id="final-progress" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-center gap-3 flex-wrap">
+                        <button id="review-answers" class="btn btn-outline-primary mb-2">
+                            <i class="fas fa-search me-2"></i>Voir les réponses
+                        </button>
+                        <button id="restart-quiz" class="btn btn-primary mb-2">
+                            <i class="fas fa-redo me-2"></i>Recommencer
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Correct answers
+        const correctAnswers = {
+            q1: "d",
+            q2: "a",
+            q3: "b",
+            q4: "c",
+            q5: "c",
+            q6: "d",
+            q7: "a",
+            q8: "c",
+            q9: "b",
+            q10: "c",
+            q11: "a",
+            q12: "a",
+            q13: "d",
+            q14: "d",
+            q15: "a",
+            q16: "a",
+            q17: "c",
+            q18: "a",
+            q19: "b",
+            q20: "d"
+        };
+        let timer;
+        let timeLeft = 1800; // 30 minutes in seconds
+        let quizStarted = false;
+        const totalQuestions = Object.keys(correctAnswers).length;
+        const startBtn = document.getElementById('start-timer');
+        const submitBtn = document.getElementById('submit-answers');
+        const reviewBtn = document.getElementById('review-answers');
+        const restartBtn = document.getElementById('restart-quiz');
+        const downloadBtn = document.getElementById('download-results');
+        const fixedTimer = document.getElementById('fixedTimer');
+        const timerDisplay = document.getElementById('fixed-timer-display');
+        const instructionsSection = document.getElementById('instructions-section');
+        const qcmSection = document.getElementById('qcm-section');
+        const resultsSection = document.getElementById('results-section');
+        const finalScore = document.getElementById('final-score');
+        const finalProgress = document.getElementById('final-progress');
+        const scoreFeedback = document.getElementById('score-feedback');
+
+        startBtn.addEventListener('click', function() {
+            if (!quizStarted) {
+                quizStarted = true;
+                instructionsSection.classList.add('hidden-section');
+                qcmSection.classList.remove('hidden-section');
+                fixedTimer.classList.add('active');
+                timer = setInterval(updateTimer, 1000);
+                updateTimer();
+                document.querySelector('.question-card')?.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                });
+            }
+        });
+
+        function updateTimer() {
+            timeLeft--;
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            if (timeLeft <= 300) {
+                fixedTimer.classList.add('warning');
+                fixedTimer.classList.remove('danger');
+            }
+            if (timeLeft <= 60) {
+                fixedTimer.classList.remove('warning');
+                fixedTimer.classList.add('danger');
+            }
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                validateQuiz();
+            }
+        }
+
+        function validateQuiz() {
+            clearInterval(timer);
+            fixedTimer.classList.remove('active');
+            
+            let score = 0;
+            const userAnswers = {};
+            
+            for (let i = 1; i <= totalQuestions; i++) {
+                const qName = `q${i}`;
+                const selected = document.querySelector(`input[name="${qName}"]:checked`);
+                const correct = correctAnswers[qName];
+                
+                userAnswers[qName] = selected ? selected.value : null;
+                
+                if (selected) {
+                    if (selected.value === correct) {
+                        selected.parentElement.classList.add('correct-answer');
+                        score++;
+                    } else {
+                        selected.parentElement.classList.add('incorrect-answer');
+                        const correctOption = document.querySelector(`input[name="${qName}"][value="${correct}"]`);
+                        if (correctOption) correctOption.parentElement.classList.add('correct-answer');
+                    }
+                } else {
+                    const correctOption = document.querySelector(`input[name="${qName}"][value="${correct}"]`);
+                    if (correctOption) correctOption.parentElement.classList.add('correct-answer');
+                }
+            }
+            
+            const percent = Math.round((score / totalQuestions) * 100);
+            
+            finalScore.textContent = `Score: ${score}/${totalQuestions}`;
+            finalProgress.style.width = `${percent}%`;
+            finalProgress.textContent = `${percent}%`;
+            finalProgress.classList.remove('bg-success', 'bg-warning', 'bg-danger');
+            
+            if (percent >= 75) {
+                finalProgress.classList.add('bg-success');
+                scoreFeedback.textContent = "Excellent travail ! Vous maîtrisez parfaitement ces concepts.";
+                scoreFeedback.className = "score-feedback score-excellent";
+            } else if (percent >= 50) {
+                finalProgress.classList.add('bg-warning');
+                scoreFeedback.textContent = "Bon travail, mais il y a encore des domaines à améliorer.";
+                scoreFeedback.className = "score-feedback score-good";
+            } else {
+                finalProgress.classList.add('bg-danger');
+                scoreFeedback.textContent = "Continuez à pratiquer, vous pouvez faire mieux !";
+                scoreFeedback.className = "score-feedback score-poor";
+            }
+            
+            qcmSection.classList.add('hidden-section');
+            resultsSection.classList.remove('hidden-section');
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+            
+            localStorage.setItem('quizResults', JSON.stringify({
+                score: score,
+                total: totalQuestions,
+                percentage: percent,
+                answers: userAnswers,
+                date: new Date().toLocaleString()
+            }));
+        }
+
+        submitBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const confirmed = confirm("Êtes-vous sûr de vouloir soumettre vos réponses ? Vous ne pourrez plus les modifier.");
+            if (confirmed) {
+                validateQuiz();
+            }
+        });
+
+        reviewBtn.addEventListener('click', function() {
+            resultsSection.classList.add('hidden-section');
+            qcmSection.classList.remove('hidden-section');
+            // Afficher toutes les explications
+            for (let i = 1; i <= totalQuestions; i++) {
+                const explanation = document.querySelector(`input[name="q${i}"]`)?.closest('.question-card')?.querySelector('.explanation');
+                if (explanation) explanation.style.display = 'block';
+            }
+            qcmSection.scrollIntoView({ behavior: 'smooth' });
+
+            // Replace "Soumettre" button with "Retour"
+            submitBtn.style.display = 'none';
+            const retourBtn = document.createElement('button');
+            retourBtn.id = 'retour-quiz';
+            retourBtn.className = 'btn btn-primary btn-lg px-5';
+            retourBtn.innerHTML = '<i class="fas fa-arrow-left me-2"></i>Retour aux résultats';
+            submitBtn.parentElement.appendChild(retourBtn);
+
+            retourBtn.addEventListener('click', function() {
+                qcmSection.classList.add('hidden-section');
+                resultsSection.classList.remove('hidden-section');
+                retourBtn.remove();
+                submitBtn.style.display = 'block';
+                resultsSection.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        restartBtn.addEventListener('click', function() {
+            location.reload();
+        });
+
+        downloadBtn.addEventListener('click', function() {
+            const results = JSON.parse(localStorage.getItem('quizResults')) || {};
+            const data = `
+                Résultats du Concours de Didactique Mathématique CRFPE 2023
+                ====================================================
+                
+                Date: ${results.date || 'Non disponible'}
+                Score: ${results.score || 0}/${results.total || 20} (${results.percentage || 0}%)
+                
+                Détail des réponses:
+                ${Object.entries(results.answers || {}).map(([q, a]) => 
+                    `Question ${q.substring(1)}: ${a ? a.toUpperCase() : 'Non répondue'} (Correcte: ${correctAnswers[q].toUpperCase()})`
+                ).join('\n')}
+                
+                Merci d'avoir participé !
+            `;
+            
+            const blob = new Blob([data], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `resultats-didactique-maths-${new Date().toISOString().slice(0,10)}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'Enter') {
+                submitBtn.click();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Concours Enseignement</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .contact-banner {
+            background: linear-gradient(120deg, #43cea2 0%, #185a9d 100%), url('https://source.unsplash.com/random/1200x600/?contact,modern,education') no-repeat center center;
+            background-blend-mode: overlay;
+            background-size: cover;
+            color: #fff;
+            padding: 120px 0 90px 0;
+            border-bottom-left-radius: 48px;
+            border-bottom-right-radius: 48px;
+            box-shadow: 0 12px 40px rgba(24,90,157,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        .contact-banner::after {
+            content: "";
+            position: absolute;
+            left: 0; right: 0; bottom: 0;
+            height: 36px;
+            background: linear-gradient(to top, #fff 0%, rgba(255,255,255,0) 100%);
+            border-bottom-left-radius: 48px;
+            border-bottom-right-radius: 48px;
+            z-index: 1;
+        }
+        .contact-banner .container {
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+        .contact-title {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-weight: 900;
+            font-size: 3.2rem;
+            letter-spacing: 2px;
+            text-shadow: 0 6px 32px rgba(24,90,157,0.13);
+            margin-bottom: 1.2rem;
+            color: #fff;
+        }
+        .contact-subtitle {
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: #e0f7fa;
+            text-shadow: 0 2px 8px rgba(24,90,157,0.10);
+        }
+        .contact-card {
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(24,90,157,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            background: linear-gradient(120deg, #f8fafc 70%, #e3f0ff 100%);
+            height: 100%;
+        }
+        .contact-card:hover {
+            transform: translateY(-7px) scale(1.03);
+            box-shadow: 0 8px 24px rgba(24,90,157,0.13);
+        }
+        .icon-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 18px auto;
+            font-size: 2rem;
+            box-shadow: 0 2px 8px rgba(24,90,157,0.10);
+        }
+        .form-control:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        }
+        @media (max-width: 767px) {
+            .contact-banner {
+                padding: 60px 0 40px 0;
+                border-radius: 0;
+            }
+            .contact-title {
+                font-size: 2rem;
+            }
+            .contact-subtitle {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">
+                <i class="fas fa-chalkboard-teacher me-2"></i>Concours Enseignement
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Accueil</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                            Parcours
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="../crpe/index.html">CRPE - Primaire</a></li>
+                            <li><a class="dropdown-item" href="../capes/index.html">CAPES - Secondaire</a></li>
+                            <li><a class="dropdown-item" href="../agreg/index.html">ECPPE</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../PROPOS/index.html">À Propos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Bannière -->
+    <header class="contact-banner">
+        <div class="container text-center">
+            <h1 class="contact-title">Contactez-Nous</h1>
+            <p class="contact-subtitle">Nous sommes là pour répondre à vos questions</p>
+        </div>
+    </header>
+
+    <!-- Section Contact -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="fw-bold mb-4 text-center">Contactez-nous</h2>
+            <div class="row g-4 justify-content-center">
+                <!-- WhatsApp -->
+                <div class="col-md-3">
+                    <div class="contact-card p-4 bg-light text-center">
+                        <a href="https://wa.me/212628708074" target="_blank" class="text-decoration-none">
+                            <div class="icon-circle bg-success text-white mb-3 mx-auto">
+                                <i class="fab fa-whatsapp fa-2x"></i>
+                            </div>
+                            <h4 class="text-dark">WhatsApp</h4>
+                            <p class="text-dark">+212 6 28 70 80 74</p>
+                        </a>
+                    </div>
+                </div>
+                <!-- Email -->
+                <div class="col-md-3">
+                    <div class="contact-card p-4 bg-light text-center">
+                        <div class="icon-circle bg-warning text-white mb-3 mx-auto">
+                            <i class="fas fa-envelope fa-2x"></i>
+                        </div>
+                        <h4>Email</h4>
+                        <p class="text-dark">
+                            <a href="mailto:moradelkhalili98@gmail.com" class="text-decoration-none text-dark">moradelkhalili98@gmail.com</a>
+                        </p>
+                        <p class="text-dark">
+                            <a href="mailto:nasrnasor2005@gmail.com" class="text-decoration-none text-dark">nasrnasor2005@gmail.com</a>
+                        </p>
+                    </div>
+                </div>
+                <!-- Instagram -->
+                <div class="col-md-3">
+                    <div class="contact-card p-4 bg-light text-center">
+                        <a href="https://www.instagram.com/moradelkhalili?igsh=MXZmcGE0czZpczUxcQ==" target="_blank" class="text-decoration-none">
+                            <div class="icon-circle bg-danger text-white mb-3 mx-auto">
+                                <i class="fab fa-instagram fa-2x"></i>
+                            </div>
+                            <h4 class="text-dark">Instagram</h4>
+                            <p class="text-dark">@concours_enseignement</p>
+                        </a>
+                    </div>
+                </div>
+                <!-- Facebook -->
+                <div class="col-md-3">
+                    <div class="contact-card p-4 bg-light text-center">
+                        <a href="https://www.facebook.com/morad.morad.442022 " target="_blank" class="text-decoration-none">
+                            <div class="icon-circle bg-primary text-white mb-3 mx-auto">
+                                <i class="fab fa-facebook-f fa-2x"></i>
+                            </div>
+                            <h4 class="text-dark">Facebook</h4>
+                            <p class="text-dark">Concours Enseignement</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <p class="mb-0">© 2025 Concours Enseignement .</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

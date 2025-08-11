@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مسابقة الرياضيات - CRFPE 2024</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-rtl@5.3.0/dist/css/bootstrap-rtl.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c786c;
+            --secondary-color: #004445;
+            --accent-color: #f8b400;
+            --light-color: #faf5e4;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-top: 80px;
+            color: #333;
+            line-height: 1.7;
+            text-align: right;
+        }
+        
+        .main-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 68, 69, 0.1);
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            border: 2px solid rgba(44, 120, 108, 0.1);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .question-card {
+            margin-bottom: 2.5rem;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 68, 69, 0.08);
+            border: 2px solid rgba(44, 120, 108, 0.15);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 68, 69, 0.15);
+            border-color: rgba(44, 120, 108, 0.3);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            font-weight: 700;
+            border-bottom: none;
+            padding: 1.2rem 1.5rem;
+            border-radius: 13px 13px 0 0 !important;
+        }
+        
+        .card-body {
+            padding: 1.8rem;
+        }
+        
+        .card-title {
+            color: var(--secondary-color);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1.2rem;
+            position: relative;
+            padding-right: 1.5rem;
+        }
+        
+        .card-title:before {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 25px;
+            background: var(--accent-color);
+            border-radius: 5px;
+        }
+        
+        .card-text {
+            color: #444;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .list-group-item {
+            border: none;
+            border-right: 4px solid transparent;
+            margin-bottom: 0.5rem;
+            border-radius: 8px !important;
+            padding: 1rem 1.5rem;
+            font-size: 1.05rem;
+            transition: all 0.2s;
+            background-color: rgba(250, 245, 228, 0.5);
+            text-align: right;
+        }
+        
+        .list-group-item:hover {
+            background-color: rgba(44, 120, 108, 0.08);
+            border-right-color: var(--accent-color);
+        }
+        
+        .form-check-input {
+            width: 1.2em;
+            height: 1.2em;
+            margin-left: 0.8rem;
+            margin-top: 0.2rem;
+            border: 2px solid #ced4da;
+        }
+        
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 0.6rem 2.2rem;
+            font-weight: 600;
+            border-radius: 30px;
+            box-shadow: 0 4px 10px rgba(44, 120, 108, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 68, 69, 0.4);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            font-weight: 600;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+        
+        .correct-answer {
+            background-color: rgba(40, 167, 69, 0.15) !important;
+            border-right: 4px solid var(--success-color) !important;
+        }
+        
+        .incorrect-answer {
+            background-color: rgba(220, 53, 69, 0.1) !important;
+            border-right: 4px solid var(--danger-color) !important;
+        }
+        
+        .explanation {
+            display: none;
+            background-color: rgba(248, 180, 0, 0.08);
+            border-radius: 10px;
+            padding: 1.3rem;
+            margin-top: 1.5rem;
+            border-right: 4px solid var(--accent-color);
+            font-size: 1.05rem;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .explanation strong {
+            color: var(--secondary-color);
+        }
+        
+        .fixed-timer {
+            position: fixed;
+            top: 90px;
+            left: 30px;
+            z-index: 1000;
+            width: 180px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 68, 69, 0.15);
+            padding: 15px;
+            text-align: center;
+            display: none;
+            border: 2px solid rgba(44, 120, 108, 0.2);
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .fixed-timer.active {
+            display: block;
+        }
+        
+        .fixed-timer .timer-text {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        
+        .fixed-timer #fixed-timer-display {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--secondary-color);
+            letter-spacing: 1px;
+        }
+        
+        .fixed-timer.warning {
+            background-color: #fff3cd;
+            border-color: var(--warning-color);
+        }
+        
+        .fixed-timer.danger {
+            background-color: #f8d7da;
+            border-color: var(--danger-color);
+            animation: pulse 1s infinite;
+        }
+        
+        .navbar {
+            box-shadow: 0 3px 15px rgba(0, 68, 69, 0.1);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+            padding: 0.8rem 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white !important;
+            display: flex;
+            align-items: center;
+        }
+        
+        .navbar-brand i {
+            color: var(--accent-color);
+            margin-left: 10px;
+            font-size: 1.3em;
+        }
+        
+        .navbar-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9) !important;
+        }
+        
+        .nav-link {
+            font-weight: 600;
+            padding: 0.5rem 1.2rem !important;
+            color: rgba(255, 255, 255, 0.8) !important;
+            transition: all 0.2s;
+            border-radius: 30px;
+            margin: 0 2px;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: white !important;
+            transform: translateY(-2px);
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        
+        h1.display-4 {
+            font-weight: 800;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1.display-4:after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            right: 0;
+            width: 70px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+        
+        .lead {
+            color: #555;
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .progress {
+            height: 35px;
+            background-color: #f1f1f1;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-bar {
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: width 0.6s ease;
+        }
+        
+        #final-score {
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        .score-feedback {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+        
+        .score-excellent {
+            color: var(--success-color);
+        }
+        
+        .score-good {
+            color: var(--primary-color);
+        }
+        
+        .score-average {
+            color: var(--warning-color);
+        }
+        
+        .score-poor {
+            color: var(--danger-color);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+        
+        .math-formula {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 1.1em;
+            margin: 10px 0;
+            padding: 5px;
+            background-color: rgba(250, 245, 228, 0.5);
+            border-radius: 5px;
+            display: inline-block;
+        }
+        
+        .section-divider {
+            border-top: 3px solid var(--primary-color);
+            margin: 40px 0;
+            position: relative;
+        }
+        
+        .section-divider-text {
+            position: absolute;
+            top: -15px;
+            right: 50%;
+            transform: translateX(50%);
+            background-color: white;
+            padding: 0 20px;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .hidden-section {
+            display: none;
+        }
+        
+        .question-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        
+        /* Styles responsives */
+        @media (max-width: 991.98px) {
+            .main-container {
+                padding: 1.8rem;
+                border-radius: 15px;
+            }
+            .fixed-timer {
+                top: 80px;
+                left: 15px;
+                width: 150px;
+                padding: 12px;
+            }
+            body {
+                padding-top: 70px;
+            }
+            .card-body {
+                padding: 1.5rem;
+            }
+            h1.display-4 {
+                font-size: 2.2rem;
+            }
+        }
+        @media (max-width: 767.98px) {
+            .main-container {
+                padding: 1.5rem 1rem;
+                border-radius: 12px;
+            }
+            .fixed-timer {
+                top: 70px;
+                left: 10px;
+                width: 120px;
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+            #fixed-timer-display {
+                font-size: 1.2rem;
+            }
+            h1.display-4 {
+                font-size: 1.8rem;
+            }
+            .lead {
+                font-size: 1.1rem;
+            }
+            .card-title {
+                font-size: 1.1rem;
+            }
+            .card-text, .list-group-item {
+                font-size: 1rem;
+            }
+            .btn-primary, .btn-outline-primary {
+                padding: 0.5rem 1.5rem;
+                font-size: 0.95rem;
+            }
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+            .navbar-text {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ...existing code for navbar and timer... -->
+  
+    <div class="fixed-timer" id="fixedTimer">
+        <div class="timer-text">الوقت المتبقي</div>
+        <div id="fixed-timer-display">30:00</div>
+    </div>
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h1 class="display-4">Concours de sciences education  </h1>
+            <p class="lead">Épreuve  </p>
+        </div>
+        <div class="main-container" id="instructions-section">
+            <div class="card mb-4 border-0 shadow-sm">
+                <div class="card-header">
+                    <h4 class="mb-0"><i class="fas fa-info-circle ms-2"></i>التعليمات</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="mb-4">
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary ms-2"></i>يحتوي الاختبار على 20 سؤالاً (من 1 إلى 20)</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary ms-2"></i>لديك 30 دقيقة للإجابة على جميع الأسئلة</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary ms-2"></i>لكل سؤال، هناك 4 خيارات للإجابة (أ، ب، ج، د)</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary ms-2"></i>يوجد إجابة واحدة صحيحة فقط لكل سؤال</li>
+                        <li><i class="fas fa-check-circle text-primary ms-2"></i>كل إجابة صحيحة تحصل على نقطة واحدة</li>
+                    </ul>
+                    <div class="alert alert-info">
+                        <i class="fas fa-exclamation-circle ms-2"></i><strong>تنبيه:</strong> يبدأ المؤقت بمجرد النقر على "بدء الاختبار" ولا يمكن إيقافه.
+                    </div>
+                    <div class="text-center mt-4">
+                        <button id="start-timer" class="btn btn-primary btn-lg px-5">
+                            <i class="fas fa-play-circle ms-2"></i>بدء الاختبار
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main-container hidden-section" id="qcm-section">
+            <section>
+                <div class="section-divider">
+                    <span class="section-divider-text">الجزء 3 (أسئلة 1-20)</span>
+                </div>
+                <!-- Question 1 -->
+                <div class="question-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">السؤال 1</h4>
+                        <span class="badge bg-primary">1 نقطة</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">تُعتبر "بيداغوجيا المشروع" منبثقة من:</p>
+                        <div class="list-group">
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q1" value="a">أ. النظرية السلوكية</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q1" value="b">ب. النظرية البنائية الاجتماعية (فيغوتسكي)</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q1" value="c">ج. النظرية الجشطالتية</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q1" value="d">د. نظرية الذكاءات المتعددة</label>
+                        </div>
+                        <div class="explanation"><strong>الإجابة الصحيحة: ب</strong><br>تعتمد بيداغوجيا المشروع على التفاعل الاجتماعي والتعلم التعاوني، وهو ما يتماشى مع نظرية فيغوتسكي.</div>
+                    </div>
+                </div>
+                <!-- Question 2 -->
+                <div class="question-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">السؤال 2</h4>
+                        <span class="badge bg-primary">1 نقطة</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">عند "بياجيه"، يُطلق على مرحلة (7-11 سنة) اسم:</p>
+                        <div class="list-group">
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q2" value="a">أ. المرحلة الحسية الحركية</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q2" value="b">ب. مرحلة ما قبل العمليات</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q2" value="c">ج. مرحلة العمليات المادية</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q2" value="d">د. مرحلة العمليات المجردة</label>
+                        </div>
+                        <div class="explanation"><strong>الإجابة الصحيحة: ج</strong><br>مرحلة العمليات المادية (المحسوسة) تتميز بتطور المنطق العملي لدى الطفل.</div>
+                    </div>
+                </div>
+                <!-- Question 3 -->
+                <div class="question-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">السؤال 3</h4>
+                        <span class="badge bg-primary">1 نقطة</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">أي من الآتي يُعد من مبادئ "بيداغوجيا الخطأ"؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q3" value="a">أ. معاقبة المتعلم على أخطائه</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q3" value="b">ب. اعتبار الخطأ مؤشراً على التعلم</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q3" value="c">ج. تصحيح الأخطاء فوراً دون مناقشة</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q3" value="d">د. تجاهل الأخطاء لتحفيز الثقة</label>
+                        </div>
+                        <div class="explanation"><strong>الإجابة الصحيحة: ب</strong><br>تعتمد هذه البيداغوجيا على تحويل الأخطاء إلى فرص تعلم.</div>
+                    </div>
+                </div>
+                <!-- Question 4 -->
+                <div class="question-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">السؤال 4</h4>
+                        <span class="badge bg-primary">1 نقطة</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">مفهوم "المنهاج الخفي" يشير إلى:</p>
+                        <div class="list-group">
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q4" value="a">أ. المقررات الدراسية غير المعلنة</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q4" value="b">ب. القيم والسلوكيات التي تُكتسب دون تخطيط صريح</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q4" value="c">ج. الأنشطة اللاصفية</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q4" value="d">د. البرامج الإلكترونية غير الرسمية</label>
+                        </div>
+                        <div class="explanation"><strong>الإجابة الصحيحة: ب</strong><br>المنهاج الخفي يتضمن القيم والمعايير الاجتماعية التي تُنقل ضمنياً في المدرسة.</div>
+                    </div>
+                </div>
+                <!-- Question 5 -->
+                <div class="question-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">السؤال 5</h4>
+                        <span class="badge bg-primary">1 نقطة</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">أي من النظريات ترى أن "التعلم يتم عبر الملاحظة والتقليد"؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q5" value="a">أ. النظرية السلوكية (سكينر)</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q5" value="b">ب. النظرية المعرفية (بياجيه)</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q5" value="c">ج. النظرية الاجتماعية المعرفية (باندورا)</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q5" value="d">د. النظرية الإنسانية (ماسلو)</label>
+                        </div>
+                        <div class="explanation"><strong>الإجابة الصحيحة: ج</strong><br>باندورا يؤكد على دور النمذجة والتعلم بالملاحظة.</div>
+                    </div>
+                </div>
+                <!-- Question 6 -->
+                <div class="question-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">السؤال 6</h4>
+                        <span class="badge bg-primary">1 نقطة</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">يُطلق على "القدرة على فهم مشاعر الآخرين والتعاطف معهم" مصطلح:</p>
+                        <div class="list-group">
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q6" value="a">أ. الذكاء المنطقي</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q6" value="b">ب. الذكاء العاطفي</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q6" value="c">ج. الذكاء اللغوي</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q6" value="d">د. الذكاء المكاني</label>
+                        </div>
+                        <div class="explanation"><strong>الإجابة الصحيحة: ب</strong><br>الذكاء العاطفي (Emotional Intelligence) يتضمن التعاطف وإدارة المشاعر.</div>
+                    </div>
+                </div>
+                <!-- Question 7 -->
+                <div class="question-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">السؤال 7</h4>
+                        <span class="badge bg-primary">1 نقطة</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">أي من الآتي يُعد من أدوات التقويم التكويني؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q7" value="a">أ. الاختبارات النهائية</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q7" value="b">ب. الملاحظة اليومية والتغذية الراجعة</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q7" value="c">ج. الامتحانات الإشهادية</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q7" value="d">د. التقييمات المعيارية</label>
+                        </div>
+                        <div class="explanation"><strong>الإجابة الصحيحة: ب</strong><br>التقويم التكويني يهدف إلى تحسين التعلم أثناء العملية التعليمية.</div>
+                    </div>
+                </div>
+                <!-- Question 8 -->
+                <div class="question-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">السؤال 8</h4>
+                        <span class="badge bg-primary">1 نقطة</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">"الهيابيتوس" عند بورديو يعني:</p>
+                        <div class="list-group">
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q8" value="a">أ. العادات المكتسبة من المحيط الاجتماعي</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q8" value="b">ب. القوانين المدرسية الصارمة</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q8" value="c">ج. المناهج الدراسية الرسمية</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q8" value="d">د. المهارات الفطرية</label>
+                        </div>
+                        <div class="explanation"><strong>الإجابة الصحيحة: أ</strong><br>هيابيتوس (Habitus) هو نظام الاستعدادات والتصرفات المكتسبة من التنشئة.</div>
+                    </div>
+                </div>
+                <!-- Question 9 -->
+                <div class="question-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">السؤال 9</h4>
+                        <span class="badge bg-primary">1 نقطة</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">أي من الاستراتيجيات تنتمي إلى "التعلم النشط"؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q9" value="a">أ. المحاضرة التقليدية</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q9" value="b">ب. التعلم باللعب</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q9" value="c">ج. الحفظ عن ظهر قلب</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q9" value="d">د. الاختبارات الكتابية</label>
+                        </div>
+                        <div class="explanation"><strong>الإجابة الصحيحة: ب</strong><br>التعلم النشط يعتمد على التفاعل والمشاركة، مثل الألعاب التعليمية.</div>
+                    </div>
+                </div>
+                <!-- Question 10 -->
+                <div class="question-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">السؤال 10</h4>
+                        <span class="badge bg-primary">1 نقطة</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">"التربية الدامجة" تهدف إلى:</p>
+                        <div class="list-group">
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q10" value="a">أ. دمج ذوي الإعاقة في المدارس العادية</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q10" value="b">ب. إنشاء مدارس خاصة بالمتفوقين</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q10" value="c">ج. فصل الطلاب حسب مستوياتهم</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q10" value="d">د. تعليم المهارات الحرفية فقط</label>
+                        </div>
+                        <div class="explanation"><strong>الإجابة الصحيحة: أ</strong><br>التربية الدامجة (Inclusive Education) تعزز المساواة في فرص التعلم.</div>
+                    </div>
+                </div>
+                <!-- Question 11 -->
+                <div class="question-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">السؤال 11</h4>
+                        <span class="badge bg-primary">1 نقطة</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">أي من النظريات تربط التعلم بـ"التكيف مع البيئة"؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q11" value="a">أ. النظرية السلوكية</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q11" value="b">ب. النظرية البنائية</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q11" value="c">ج. النظرية الجشطالتية</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q11" value="d">د. النظرية الإنسانية</label>
+                        </div>
+                        <div class="explanation"><strong>الإجابة الصحيحة: أ</strong><br>السلوكيون (مثل سكينر) يرون أن التعلم نتاج التفاعل مع المثيرات البيئية.</div>
+                    </div>
+                </div>
+                <!-- Question 12 -->
+                <div class="question-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">السؤال 12</h4>
+                        <span class="badge bg-primary">1 نقطة</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">"التعاقد الديداكتيكي" هو اتفاق بين:</p>
+                        <div class="list-group">
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q12" value="a">أ. المدرس والمتعلم حول أدوارهما</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q12" value="b">ب. المدرسة والأسرة</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q12" value="c">ج. الوزارة والمدرسين</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q12" value="d">د. الطلاب فيما بينهم</label>
+                        </div>
+                        <div class="explanation"><strong>الإجابة الصحيحة: أ</strong><br>يتضمن هذا التعاقد توقعات متبادلة حول عملية التعليم والتعلم.</div>
+                    </div>
+                </div>
+                <!-- Question 13 -->
+                <div class="question-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">السؤال 13</h4>
+                        <span class="badge bg-primary">1 نقطة</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">أي مما يلي يُعد من صفات "القائد الديمقراطي" في الفصل؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q13" value="a">أ. اتخاذ القرارات منفرداً</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q13" value="b">ب. تشجيع المشاركة وتبادل الآراء</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q13" value="c">ج. فرض القوانين بقوة</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q13" value="d">د. تجاهل آراء الطلاب</label>
+                        </div>
+                        <div class="explanation"><strong>الإجابة الصحيحة: ب</strong><br>القيادة الديمقراطية تعتمد على الحوار والمشاركة.</div>
+                    </div>
+                </div>
+                <!-- Question 14 -->
+                <div class="question-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">السؤال 14</h4>
+                        <span class="badge bg-primary">1 نقطة</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">"التقويم الذاتي" للمتعلم يعني:</p>
+                        <div class="list-group">
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q14" value="a">أ. تقييم المدرس لأداء الطالب</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q14" value="b">ب. تقييم الطالب لنفسه باستخدام معايير محددة</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q14" value="c">ج. تقييم الأقران لبعضهم البعض</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q14" value="d">د. تقييم مدير المدرسة للمعلمين</label>
+                        </div>
+                        <div class="explanation"><strong>الإجابة الصحيحة: ب</strong><br>يُعزز هذا النوع من التقويم الاستقلالية والمسؤولية.</div>
+                    </div>
+                </div>
+                <!-- Question 15 -->
+                <div class="question-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">السؤال 15</h4>
+                        <span class="badge bg-primary">1 نقطة</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">"بيداغوجيا الإشراك" تركز على:</p>
+                        <div class="list-group">
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q15" value="a">أ. تلقين المعلومات فقط</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q15" value="b">ب. مشاركة المتعلم في بناء المعرفة</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q15" value="c">ج. الاعتماد الكلي على الكتاب المدرسي</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q15" value="d">د. إلغاء دور المعلم</label>
+                        </div>
+                        <div class="explanation"><strong>الإجابة الصحيحة: ب</strong><br>هذه البيداغوجيا تشجع التعلم التفاعلي والتشاركي.</div>
+                    </div>
+                </div>
+                <!-- Question 16 -->
+                <div class="question-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">السؤال 16</h4>
+                        <span class="badge bg-primary">1 نقطة</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">مفهوم "المنطقة القريبة من التطور" (ZPD) عند فيغوتسكي يشير إلى:</p>
+                        <div class="list-group">
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q16" value="a">أ. المهارات التي يتقنها المتعلم بمفرده</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q16" value="b">ب. المهام التي يمكن إنجازها بمساعدة الآخرين</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q16" value="c">ج. الفجوة بين العمر العقلي والزمني</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q16" value="d">د. المناهج المتقدمة فقط</label>
+                        </div>
+                        <div class="explanation"><strong>الإجابة الصحيحة: ب</strong><br>ZPD هي المسافة بين ما يمكن تعلمه ذاتياً وما يمكن تحقيقه بدعم.</div>
+                    </div>
+                </div>
+                <!-- Question 17 -->
+                <div class="question-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">السؤال 17</h4>
+                        <span class="badge bg-primary">1 نقطة</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">أي من الاستراتيجيات تنتمي إلى "التعليم المقلوب" (Flipped Classroom)؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q17" value="a">أ. دراسة المحتوى في المنزل ومناقشته في الفصل</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q17" value="b">ب. الاعتماد الكلي على الواجبات المنزلية</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q17" value="c">ج. إلغاء الدروس النظرية</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q17" value="d">د. تقليل التفاعل بين الطلاب</label>
+                        </div>
+                        <div class="explanation"><strong>الإجابة الصحيحة: أ</strong><br>في هذا النموذج، يُدرس الطالب المادة дома ويطبقها في الصف.</div>
+                    </div>
+                </div>
+                <!-- Question 18 -->
+                <div class="question-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">السؤال 18</h4>
+                        <span class="badge bg-primary">1 نقطة</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">"التعلم بالاكتشاف" يعتمد على:</p>
+                        <div class="list-group">
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q18" value="a">أ. تلقين المعلومات جاهزة</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q18" value="b">ب. توظيف التجربة والبحث الشخصي</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q18" value="c">ج. الحفظ والتكرار</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q18" value="d">د. الاختبارات الكتابية فقط</label>
+                        </div>
+                        <div class="explanation"><strong>الإجابة الصحيحة: ب</strong><br>يُشجع المتعلم على استنتاج المعرفة عبر الاستكشاف.</div>
+                    </div>
+                </div>
+                <!-- Question 19 -->
+                <div class="question-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">السؤال 19</h4>
+                        <span class="badge bg-primary">1 نقطة</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">"الذكاء الوجداني" يتضمن:</p>
+                        <div class="list-group">
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q19" value="a">أ. القدرة على حل المسائل الرياضية</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q19" value="b">ب. فهم المشاعر وإدارتها</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q19" value="c">ج. الحفظ السريع</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q19" value="d">د. المهارات الحركية</label>
+                        </div>
+                        <div class="explanation"><strong>الإجابة الصحيحة: ب</strong><br>يعتمد على الوعي العاطفي والتعاطف.</div>
+                    </div>
+                </div>
+                <!-- Question 20 -->
+                <div class="question-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">السؤال 20</h4>
+                        <span class="badge bg-primary">1 نقطة</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">"التقويم التشخيصي" يهدف إلى:</p>
+                        <div class="list-group">
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q20" value="a">أ. تحديد نقاط القوة والضعف قبل البدء بالتعليم</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q20" value="b">ب. منح الدرجات النهائية</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q20" value="c">ج. مقارنة الطلاب ببعضهم</label>
+                            <label class="list-group-item"><input class="form-check-input ms-1" type="radio" name="q20" value="d">د. قياس التحصيل فقط</label>
+                        </div>
+                        <div class="explanation"><strong>الإجابة الصحيحة: أ</strong><br>يُستخدم لفهم احتياجات المتعلمين وتصميم التدخلات المناسبة.</div>
+                    </div>
+                </div>
+                <!-- ...existing code for submit button and results section... -->
+                <div class="text-center mt-5">
+                    <button id="submit-answers" class="btn btn-primary btn-lg px-5">
+                        <i class="fas fa-check-circle ms-2"></i>تقديم الإجابات
+                    </button>
+                </div>
+            </section>
+        </div>
+        <div class="main-container hidden-section" id="results-section">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header">
+                    <h4 class="mb-0"><i class="fas fa-chart-bar ms-2"></i>نتائج الاختبار</h4>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-5">
+                        <h3 id="final-score">النتيجة: 0/20</h3>
+                        <p id="score-feedback" class="score-feedback"></p>
+                        <div class="progress mt-3 mb-4">
+                            <div id="final-progress" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                     
+                    <div class="d-flex justify-content-center gap-3 flex-wrap">
+                        <button id="review-answers" class="btn btn-outline-primary mb-2">
+                            <i class="fas fa-search me-2"></i>Voir les réponses
+                        </button>
+                        <button id="restart-quiz" class="btn btn-primary mb-2">
+                            <i class="fas fa-redo me-2"></i>Recommencer
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // الإجابات الصحيحة (تأكد من مطابقة القيم مع الخيارات)
+        const correctAnswers = {
+            q1: "d", q2: "a", q3: "b", q4: "b", q5: "a",
+            q6: "b", q7: "b", q8: "a", q9: "b", q10: "a",
+            q11: "a", q12: "a", q13: "b", q14: "b", q15: "b",
+            q16: "b", q17: "a", q18: "b", q19: "b", q20: "a"
+            // ...ajoute les bonnes réponses pour q6 à q20 selon tes questions...
+        };
+        let timeLeft = 1800;
+        let timerInterval;
+        const totalQuestions = 20;
+        const startBtn = document.getElementById('start-timer');
+        const submitBtn = document.getElementById('submit-answers');
+        const reviewBtn = document.getElementById('review-answers');
+        const restartBtn = document.getElementById('restart-quiz');
+        const downloadBtn = document.getElementById('download-results');
+        const fixedTimer = document.getElementById('fixedTimer');
+        const timerDisplay = document.getElementById('fixed-timer-display');
+        const instructionsSection = document.getElementById('instructions-section');
+        const qcmSection = document.getElementById('qcm-section');
+        const resultsSection = document.getElementById('results-section');
+        const finalScore = document.getElementById('final-score');
+        const finalProgress = document.getElementById('final-progress');
+        const scoreFeedback = document.getElementById('score-feedback');
+
+        startBtn.addEventListener('click', function() {
+            instructionsSection.classList.add('hidden-section');
+            qcmSection.classList.remove('hidden-section');
+            fixedTimer.classList.add('active');
+            startTimer();
+            qcmSection.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        function startTimer() {
+            timerInterval = setInterval(function() {
+                timeLeft--;
+                updateTimerDisplay();
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    validateQuiz();
+                }
+                if (timeLeft <= 300) fixedTimer.classList.add('warning');
+                if (timeLeft <= 60) {
+                    fixedTimer.classList.remove('warning');
+                    fixedTimer.classList.add('danger');
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function validateQuiz() {
+            clearInterval(timerInterval);
+            fixedTimer.classList.remove('active');
+            let score = 0;
+            for (let i = 1; i <= totalQuestions; i++) {
+                const qName = `q${i}`;
+                const selected = document.querySelector(`input[name="${qName}"]:checked`);
+                document.querySelectorAll(`input[name="${qName}"]`).forEach(option => {
+                    const parent = option.closest('.list-group-item');
+                    parent.classList.remove('correct-answer', 'incorrect-answer');
+                    if (option.value === correctAnswers[qName]) {
+                        parent.classList.add('correct-answer');
+                    } else if (option.checked) {
+                        parent.classList.add('incorrect-answer');
+                    }
+                });
+                const explanation = document.querySelector(`input[name="${qName}"]`)?.closest('.question-card')?.querySelector('.explanation');
+                if (explanation) explanation.style.display = 'block';
+                if (selected && selected.value === correctAnswers[qName]) score++;
+            }
+            displayResults(score);
+        }
+
+        function displayResults(score) {
+            const percent = Math.round((score / totalQuestions) * 100);
+            finalScore.textContent = `النتيجة: ${score}/${totalQuestions}`;
+            finalProgress.style.width = `${percent}%`;
+            finalProgress.textContent = `${percent}%`;
+            finalProgress.classList.remove('bg-success', 'bg-warning', 'bg-danger');
+            if (percent >= 75) {
+                finalProgress.classList.add('bg-success');
+                scoreFeedback.textContent = "عمل ممتاز! لديك فهم قوي للمفاهيم.";
+                scoreFeedback.className = "score-feedback score-excellent";
+            } else if (percent >= 50) {
+                finalProgress.classList.add('bg-warning');
+                scoreFeedback.textContent = "عمل جيد، ولكن هناك مجالات للتحسين.";
+                scoreFeedback.className = "score-feedback score-good";
+            } else {
+                finalProgress.classList.add('bg-danger');
+                scoreFeedback.textContent = "استمر في الممارسة، يمكنك تحقيق نتائج أفضل!";
+                scoreFeedback.className = "score-feedback score-poor";
+            }
+            qcmSection.classList.add('hidden-section');
+            resultsSection.classList.remove('hidden-section');
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        submitBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const confirmed = confirm("هل أنت متأكد أنك تريد تقديم إجاباتك؟ لن تتمكن من تعديلها بعد ذلك.");
+            if (confirmed) {
+                validateQuiz();
+            }
+        });
+
+        reviewBtn.addEventListener('click', function() {
+            resultsSection.classList.add('hidden-section');
+            qcmSection.classList.remove('hidden-section');
+            // Afficher toutes les explications
+            for (let i = 1; i <= totalQuestions; i++) {
+                const explanation = document.querySelector(`input[name="q${i}"]`)?.closest('.question-card')?.querySelector('.explanation');
+                if (explanation) explanation.style.display = 'block';
+            }
+            qcmSection.scrollIntoView({ behavior: 'smooth' });
+
+            // Replace "Soumettre" button with "Retour"
+            submitBtn.style.display = 'none';
+            const retourBtn = document.createElement('button');
+            retourBtn.id = 'retour-quiz';
+            retourBtn.className = 'btn btn-primary btn-lg px-5';
+            retourBtn.innerHTML = '<i class="fas fa-arrow-left ms-2"></i>Retour';
+            submitBtn.parentElement.appendChild(retourBtn);
+
+            retourBtn.addEventListener('click', function() {
+                qcmSection.classList.add('hidden-section');
+                resultsSection.classList.remove('hidden-section');
+                retourBtn.remove();
+                submitBtn.style.display = 'block';
+                resultsSection.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        restartBtn.addEventListener('click', function() {
+            document.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
+            document.querySelectorAll('.list-group-item').forEach(item => item.classList.remove('correct-answer', 'incorrect-answer'));
+            document.querySelectorAll('.explanation').forEach(exp => exp.style.display = 'none');
+            clearInterval(timerInterval);
+            timeLeft = 1800;
+            updateTimerDisplay();
+            fixedTimer.classList.remove('warning', 'danger');
+            resultsSection.classList.add('hidden-section');
+            qcmSection.classList.add('hidden-section');
+            instructionsSection.classList.remove('hidden-section');
+            instructionsSection.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        downloadBtn.addEventListener('click', function() {
+            const resultText = `نتيجة اختبار الرياضيات\n\n${finalScore.textContent}\n${scoreFeedback.textContent}`;
+            const blob = new Blob([resultText], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'نتيجة_الاختبار.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+    </script>
+</body>
+</html>

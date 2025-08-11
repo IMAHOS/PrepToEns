@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QCM Sciences de l'Éducation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .header-section {
+            background-color: #3498db;
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        .question-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .question {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .form-check {
+            margin-bottom: 10px;
+        }
+        .btn-primary {
+            background-color: #3498db;
+            border-color: #3498db;
+        }
+        .result-section {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f1f8fe;
+            border-radius: 5px;
+        }
+        .progress {
+            height: 25px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <div class="header-section text-center">
+            <h1>Sciences de l'Éducation</h1>
+            <p class="lead">Partie commune à tous les concours</p>
+        </div>
+
+        <div class="question-section">
+            <h3 class="mb-4">I. Sciences de l'Éducation</h3>
+            
+            <!-- Question 1 -->
+            <div class="question">
+                <p class="fw-bold">1. Selon Vygotsky, la Zone de Développement Proximal (ZDP) correspond à :</p>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q1" id="q1-a" value="a">
+                    <label class="form-check-label" for="q1-a">Le niveau de performance seul de l'élève</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q1" id="q1-b" value="b">
+                    <label class="form-check-label" for="q1-b">L'écart entre ce que l'élève fait seul et avec aide</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q1" id="q1-c" value="c">
+                    <label class="form-check-label" for="q1-c">La capacité de mémorisation</label>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question">
+                <p class="fw-bold">2. Le constructivisme en pédagogie insiste sur :</p>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q2" id="q2-a" value="a">
+                    <label class="form-check-label" for="q2-a">La transmission verticale du savoir</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q2" id="q2-b" value="b">
+                    <label class="form-check-label" for="q2-b">La construction active des connaissances par l'apprenant</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q2" id="q2-c" value="c">
+                    <label class="form-check-label" for="q2-c">L'apprentissage par répétition</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-section">
+            <h3 class="mb-4">II. Pédagogie Générale</h3>
+            
+            <!-- Question 3 -->
+            <div class="question">
+                <p class="fw-bold">3. La pédagogie différenciée vise à :</p>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q3" id="q3-a" value="a">
+                    <label class="form-check-label" for="q3-a">Uniformiser les méthodes d'enseignement</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q3" id="q3-b" value="b">
+                    <label class="form-check-label" for="q3-b">Adapter les stratégies aux besoins des élèves</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q3" id="q3-c" value="c">
+                    <label class="form-check-label" for="q3-c">Privilégier les élèves en difficulté</label>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question">
+                <p class="fw-bold">4. Dans le triangle pédagogique de Houssaye, les trois pôles sont :</p>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q4" id="q4-a" value="a">
+                    <label class="form-check-label" for="q4-a">Enseignant, Élève, Programme</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q4" id="q4-b" value="b">
+                    <label class="form-check-label" for="q4-b">Savoir, Enseignant, Élève</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q4" id="q4-c" value="c">
+                    <label class="form-check-label" for="q4-c">Théorie, Pratique, Évaluation</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-section">
+            <h3 class="mb-4">III. Système Éducatif et Didactique</h3>
+            
+            <!-- Question 5 -->
+            <div class="question">
+                <p class="fw-bold">5. La loi de 1882 instaurant l'école laïque et obligatoire est attribuée à :</p>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q5" id="q5-a" value="a">
+                    <label class="form-check-label" for="q5-a">Jules Ferry</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q5" id="q5-b" value="b">
+                    <label class="form-check-label" for="q5-b">Ferdinand Buisson</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q5" id="q5-c" value="c">
+                    <label class="form-check-label" for="q5-c">Pauline Kergomard</label>
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question">
+                <p class="fw-bold">6. En didactique, une "situation-problème" a pour objectif principal de :</p>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q6" id="q6-a" value="a">
+                    <label class="form-check-label" for="q6-a">Placer l'élève face à un obstacle à surmonter</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q6" id="q6-b" value="b">
+                    <label class="form-check-label" for="q6-b">Préparer aux évaluations standardisées</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q6" id="q6-c" value="c">
+                    <label class="form-check-label" for="q6-c">Faciliter la mémorisation des savoirs</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <button id="submitBtn" class="btn btn-primary btn-lg">Valider le QCM</button>
+        </div>
+
+        <div id="resultSection" class="result-section">
+            <h3 class="text-center mb-4">Résultats du QCM</h3>
+            <div class="progress">
+                <div id="progressBar" class="progress-bar" role="progressbar" style="width: 0%"></div>
+            </div>
+            <p id="scoreText" class="text-center fs-4"></p>
+            <div id="corrections"></div>
+            <div class="text-center mt-4">
+                <button id="retryBtn" class="btn btn-outline-primary">Recommencer</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Réponses correctes
+            const correctAnswers = {
+                q1: 'b',
+                q2: 'b',
+                q3: 'b',
+                q4: 'b',
+                q5: 'a',
+                q6: 'a'
+            };
+
+            // Explications des réponses
+            const explanations = {
+                q1: "La ZDP est l'écart entre ce que l'élève peut faire seul et ce qu'il peut faire avec l'aide d'un pair plus compétent ou d'un adulte.",
+                q2: "Le constructivisme postule que l'apprenant construit activement ses connaissances à partir de son expérience.",
+                q3: "La pédagogie différenciée consiste à adapter les méthodes et supports aux besoins spécifiques de chaque élève.",
+                q4: "Le triangle pédagogique représente les relations entre le Savoir, l'Enseignant et l'Élève.",
+                q5: "Jules Ferry est à l'origine des lois de 1881-1882 rendant l'école gratuite, laïque et obligatoire.",
+                q6: "Une situation-problème place l'élève devant un obstacle cognitif qu'il doit résoudre pour construire son apprentissage."
+            };
+
+            // Gestion de la soumission
+            document.getElementById('submitBtn').addEventListener('click', function() {
+                let score = 0;
+                const totalQuestions = Object.keys(correctAnswers).length;
+                let correctionsHtml = '<h4 class="mt-4">Corrections :</h4><ul class="list-group">';
+
+                // Vérification des réponses
+                for (let i = 1; i <= totalQuestions; i++) {
+                    const questionName = 'q' + i;
+                    const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+                    
+                    if (selectedOption) {
+                        if (selectedOption.value === correctAnswers[questionName]) {
+                            score++;
+                            correctionsHtml += `
+                                <li class="list-group-item list-group-item-success">
+                                    <strong>Question ${i} :</strong> Correct! ${explanations[questionName]}
+                                </li>`;
+                        } else {
+                            correctionsHtml += `
+                                <li class="list-group-item list-group-item-danger">
+                                    <strong>Question ${i} :</strong> Incorrect. La bonne réponse était "${correctAnswers[questionName]}". 
+                                    ${explanations[questionName]}
+                                </li>`;
+                        }
+                    } else {
+                        correctionsHtml += `
+                            <li class="list-group-item list-group-item-warning">
+                                <strong>Question ${i} :</strong> Aucune réponse sélectionnée. ${explanations[questionName]}
+                            </li>`;
+                    }
+                }
+
+                correctionsHtml += '</ul>';
+
+                // Calcul du score
+                const percentage = Math.round((score / totalQuestions) * 100);
+                let message = '';
+                
+                if (percentage >= 80) {
+                    message = 'Excellent travail ! Vous maîtrisez bien ces concepts.';
+                } else if (percentage >= 50) {
+                    message = 'Bon résultat, mais quelques révisions seraient bénéfiques.';
+                } else {
+                    message = 'Consultez les ouvrages de référence pour approfondir ces notions.';
+                }
+
+                // Affichage des résultats
+                document.getElementById('progressBar').style.width = percentage + '%';
+                document.getElementById('progressBar').textContent = percentage + '%';
+                document.getElementById('scoreText').textContent = 
+                    `Vous avez obtenu ${score} bonnes réponses sur ${totalQuestions}. ${message}`;
+                document.getElementById('corrections').innerHTML = correctionsHtml;
+                document.getElementById('resultSection').style.display = 'block';
+                
+                // Défilement vers les résultats
+                document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth' });
+            });
+
+            // Bouton Recommencer
+            document.getElementById('retryBtn').addEventListener('click', function() {
+                // Réinitialiser les sélections
+                document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                    radio.checked = false;
+                });
+                
+                // Masquer les résultats
+                document.getElementById('resultSection').style.display = 'none';
+                
+                // Remonter en haut de page
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>

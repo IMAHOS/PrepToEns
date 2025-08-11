@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QCM Thème 1 | Sciences Éducation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="../../index.html">Concours Enseignement</a>
+            <span class="navbar-text">Sciences Éducation - Thème 1</span>
+        </div>
+    </nav>
+
+    <div class="container main-container py-5">
+        <div class="text-center header-content mb-5">
+            <h1 class="display-4">Thème 1 : Apprentissage</h1>
+            <p class="lead text-muted">Testez vos connaissances</p>
+        </div>
+
+        <div class="qcm-container bg-white p-4 rounded shadow-sm">
+            <form id="qcmForm" data-qcm-type="sciences-theme1">
+                <!-- Question 1 -->
+                <div class="question mb-5 pb-3 border-bottom">
+                    <h4 class="mb-3">1. Selon Vygotsky, qu'est-ce que la ZDP ?</h4>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="radio" name="q1" id="q1-a" value="a">
+                        <label class="form-check-label" for="q1-a">Zone de Développement Proximal</label>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="radio" name="q1" id="q1-b" value="b">
+                        <label class="form-check-label" for="q1-b">Zone de Performance Durable</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q1" id="q1-c" value="c">
+                        <label class="form-check-label" for="q1-c">Zone de Pratique Différenciée</label>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="question mb-5 pb-3 border-bottom">
+                    <h4 class="mb-3">2. Quel est le principal apport de Piaget ?</h4>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="radio" name="q2" id="q2-a" value="a">
+                        <label class="form-check-label" for="q2-a">Les stades de développement</label>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="radio" name="q2" id="q2-b" value="b">
+                        <label class="form-check-label" for="q2-b">L'importance du langage</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q2" id="q2-c" value="c">
+                        <label class="form-check-label" for="q2-c">Le rôle des émotions</label>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="question mb-4">
+                    <h4 class="mb-3">3. Quelle approche met l'accent sur la construction active des connaissances ?</h4>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="radio" name="q3" id="q3-a" value="a">
+                        <label class="form-check-label" for="q3-a">Le constructivisme</label>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="radio" name="q3" id="q3-b" value="b">
+                        <label class="form-check-label" for="q3-b">Le behaviorisme</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q3" id="q3-c" value="c">
+                        <label class="form-check-label" for="q3-c">L'enseignement direct</label>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-5">
+                    <button type="button" class="btn btn-outline-secondary back-button">
+                        ← Retour
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        Valider le QCM
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Résultats -->
+        <div id="results" class="hidden mt-5">
+            <div class="card border-0 shadow">
+                <div class="card-body text-center p-5">
+                    <h2 class="mb-4">Résultats du QCM</h2>
+                    <div class="progress mb-4" style="height: 25px;">
+                        <div id="progressBar" class="progress-bar progress-bar-striped" role="progressbar" style="width: 0%"></div>
+                    </div>
+                    <h4 class="mb-3" id="scoreText">Score : 0/3</h4>
+                    <p id="feedback" class="lead mb-4"></p>
+                    <div class="d-flex justify-content-center gap-3">
+                        <button id="retryBtn" class="btn btn-warning px-4">Recommencer</button>
+                        <button class="btn btn-primary px-4" onclick="navigateTo('../../didactique.html')">Nouveau QCM</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/qcm.js"></script>
+    <script src="../../js/navigation.js"></script>
+</body>
+</html>

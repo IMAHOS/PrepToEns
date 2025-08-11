@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار ديداكتيك الرياضيات - مسابقة التوظيف 2025</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c786c;
+            --secondary-color: #004445;
+            --accent-color: #f8b400;
+            --light-color: #faf5e4;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-top: 80px;
+            color: #333;
+            line-height: 1.7;
+        }
+        
+        .main-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 68, 69, 0.1);
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            border: 2px solid rgba(44, 120, 108, 0.1);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .question-card {
+            margin-bottom: 2.5rem;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 68, 69, 0.08);
+            border: 2px solid rgba(44, 120, 108, 0.15);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 68, 69, 0.15);
+            border-color: rgba(44, 120, 108, 0.3);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            font-weight: 700;
+            border-bottom: none;
+            padding: 1.2rem 1.5rem;
+            border-radius: 13px 13px 0 0 !important;
+        }
+        
+        .card-body {
+            padding: 1.8rem;
+        }
+        
+        .card-title {
+            color: var(--secondary-color);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1.2rem;
+            position: relative;
+            padding-right: 1.5rem;
+        }
+        
+        .card-title:before {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 25px;
+            background: var(--accent-color);
+            border-radius: 5px;
+        }
+        
+        .card-text {
+            color: #444;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 1.4rem;
+            margin: 2rem 0 1rem;
+            padding-right: 1rem;
+            border-right: 5px solid var(--accent-color);
+        }
+        
+        .text-content {
+            font-size: 1.1rem;
+            text-align: justify;
+            margin-bottom: 1.5rem;
+        }
+        
+        .text-emphasis {
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+        
+        .list-group-item {
+            border: none;
+            border-right: 4px solid transparent;
+            margin-bottom: 0.5rem;
+            border-radius: 8px !important;
+            padding: 1rem 1.5rem;
+            font-size: 1.05rem;
+            transition: all 0.2s;
+            background-color: rgba(250, 245, 228, 0.5);
+            text-align: right;
+        }
+        
+        .list-group-item:hover {
+            background-color: rgba(44, 120, 108, 0.08);
+            border-right-color: var(--accent-color);
+        }
+        
+        .form-check-input {
+            width: 1.2em;
+            height: 1.2em;
+            margin-left: 0.8rem;
+            margin-right: 0;
+            margin-top: 0.2rem;
+            border: 2px solid #ced4da;
+        }
+        
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 0.6rem 2.2rem;
+            font-weight: 600;
+            border-radius: 30px;
+            box-shadow: 0 4px 10px rgba(44, 120, 108, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 68, 69, 0.4);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            font-weight: 600;
+            border-radius: 30px;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .correct-answer {
+            background-color: rgba(40, 167, 69, 0.15) !important;
+            border-right: 4px solid var(--success-color) !important;
+        }
+        
+        .incorrect-answer {
+            background-color: rgba(220, 53, 69, 0.1) !important;
+            border-right: 4px solid var(--danger-color) !important;
+        }
+        
+        .explanation {
+            display: none;
+            background-color: rgba(248, 180, 0, 0.08);
+            border-radius: 10px;
+            padding: 1.3rem;
+            margin-top: 1.5rem;
+            border-right: 4px solid var(--accent-color);
+            font-size: 1.05rem;
+            text-align: right;
+        }
+        
+        .explanation strong {
+            color: var(--secondary-color);
+        }
+        
+        .fixed-timer {
+            position: fixed;
+            top: 90px;
+            left: 30px;
+            z-index: 1000;
+            width: 180px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 68, 69, 0.15);
+            padding: 15px;
+            text-align: center;
+            display: none;
+            border: 2px solid rgba(44, 120, 108, 0.2);
+        }
+        
+        .fixed-timer.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        .fixed-timer .timer-text {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        
+        .fixed-timer #fixed-timer-display {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--secondary-color);
+            letter-spacing: 1px;
+        }
+        
+        .navbar {
+            box-shadow: 0 3px 15px rgba(0, 68, 69, 0.1);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+            padding: 0.8rem 1rem;
+        }
+        
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white !important;
+        }
+        
+        .navbar-brand i {
+            color: var(--accent-color);
+        }
+        
+        .navbar-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9) !important;
+        }
+        
+        .nav-link {
+            font-weight: 600;
+            padding: 0.5rem 1.2rem !important;
+            color: rgba(255, 255, 255, 0.8) !important;
+            transition: all 0.2s;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: white !important;
+            transform: translateY(-2px);
+        }
+        
+        .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 30px;
+        }
+        
+        h1.display-4 {
+            font-weight: 800;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1.display-4:after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            right: 0;
+            width: 70px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+        
+        .lead {
+            color: #555;
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .progress {
+            height: 35px;
+            background-color: #f1f1f1;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-bar {
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: width 0.6s ease;
+        }
+        
+        #final-score {
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 991.98px) {
+            .main-container {
+                padding: 1.8rem;
+                border-radius: 15px;
+            }
+            
+            .fixed-timer {
+                top: 80px;
+                left: 15px;
+                width: 150px;
+                padding: 12px;
+            }
+            
+            body {
+                padding-top: 70px;
+            }
+            
+            .card-body {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 767.98px) {
+            .main-container {
+                padding: 1.5rem 1rem;
+                border-radius: 12px;
+            }
+            
+            .fixed-timer {
+                top: 70px;
+                left: 10px;
+                width: 120px;
+                padding: 10px;
+            }
+            
+            h1.display-4 {
+                font-size: 1.8rem;
+            }
+            
+            .lead {
+                font-size: 1.1rem;
+            }
+            
+            .card-title {
+                font-size: 1.1rem;
+            }
+            
+            .card-text, .list-group-item {
+                font-size: 1rem;
+            }
+            
+            .btn-primary, .btn-outline-primary {
+                padding: 0.5rem 1.5rem;
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar fixe en haut -->
+    
+
+    <!-- Timer fixe qui apparaît quand on commence le test -->
+    <div class="fixed-timer" id="fixedTimer">
+        <div class="timer-text">الوقت المتبقي</div>
+        <div id="fixed-timer-display">30:00</div>
+    </div>
+
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h1 class="display-4">اختبار ديداكتيك الرياضيات</h1>
+            <p class="lead">مسابقة توظيف أساتذة التعليم الابتدائي  - تخصص الرياضيات</p>
+        </div>
+
+        <div class="main-container">
+            <div class="card mb-4 border-0 shadow-sm">
+                <div class="card-header bg-white" style="border-bottom: 1px solid #eee; border-radius: 16px 16px 0 0;">
+                    <h4 class="mb-0" style="color: var(--primary-color); font-weight: 700;">
+                        <i class="fas fa-info-circle me-2" style="color: var(--accent-color);"></i>
+                        تعليمات الاختبار
+                    </h4>
+                </div>
+                <div class="card-body" style="background: linear-gradient(90deg, #faf5e4 80%, #f8b40010 100%); border-radius: 0 0 16px 16px;">
+                    <ul class="mb-4" style="font-size: 1.08rem; color: #444;">
+                        <li class="mb-2">يحتوي هذا الاختبار على <span style="color: var(--primary-color); font-weight:600;">20 سؤالاً</span> في ديداكتيك الرياضيات (من Q1 إلى Q20)</li>
+                        <li class="mb-2">لديك <span style="color: var(--accent-color); font-weight:600;">30 دقيقة</span> للإجابة على جميع الأسئلة</li>
+                        <li class="mb-2">كل سؤال له أربعة خيارات للإجابة (<span style="color: var(--secondary-color); font-weight:600;">A, B, C, D</span>)، إجابة واحدة فقط صحيحة</li>
+                        <li>يتم حساب النتيجة بناءً على الإجابات الصحيحة فقط</li>
+                    </ul>
+                    <div class="text-center mt-4">
+                        <button id="start-timer" class="btn btn-primary btn-lg px-5"><i class="fas fa-play-circle me-2"></i>بدء الاختبار</button>
+                    </div>
+                </div>
+            </div>
+
+            <section id="qcm-section" class="d-none">
+                <!-- Section QCM -->
+                <!-- Question Q1 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q1</h5>
+                        <p class="card-text">ما هو العقد الديداكتيكي في تدريس الرياضيات؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q1" value="a">
+                                مجموعة القواعد التي تحكم العلاقة بين المعلم والمتعلم
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q1" value="b">
+                                خطة الدرس التي يعدها المعلم
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q1" value="c">
+                                الكتاب المدرسي المستخدم في التدريس
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q1" value="d">
+                                الامتحانات التي يجريها المعلم
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q1">
+                            <strong>التفسير:</strong> العقد الديداكتيكي هو مجموعة القواعد الضمنية التي تحكم العلاقة بين المعلم والمتعلم والمادة الدراسية، والتي تحدد توقعات كل طرف من الآخر.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q2 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q2</h5>
+                        <p class="card-text">ما هي الوضعية المشكلة في تدريس الرياضيات؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q2" value="a">
+                                سؤال مباشر عن مفهوم رياضي
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q2" value="b">
+                                موقف يحفز المتعلم على البحث عن حل باستخدام معارفه
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q2" value="c">
+                                تمرين تطبيقي بعد شرح المفهوم
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q2" value="d">
+                                مشروع بحثي طويل الأمد
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q2">
+                            <strong>التفسير:</strong> الوضعية المشكلة هي موقف تعلمي يحفز المتعلم على البحث عن حل باستخدام معارفه السابقة، مما يؤدي إلى بناء معارف جديدة.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q3 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q3</h5>
+                        <p class="card-text">ما هو دور التوجهات البيداغوجية في تدريس الرياضيات بالتعليم الابتدائي؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q3" value="a">
+                                توجيه المعلم في اختيار الطرق والاستراتيجيات التعليمية
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q3" value="b">
+                                تحديد محتوى الكتاب المدرسي
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q3" value="c">
+                                تقييم أداء المتعلمين
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q3" value="d">
+                                تنظيم الزمن المدرسي
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q3">
+                            <strong>التفسير:</strong> التوجهات البيداغوجية تساعد المعلم في اختيار الطرق والاستراتيجيات التعليمية المناسبة لتحقيق أهداف التعلم.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q4 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q4</h5>
+                        <p class="card-text">ما هي الأسس التي تقوم عليها عملية تدريس الرياضيات في التعليم الابتدائي؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q4" value="a">
+                                البناء التدريجي للمفاهيم من المحسوس إلى المجرد
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q4" value="b">
+                                حفظ القواعد والصيغ الرياضية
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q4" value="c">
+                                حل أكبر عدد ممكن من التمارين
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q4" value="d">
+                                التركيز على الجانب النظري فقط
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q4">
+                            <strong>التفسير:</strong> تدريس الرياضيات في التعليم الابتدائي يقوم على البناء التدريجي للمفاهيم من المحسوس إلى المجرد، مع التركيز على الفهم بدلاً من الحفظ.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q5 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q5</h5>
+                        <p class="card-text">ما هي مجالات الرياضيات في التعليم الابتدائي؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q5" value="a">
+                                الأعداد والحساب، الهندسة، القياس، معالجة البيانات
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q5" value="b">
+                                الجبر، التفاضل والتكامل، الهندسة، الإحصاء
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q5" value="c">
+                                الحساب، الجبر، الهندسة، المنطق
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q5" value="d">
+                                الأعداد، الجبر، الهندسة، علم المثلثات
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q5">
+                            <strong>التفسير:</strong> مجالات الرياضيات في التعليم الابتدائي تشمل: الأعداد والحساب، الهندسة، القياس، ومعالجة البيانات.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q6 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q6</h5>
+                        <p class="card-text">ما هو النهج الرياضياتي الذي ينبغي اتباعه في التدريس؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q6" value="a">
+                                البدء بالمشكلة ثم الانتقال إلى الحل ثم التعميم
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q6" value="b">
+                                تقديم القاعدة ثم التطبيقات
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q6" value="c">
+                                الحفظ ثم التطبيق
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q6" value="d">
+                                التلقين ثم التمرين
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q6">
+                            <strong>التفسير:</strong> النهج الرياضياتي الفعال يبدأ بالمشكلة التي تحفز التفكير، ثم البحث عن الحل، ثم التعميم وبناء المفهوم.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q7 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q7</h5>
+                        <p class="card-text">ما هي أهم الوسائل الديداكتيكية في تدريس الرياضيات؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q7" value="a">
+                                الوسائل المحسوسة والتمثيلات المختلفة للمفاهيم
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q7" value="b">
+                                الكتاب المدرسي فقط
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q7" value="c">
+                                السبورة والطباشير
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q7" value="d">
+                                الألعاب الإلكترونية فقط
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q7">
+                            <strong>التفسير:</strong> أهم الوسائل الديداكتيكية هي تلك التي تساعد على تقديم المفاهيم بشكل محسوس وتوفر تمثيلات متعددة للمفهوم الواحد.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q8 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q8</h5>
+                        <p class="card-text">كيف يتم بناء المفهوم الرياضياتي لدى المتعلم؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q8" value="a">
+                                من خلال الخبرات الحسية والتمثيلات المتعددة
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q8" value="b">
+                                بحفظ التعريف والصيغ
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q8" value="c">
+                                بحل الكثير من التمارين المتشابهة
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q8" value="d">
+                                بالاستماع إلى شرح المعلم فقط
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q8">
+                            <strong>التفسير:</strong> بناء المفهوم الرياضياتي يتم من خلال الخبرات الحسية والتمثيلات المتعددة التي تساعد المتعلم على فهم المفهوم بشكل عميق.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q9 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q9</h5>
+                        <p class="card-text">ما هو دور التقنيات الحديثة (TIC) في تدريس الرياضيات؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q9" value="a">
+                                تعزيز الفهم من خلال التمثيلات التفاعلية
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q9" value="b">
+                                استبدال المعلم بالحاسوب
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q9" value="c">
+                                تقليل دور المعلم في العملية التعليمية
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q9" value="d">
+                                جعل التعلم تلقائياً دون جهد
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q9">
+                            <strong>التفسير:</strong> تكمن أهمية التقنيات الحديثة في تعزيز الفهم من خلال التمثيلات التفاعلية والبرامج التي تساعد على تصور المفاهيم المجردة.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q10 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q10</h5>
+                        <p class="card-text">ما هي أهمية النموذج الديداكتيكي في تدريس الرياضيات؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q10" value="a">
+                                يساعد على تنظيم عملية التعليم والتعلم
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q10" value="b">
+                                يحدد محتوى الكتاب المدرسي
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q10" value="c">
+                                يحل محل الخبرة التعليمية للمعلم
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q10" value="d">
+                                يجعل التعليم آلياً
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q10">
+                            <strong>التفسير:</strong> النموذج الديداكتيكي يساعد المعلم على تنظيم عملية التعليم والتعلم بشكل منهجي وفعال.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q11 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q11</h5>
+                        <p class="card-text">ما هي أهم مبادئ تدريس الرياضيات في المرحلة الابتدائية؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q11" value="a">
+                                الربط بين الرياضيات والحياة اليومية
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q11" value="b">
+                                التركيز على الحفظ والتكرار
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q11" value="c">
+                                التلقين والإملاء
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q11" value="d">
+                                الاقتصار على الكتاب المدرسي
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q11">
+                            <strong>التفسير:</strong> من أهم مبادئ تدريس الرياضيات الربط بين المفاهيم الرياضية والحياة اليومية للمتعلم.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q12 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q12</h5>
+                        <p class="card-text">ما هي مراحل بناء المفهوم الرياضياتي حسب المقاربة الديداكتيكية؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q12" value="a">
+                                التمهيد، البناء، التثبيت، التقويم
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q12" value="b">
+                                الشرح، التطبيق، الاختبار
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q12" value="c">
+                                التلقين، الحفظ، التكرار
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q12" value="d">
+                                القراءة، الحفظ، التطبيق
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q12">
+                            <strong>التفسير:</strong> مراحل بناء المفهوم تشمل: التمهيد (إثارة الدافعية)، البناء (اكتشاف المفهوم)، التثبيت (التدريب والتطبيق)، التقويم (قياس التعلم).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q13 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q13</h5>
+                        <p class="card-text">ما هي أفضل استراتيجية لتدريس حل المسائل الرياضية؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q13" value="a">
+                                تعليم خطوات التفكير المنطقي في الحل
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q13" value="b">
+                                تقديم نماذج جاهزة للحل
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q13" value="c">
+                                حلها أمام التلاميذ ثم الطلب منهم تكرارها
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q13" value="d">
+                                الاقتصار على المسائل السهلة
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q13">
+                            <strong>التفسير:</strong> أفضل استراتيجية هي تعليم التلاميذ خطوات التفكير المنطقي في حل المسائل بدلاً من تقديم الحلول الجاهزة.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q14 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q14</h5>
+                        <p class="card-text">ما هو دور المعلم في المقاربة بالكفايات في تدريس الرياضيات؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q14" value="a">
+                                تيسير التعلم وتنظيم المواقف التعليمية
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q14" value="b">
+                                التلقين والإملاء
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q14" value="c">
+                                التركيز على نقل المعلومات فقط
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q14" value="d">
+                                الاقتصار على التصحيح والتصويب
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q14">
+                            <strong>التفسير:</strong> في المقاربة بالكفايات، يصبح المعلم موجهاً ومنسقاً لمواقف التعلم بدلاً من مجرد ناقل للمعلومات.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q15 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q15</h5>
+                        <p class="card-text">ما هي أهمية الوسائل التعليمية في تدريس الرياضيات؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q15" value="a">
+                                تجعل المفاهيم المجردة ملموسة ومحسوسة
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q15" value="b">
+                                توفر الوقت والجهد للمعلم
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q15" value="c">
+                                تجعل التعلم ترفيهياً فقط
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q15" value="d">
+                                تحل محل الكتاب المدرسي
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q15">
+                            <strong>التفسير:</strong> تكمن أهمية الوسائل التعليمية في جعل المفاهيم الرياضية المجردة ملموسة ومحسوسة للتلاميذ.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q16 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q16</h5>
+                        <p class="card-text">ما هو مفهوم النقل الديداكتيكي في الرياضيات؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q16" value="a">
+                                تحويل المعرفة العلمية إلى معرفة قابلة للتدريس
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q16" value="b">
+                                نقل التلاميذ من فصل إلى آخر
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q16" value="c">
+                                تغيير الكتاب المدرسي
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q16" value="d">
+                                نقل المعلمين بين المدارس
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q16">
+                            <strong>التفسير:</strong> النقل الديداكتيكي هو عملية تحويل المعرفة العلمية إلى معرفة قابلة للتدريس، مع مراعاة خصائص المتعلمين.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q17 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q17</h5>
+                        <p class="card-text">ما هي أهم خصائص الوضعية المشكلة الجيدة في الرياضيات؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q17" value="a">
+                                تكون ذات معنى للتلميذ وتثير تحديًا مناسبًا لقدراته
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q17" value="b">
+                                تكون طويلة ومعقدة
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q17" value="c">
+                                تتطلب استخدام معلومات خارج المنهج
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q17" value="d">
+                                يكون حلها معروفًا مسبقًا للتلاميذ
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q17">
+                            <strong>التفسير:</strong> الوضعية المشكلة الجيدة تكون ذات معنى للتلميذ، تثير تحديًا مناسبًا لقدراته، وتسمح له باكتشاف حلول باستخدام معارفه السابقة.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q18 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q18</h5>
+                        <p class="card-text">ما هو دور الخطأ في تعلم الرياضيات حسب المقاربة الديداكتيكية؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q18" value="a">
+                                مؤشر على عملية التعلم وفرصة للتحسين
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q18" value="b">
+                                دليل على فشل التلميذ
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q18" value="c">
+                                سبب للعقاب
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q18" value="d">
+                                شيء يجب تجنبه تمامًا
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q18">
+                            <strong>التفسير:</strong> الخطأ في التعلم يعتبر مؤشرًا على عملية التعلم وفرصة للتحسين، وليس دليلاً على الفشل.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q19 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q19</h5>
+                        <p class="card-text">ما هي أهمية التمثيلات المتعددة في تدريس المفاهيم الرياضية؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q19" value="a">
+                                تساعد على الفهم الشامل للمفهوم من زوايا مختلفة
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q19" value="b">
+                                تضيع وقت الحصة
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q19" value="c">
+                                تزيد من صعوبة المفهوم
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q19" value="d">
+                                لا فائدة منها
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q19">
+                            <strong>التفسير:</strong> التمثيلات المتعددة للمفهوم الواحد (اللفظي، الرمزي، البياني، المادي) تساعد التلميذ على الفهم الشامل للمفهوم من زوايا مختلفة.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q20 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">السؤال Q20</h5>
+                        <p class="card-text">ما هو المبدأ الأساسي في تقويم تعلم الرياضيات حسب المقاربة الديداكتيكية الحديثة؟</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q20" value="a">
+                                تقويم عملية التعلم وليس فقط النتائج
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q20" value="b">
+                                التركيز على الأخطاء فقط
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q20" value="c">
+                                مقارنة التلاميذ ببعضهم
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q20" value="d">
+                                الاقتصار على الاختبارات الكتابية
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q20">
+                            <strong>التفسير:</strong> التقويم الحديث يركز على تقويم عملية التعلم وليس فقط النتائج، مع الاهتمام بتحليل الأخطاء لفهم كيفية تفكير التلميذ.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-5" id="submit-btn-container">
+                    <button id="submit-answers" class="btn btn-primary btn-lg px-5">
+                        <i class="fas fa-check-circle me-2"></i>إرسال الإجابات
+                    </button>
+                </div>
+            </section>
+
+            <!-- Section Résultats -->
+            <section id="results-section" class="d-none">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="mb-0">نتائج الاختبار</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mb-5">
+                            <h3 id="final-score">النتيجة: 0/20</h3>
+                            <div class="progress mt-3 mb-4">
+                                <div id="final-progress" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between">
+                            <button id="review-answers" class="btn btn-outline-primary">
+                                <i class="fas fa-search me-2"></i>مراجعة الإجابات
+                            </button>
+                            <button id="restart-quiz" class="btn btn-primary">
+                                <i class="fas fa-redo me-2"></i>إعادة الاختبار
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Variables
+            const totalQuestions = 20;
+            let timeLeft = 30 * 60; // 30 minutes en secondes
+            let timerInterval;
+            let userAnswers = {};
+            let quizSubmitted = false;
+            
+            // Éléments DOM
+            const startTimerBtn = document.getElementById('start-timer');
+            const fixedTimer = document.getElementById('fixedTimer');
+            const fixedTimerDisplay = document.getElementById('fixed-timer-display');
+            const submitBtn = document.getElementById('submit-answers');
+            const reviewBtn = document.getElementById('review-answers');
+            const restartBtn = document.getElementById('restart-quiz');
+            const qcmSection = document.getElementById('qcm-section');
+            const resultsSection = document.getElementById('results-section');
+            
+            // Démarrer le timer
+            startTimerBtn.addEventListener('click', function() {
+                startTimer();
+                this.disabled = true;
+                fixedTimer.classList.add('active');
+                qcmSection.classList.remove('d-none');
+                qcmSection.scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Fonction pour démarrer le timer
+            function startTimer() {
+                updateTimerDisplay();
+                
+                timerInterval = setInterval(function() {
+                    timeLeft--;
+                    updateTimerDisplay();
+                    
+                    if (timeLeft <= 0) {
+                        clearInterval(timerInterval);
+                        submitQuiz();
+                    }
+                }, 1000);
+            }
+            
+            // Fonction pour afficher le temps restant
+            function updateTimerDisplay() {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                fixedTimerDisplay.textContent = timeString;
+                
+                if (timeLeft < 300) { // 5 minutes restantes
+                    fixedTimerDisplay.classList.add('text-danger');
+                    fixedTimerDisplay.classList.remove('text-dark');
+                }
+            }
+            
+            // Soumettre les réponses
+            submitBtn.addEventListener('click', function() {
+                if (confirm("هل أنت متأكد أنك تريد إرسال إجاباتك؟")) {
+                    submitQuiz();
+                }
+            });
+            
+            // Revoir les réponses
+            reviewBtn.addEventListener('click', function() {
+                reviewAnswers();
+            });
+            
+            // Recommencer le quiz
+            restartBtn.addEventListener('click', function() {
+                if (confirm("هل تريد حقاً إعادة الاختبار؟ سيتم فقدان جميع إجاباتك.")) {
+                    resetQuiz();
+                    fixedTimer.classList.remove('active');
+                }
+            });
+            
+            // Fonction pour soumettre le quiz
+            function submitQuiz() {
+                if (quizSubmitted) return;
+                
+                clearInterval(timerInterval);
+                quizSubmitted = true;
+                fixedTimer.classList.remove('active');
+                
+                collectAnswers();
+                const score = calculateScore();
+                showResults(score);
+                disableInputs();
+            }
+            
+            // Fonction pour collecter les réponses
+            function collectAnswers() {
+                userAnswers = {};
+                
+                for (let i = 1; i <= totalQuestions; i++) {
+                    const selectedOption = document.querySelector(`input[name="q${i}"]:checked`);
+                    if (selectedOption) {
+                        userAnswers[`q${i}`] = selectedOption.value;
+                    }
+                }
+            }
+            
+            // Fonction pour calculer le score
+            function calculateScore() {
+                let score = 0;
+                const correctAnswers = {
+                    q1: 'a', q2: 'b', q3: 'a', q4: 'a', q5: 'a',
+                    q6: 'a', q7: 'a', q8: 'a', q9: 'a', q10: 'a',
+                    q11: 'a', q12: 'a', q13: 'a', q14: 'a', q15: 'a',
+                    q16: 'a', q17: 'a', q18: 'a', q19: 'a', q20: 'a'
+                };
+                
+                for (const question in userAnswers) {
+                    if (userAnswers[question] === correctAnswers[question]) {
+                        score++;
+                    }
+                }
+                
+                return score;
+            }
+            
+            // Fonction pour afficher les résultats
+            function showResults(score) {
+                qcmSection.classList.add('d-none');
+                resultsSection.classList.remove('d-none');
+                
+                document.getElementById('final-score').textContent = `النتيجة: ${score}/${totalQuestions}`;
+                
+                const percentage = Math.round((score / totalQuestions) * 100);
+                const progressBar = document.getElementById('final-progress');
+                progressBar.style.width = `${percentage}%`;
+                progressBar.textContent = `${percentage}%`;
+                
+                if (percentage < 50) {
+                    progressBar.className = 'progress-bar bg-danger';
+                } else if (percentage < 75) {
+                    progressBar.className = 'progress-bar bg-warning';
+                } else {
+                    progressBar.className = 'progress-bar bg-success';
+                }
+                
+                resultsSection.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            // Fonction pour désactiver les inputs
+            function disableInputs() {
+                const inputs = document.querySelectorAll('input[type="radio"]');
+                inputs.forEach(input => {
+                    input.disabled = true;
+                });
+            }
+            
+            // Fonction pour revoir les réponses
+            function reviewAnswers() {
+                // Nettoyer les anciennes classes de correction
+                const allLabels = document.querySelectorAll('#qcm-section .list-group-item');
+                allLabels.forEach(label => {
+                    label.classList.remove('correct-answer', 'incorrect-answer');
+                });
+
+                qcmSection.classList.remove('d-none');
+                resultsSection.classList.add('d-none');
+
+                const correctAnswers = {
+                    q1: 'a', q2: 'b', q3: 'a', q4: 'a', q5: 'a',
+                    q6: 'a', q7: 'a', q8: 'a', q9: 'a', q10: 'a',
+                    q11: 'a', q12: 'a', q13: 'a', q14: 'a', q15: 'a',
+                    q16: 'a', q17: 'a', q18: 'a', q19: 'a', q20: 'a'
+                };
+
+                // Afficher les bonnes réponses et marquer celles de l'utilisateur
+                for (let i = 1; i <= totalQuestions; i++) {
+                    const userVal = userAnswers[`q${i}`];
+                    const correctVal = correctAnswers[`q${i}`];
+                    const explanation = document.getElementById(`explanation-q${i}`);
+                    
+                    if (explanation) explanation.style.display = 'block';
+                    
+                    if (userVal) {
+                        const userLabel = document.querySelector(`input[name="q${i}"][value="${userVal}"]`);
+                        if (userLabel) {
+                            const labelElem = userLabel.parentElement;
+                            if (userVal === correctVal) {
+                                labelElem.classList.add('correct-answer');
+                            } else {
+                                labelElem.classList.add('incorrect-answer');
+                                const correctLabel = document.querySelector(`input[name="q${i}"][value="${correctVal}"]`);
+                                if (correctLabel) correctLabel.parentElement.classList.add('correct-answer');
+                            }
+                        }
+                    } else {
+                        // Si l'utilisateur n'a pas répondu, montrer la bonne réponse
+                        const correctLabel = document.querySelector(`input[name="q${i}"][value="${correctVal}"]`);
+                        if (correctLabel) correctLabel.parentElement.classList.add('correct-answer');
+                    }
+                }
+
+                // Remplacer le bouton "Soumettre" par un bouton "Retour"
+                const submitBtnContainer = document.getElementById('submit-btn-container');
+                submitBtnContainer.innerHTML = `
+                    <a href="#" class="btn btn-outline-primary btn-lg px-5" id="back-to-results">
+                        <i class="fas fa-arrow-left me-2"></i>العودة إلى النتائج
+                    </a>
+                `;
+
+                document.getElementById('back-to-results').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    qcmSection.classList.add('d-none');
+                    resultsSection.classList.remove('d-none');
+                    resultsSection.scrollIntoView({ behavior: 'smooth' });
+                });
+
+                qcmSection.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            // Fonction pour réinitialiser le quiz
+            function resetQuiz() {
+                timeLeft = 30 * 60;
+                userAnswers = {};
+                quizSubmitted = false;
+
+                clearInterval(timerInterval);
+                fixedTimerDisplay.textContent = '30:00';
+                fixedTimerDisplay.classList.remove('text-danger');
+                startTimerBtn.disabled = false;
+
+                const inputs = document.querySelectorAll('input[type="radio"]');
+                inputs.forEach(input => {
+                    input.checked = false;
+                    input.disabled = false;
+                    input.parentElement.classList.remove('correct-answer', 'incorrect-answer');
+                });
+
+                // Masquer toutes les explications
+                const explanations = document.querySelectorAll('.explanation');
+                explanations.forEach(exp => {
+                    exp.style.display = 'none';
+                });
+
+                qcmSection.classList.remove('d-none');
+                resultsSection.classList.add('d-none');
+
+                window.scrollTo(0, 0);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concours de Français - CRFPE 2024</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c786c;
+            --secondary-color: #004445;
+            --accent-color: #f8b400;
+            --light-color: #faf5e4;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-top: 80px;
+            color: #333;
+            line-height: 1.7;
+        }
+        
+        .main-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 68, 69, 0.1);
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            border: 2px solid rgba(44, 120, 108, 0.1);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .question-card {
+            margin-bottom: 2.5rem;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 68, 69, 0.08);
+            border: 2px solid rgba(44, 120, 108, 0.15);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 68, 69, 0.15);
+            border-color: rgba(44, 120, 108, 0.3);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            font-weight: 700;
+            border-bottom: none;
+            padding: 1.2rem 1.5rem;
+            border-radius: 13px 13px 0 0 !important;
+        }
+        
+        .card-body {
+            padding: 1.8rem;
+        }
+        
+        .card-title {
+            color: var(--secondary-color);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1.2rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .card-title:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 25px;
+            background: var(--accent-color);
+            border-radius: 5px;
+        }
+        
+        .card-text {
+            color: #444;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .list-group-item {
+            border: none;
+            border-left: 4px solid transparent;
+            margin-bottom: 0.5rem;
+            border-radius: 8px !important;
+            padding: 1rem 1.5rem;
+            font-size: 1.05rem;
+            transition: all 0.2s;
+            background-color: rgba(250, 245, 228, 0.5);
+        }
+        
+        .list-group-item:hover {
+            background-color: rgba(44, 120, 108, 0.08);
+            border-left-color: var(--accent-color);
+        }
+        
+        .form-check-input {
+            width: 1.2em;
+            height: 1.2em;
+            margin-right: 0.8rem;
+            margin-top: 0.2rem;
+            border: 2px solid #ced4da;
+        }
+        
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 0.6rem 2.2rem;
+            font-weight: 600;
+            border-radius: 30px;
+            box-shadow: 0 4px 10px rgba(44, 120, 108, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 68, 69, 0.4);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            font-weight: 600;
+            border-radius: 30px;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .correct-answer {
+            background-color: rgba(40, 167, 69, 0.15) !important;
+            border-left: 4px solid var(--success-color) !important;
+        }
+        
+        .incorrect-answer {
+            background-color: rgba(220, 53, 69, 0.1) !important;
+            border-left: 4px solid var(--danger-color) !important;
+        }
+        
+        .explanation {
+            display: none;
+            background-color: rgba(248, 180, 0, 0.08);
+            border-radius: 10px;
+            padding: 1.3rem;
+            margin-top: 1.5rem;
+            border-left: 4px solid var(--accent-color);
+            font-size: 1.05rem;
+        }
+        
+        .explanation strong {
+            color: var(--secondary-color);
+        }
+        
+        .fixed-timer {
+            position: fixed;
+            top: 90px;
+            right: 30px;
+            z-index: 1000;
+            width: 180px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 68, 69, 0.15);
+            padding: 15px;
+            text-align: center;
+            display: none;
+            border: 2px solid rgba(44, 120, 108, 0.2);
+        }
+        
+        .fixed-timer.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        .fixed-timer .timer-text {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        
+        .fixed-timer #fixed-timer-display {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--secondary-color);
+            letter-spacing: 1px;
+        }
+        
+        .navbar {
+            box-shadow: 0 3px 15px rgba(0, 68, 69, 0.1);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+            padding: 0.8rem 1rem;
+        }
+        
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white !important;
+        }
+        
+        .navbar-brand i {
+            color: var(--accent-color);
+        }
+        
+        .navbar-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9) !important;
+        }
+        
+        .nav-link {
+            font-weight: 600;
+            padding: 0.5rem 1.2rem !important;
+            color: rgba(255, 255, 255, 0.8) !important;
+            transition: all 0.2s;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: white !important;
+            transform: translateY(-2px);
+        }
+        
+        .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 30px;
+        }
+        
+        h1.display-4 {
+            font-weight: 800;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1.display-4:after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 70px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+        
+        .lead {
+            color: #555;
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .progress {
+            height: 35px;
+            background-color: #f1f1f1;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-bar {
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: width 0.6s ease;
+        }
+        
+        #final-score {
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 991.98px) {
+            .main-container {
+                padding: 1.8rem;
+                border-radius: 15px;
+            }
+            
+            .fixed-timer {
+                top: 80px;
+                right: 15px;
+                width: 150px;
+                padding: 12px;
+            }
+            
+            body {
+                padding-top: 70px;
+            }
+            
+            .card-body {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 767.98px) {
+            .main-container {
+                padding: 1.5rem 1rem;
+                border-radius: 12px;
+            }
+            
+            .fixed-timer {
+                top: 70px;
+                right: 10px;
+                width: 120px;
+                padding: 10px;
+            }
+            
+            h1.display-4 {
+                font-size: 1.8rem;
+            }
+            
+            .lead {
+                font-size: 1.1rem;
+            }
+            
+            .card-title {
+                font-size: 1.1rem;
+            }
+            
+            .card-text, .list-group-item {
+                font-size: 1rem;
+            }
+            
+            .btn-primary, .btn-outline-primary {
+                padding: 0.5rem 1.5rem;
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar fixe en haut -->
+   
+
+    <!-- Timer fixe qui apparaît quand on commence le test -->
+    <div class="fixed-timer" id="fixedTimer">
+        <div class="timer-text">Temps restant</div>
+        <div id="fixed-timer-display">30:00</div>
+    </div>
+
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h1 class="display-4">Concours de Français</h1>
+            <p class="lead">Épreuve de langue française - Session Octobre 2024</p>
+        </div>
+
+        <div class="main-container">
+            <div class="card mb-4 border-0 shadow-sm">
+                <div class="card-header">
+                    <h4 class="mb-0">Instructions</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="mb-4">
+                        <li class="mb-2">L'épreuve contient 30 questions (de Q1 à Q20)</li>
+                        <li class="mb-2">Vous disposez de 30 minutes pour répondre à toutes les questions</li>
+                        <li class="mb-2">Pour chaque question, 4 choix de réponses sont proposés (A, B, C, D)</li>
+                        <li class="mb-2">Une seule réponse est correcte pour chaque question</li>
+                        <li>Chaque réponse correcte rapporte 1 point</li>
+                    </ul>
+                    <div class="text-center mt-4">
+                        <button id="start-timer" class="btn btn-primary btn-lg px-5">
+                            <i class="fas fa-play-circle me-2"></i>Commencer le test
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section QCM -->
+<section id="qcm-section" class="d-none">
+    <!-- Question 1 -->
+    <div class="card question-card">
+        <div class="card-body">
+            <h5 class="card-title">Question 1</h5>
+            <p class="card-text">Quelle est la fonction principale de la situation didactique en classe de français ?</p>
+            <div class="list-group">
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q1" value="a">
+                    A. Évaluer les savoirs préexistants des élèves.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q1" value="b">
+                    B. Sélectionner les contenus à enseigner.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q1" value="c">
+                    C. Favoriser la construction des apprentissages par les élèves.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q1" value="d">
+                    D. Identifier les difficultés des enseignants.
+                </label>
+            </div>
+            <div class="explanation" id="explanation-q1">
+                <strong>Réponse correcte:</strong> C<br>
+                La situation didactique vise à mettre les élèves en activité pour qu'ils construisent activement leurs savoirs (approche constructiviste).
+            </div>
+        </div>
+    </div>
+    <!-- Question 2 -->
+    <div class="card question-card">
+        <div class="card-body">
+            <h5 class="card-title">Question 2</h5>
+            <p class="card-text">Le triangle didactique représente :</p>
+            <div class="list-group">
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q2" value="a">
+                    A. Les relations linéaires entre enseignant et élève.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q2" value="b">
+                    B. Les interactions enseignant-élève-savoir dans un contexte scolaire.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q2" value="c">
+                    C. La transmission directe du savoir par l'enseignant.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q2" value="d">
+                    D. L'autonomie de l'élève face au savoir.
+                </label>
+            </div>
+            <div class="explanation" id="explanation-q2">
+                <strong>Réponse correcte:</strong> B<br>
+                Le triangle didactique (Houssaye) illustre les relations dynamiques entre l'enseignant, l'élève et le savoir.
+            </div>
+        </div>
+    </div>
+    <!-- Question 3 -->
+    <div class="card question-card">
+        <div class="card-body">
+            <h5 class="card-title">Question 3</h5>
+            <p class="card-text">La transposition didactique consiste à :</p>
+            <div class="list-group">
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q3" value="a">
+                    A. Simplifier les savoirs savants pour les adapter aux élèves.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q3" value="b">
+                    B. Copier les savoirs académiques sans modification.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q3" value="c">
+                    C. Ignorer les objectifs pédagogiques.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q3" value="d">
+                    D. Remplacer les savoirs par des activités ludiques.
+                </label>
+            </div>
+            <div class="explanation" id="explanation-q3">
+                <strong>Réponse correcte:</strong> A<br>
+                Elle transforme les savoirs experts en savoirs enseignables, en tenant compte des capacités cognitives des élèves (Chevallard).
+            </div>
+        </div>
+    </div>
+    <!-- Question 4 -->
+    <div class="card question-card">
+        <div class="card-body">
+            <h5 class="card-title">Question 4</h5>
+            <p class="card-text">Quel est l'objectif principal d'une activité de discrimination auditive en phonétique ?</p>
+            <div class="list-group">
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q4" value="a">
+                    A. Identifier visuellement des graphèmes.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q4" value="b">
+                    B. Distinguer des sons proches (ex. [e] vs [ɛ]).
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q4" value="c">
+                    C. Mémoriser des mots.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q4" value="d">
+                    D. Travailler la syntaxe.
+                </label>
+            </div>
+            <div class="explanation" id="explanation-q4">
+                <strong>Réponse correcte:</strong> B<br>
+                La discrimination auditive affine la perception des phonèmes pour éviter des confusions (ex. "pomme" vs "paume").
+            </div>
+        </div>
+    </div>
+    <!-- Question 5 -->
+    <div class="card question-card">
+        <div class="card-body">
+            <h5 class="card-title">Question 5</h5>
+            <p class="card-text">"Si j’étais toi, je travaillerais plus." Cet énoncé illustre :</p>
+            <div class="list-group">
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q5" value="a">
+                    A. Un conseil.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q5" value="b">
+                    B. Une obligation.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q5" value="c">
+                    C. Une interdiction.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q5" value="d">
+                    D. Une demande.
+                </label>
+            </div>
+            <div class="explanation" id="explanation-q5">
+                <strong>Réponse correcte:</strong> A<br>
+                Le conditionnel présent exprime un conseil ou une suggestion.
+            </div>
+        </div>
+    </div>
+    <!-- Question 6 -->
+    <div class="card question-card">
+        <div class="card-body">
+            <h5 class="card-title">Question 6</h5>
+            <p class="card-text">Pour enseigner l'acte de langage "Exprimer une interdiction", on privilégie :</p>
+            <div class="list-group">
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q6" value="a">
+                    A. "Il faut..."
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q6" value="b">
+                    B. "Il ne faut pas..."
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q6" value="c">
+                    C. "Tu devrais..."
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q6" value="d">
+                    D. "J’aimerais que..."
+                </label>
+            </div>
+            <div class="explanation" id="explanation-q6">
+                <strong>Réponse correcte:</strong> B<br>
+                Les structures comme "Il est interdit de..." ou "Défense de..." sont typiques des interdictions.
+            </div>
+        </div>
+    </div>
+    <!-- Question 7 -->
+    <div class="card question-card">
+        <div class="card-body">
+            <h5 class="card-title">Question 7</h5>
+            <p class="card-text">Quelle stratégie est utile pour la compréhension de l'oral ?</p>
+            <div class="list-group">
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q7" value="a">
+                    A. Repérer les mots-clés.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q7" value="b">
+                    B. Écrire rapidement tout ce qui est entendu.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q7" value="c">
+                    C. Ignorer les éléments non verbaux.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q7" value="d">
+                    D. Se concentrer uniquement sur les verbes.
+                </label>
+            </div>
+            <div class="explanation" id="explanation-q7">
+                <strong>Réponse correcte:</strong> A<br>
+                L'identification des mots-clés aide à saisir l'essentiel du message.
+            </div>
+        </div>
+    </div>
+    <!-- Question 8 -->
+    <div class="card question-card">
+        <div class="card-body">
+            <h5 class="card-title">Question 8</h5>
+            <p class="card-text">Un texte injonctif a pour but :</p>
+            <div class="list-group">
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q8" value="a">
+                    A. Décrire un paysage.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q8" value="b">
+                    B. Donner des ordres ou conseils.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q8" value="c">
+                    C. Raconter une histoire.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q8" value="d">
+                    D. Expliquer un phénomène.
+                </label>
+            </div>
+            <div class="explanation" id="explanation-q8">
+                <strong>Réponse correcte:</strong> B<br>
+                Les textes injonctifs (recettes, consignes) visent à guider l'action du lecteur.
+            </div>
+        </div>
+    </div>
+    <!-- Question 9 -->
+    <div class="card question-card">
+        <div class="card-body">
+            <h5 class="card-title">Question 9</h5>
+            <p class="card-text">La phase préparatoire en production écrite inclut :</p>
+            <div class="list-group">
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q9" value="a">
+                    A. La rédaction finale.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q9" value="b">
+                    B. La recherche d'idées et la planification.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q9" value="c">
+                    C. La correction orthographique.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q9" value="d">
+                    D. La lecture à haute voix.
+                </label>
+            </div>
+            <div class="explanation" id="explanation-q9">
+                <strong>Réponse correcte:</strong> B<br>
+                Cette phase permet de structurer le texte (brainstorming, organisateurs graphiques).
+            </div>
+        </div>
+    </div>
+    <!-- Question 10 -->
+    <div class="card question-card">
+        <div class="card-body">
+            <h5 class="card-title">Question 10</h5>
+            <p class="card-text">Quel critère est essentiel pour corriger une production écrite ?</p>
+            <div class="list-group">
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q10" value="a">
+                    A. La longueur du texte.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q10" value="b">
+                    B. La cohérence et la correction linguistique.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q10" value="c">
+                    C. L'utilisation de couleurs.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q10" value="d">
+                    D. La vitesse d'écriture.
+                </label>
+            </div>
+            <div class="explanation" id="explanation-q10">
+                <strong>Réponse correcte:</strong> B<br>
+                La cohérence (logique du texte) et la correction (grammaire, orthographe) sont prioritaires.
+            </div>
+        </div>
+    </div>
+    <!-- Question 11 -->
+    <div class="card question-card">
+        <div class="card-body">
+            <h5 class="card-title">Question 11</h5>
+            <p class="card-text">L'objectif d'une activité de lecture silencieuse est souvent :</p>
+            <div class="list-group">
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q11" value="a">
+                    A. Travailler la fluidité à haute voix.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q11" value="b">
+                    B. Permettre une compréhension littérale du texte.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q11" value="c">
+                    C. Mémoriser le texte mot à mot.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q11" value="d">
+                    D. Ignorer les inférences.
+                </label>
+            </div>
+            <div class="explanation" id="explanation-q11">
+                <strong>Réponse correcte:</strong> B<br>
+                La lecture silencieuse favorise la compréhension fine et personnelle du texte.
+            </div>
+        </div>
+    </div>
+    <!-- Question 12 -->
+    <div class="card question-card">
+        <div class="card-body">
+            <h5 class="card-title">Question 12</h5>
+            <p class="card-text">Pour enseigner le phonème [m] en CP, on commence par :</p>
+            <div class="list-group">
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q12" value="a">
+                    A. La discrimination auditive (ex. "entoure les mots avec [m]").
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q12" value="b">
+                    B. L'écriture de phrases complexes.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q12" value="c">
+                    C. La lecture d'un roman.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q12" value="d">
+                    D. L'étude des temps verbaux.
+                </label>
+            </div>
+            <div class="explanation" id="explanation-q12">
+                <strong>Réponse correcte:</strong> A<br>
+                L'identification auditive puis visuelle du phonème est une étape clé en phonologie.
+            </div>
+        </div>
+    </div>
+    <!-- Question 13 -->
+    <div class="card question-card">
+        <div class="card-body">
+            <h5 class="card-title">Question 13</h5>
+            <p class="card-text">La démarche "STEM" en sciences intègre :</p>
+            <div class="list-group">
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q13" value="a">
+                    A. Sciences, Technologie, Ingénierie et Mathématiques.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q13" value="b">
+                    B. Seulement les sciences expérimentales.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q13" value="c">
+                    C. Uniquement la technologie.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q13" value="d">
+                    D. Les arts plastiques.
+                </label>
+            </div>
+            <div class="explanation" id="explanation-q13">
+                <strong>Réponse correcte:</strong> A<br>
+                L'approche STEM croise ces disciplines pour résoudre des problèmes concrets.
+            </div>
+        </div>
+    </div>
+    <!-- Question 14 -->
+    <div class="card question-card">
+        <div class="card-body">
+            <h5 class="card-title">Question 14</h5>
+            <p class="card-text">Un obstacle épistémologique en sciences est :</p>
+            <div class="list-group">
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q14" value="a">
+                    A. Une difficulté liée aux représentations initiales des élèves.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q14" value="b">
+                    B. Un manque de matériel.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q14" value="c">
+                    C. Un programme trop chargé.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q14" value="d">
+                    D. Une absence d'évaluation.
+                </label>
+            </div>
+            <div class="explanation" id="explanation-q14">
+                <strong>Réponse correcte:</strong> A<br>
+                Selon Bachelard, ce sont des idées fausses qui entravent l'apprentissage (ex. "la Terre est plate").
+            </div>
+        </div>
+    </div>
+    <!-- Question 15 -->
+    <div class="card question-card">
+        <div class="card-body">
+            <h5 class="card-title">Question 15</h5>
+            <p class="card-text">Quelle étape suit la formulation d'une hypothèse en démarche scientifique ?</p>
+            <div class="list-group">
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q15" value="a">
+                    A. La validation par l'expérimentation.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q15" value="b">
+                    B. La rédaction du rapport.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q15" value="c">
+                    C. La notation des élèves.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q15" value="d">
+                    D. L'oubli de l'hypothèse.
+                </label>
+            </div>
+            <div class="explanation" id="explanation-q15">
+                <strong>Réponse correcte:</strong> A<br>
+                Les hypothèses sont testées via des expériences ou observations.
+            </div>
+        </div>
+    </div>
+    <!-- Question 16 -->
+    <div class="card question-card">
+        <div class="card-body">
+            <h5 class="card-title">Question 16</h5>
+            <p class="card-text">Le modèle "SAMR" pour l'intégration du numérique inclut :</p>
+            <div class="list-group">
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q16" value="a">
+                    A. Substitution, Augmentation, Modification, Redéfinition.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q16" value="b">
+                    B. Lecture, Écriture, Calcul, Dessin.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q16" value="c">
+                    C. Théorie, Pratique, Évaluation, Révision.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q16" value="d">
+                    D. Aucune de ces réponses.
+                </label>
+            </div>
+            <div class="explanation" id="explanation-q16">
+                <strong>Réponse correcte:</strong> A<br>
+                Ce modèle (Puentedura) décrit les niveaux d'utilisation des TICE, de la simple substitution à la transformation des tâches.
+            </div>
+        </div>
+    </div>
+    <!-- Question 17 -->
+    <div class="card question-card">
+        <div class="card-body">
+            <h5 class="card-title">Question 17</h5>
+            <p class="card-text">Pour enseigner la notion de "vivant" en cycle 2, on utilise :</p>
+            <div class="list-group">
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q17" value="a">
+                    A. Des classifications d'animaux basées sur leurs besoins.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q17" value="b">
+                    B. L'apprentissage par cœur des noms d'espèces.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q17" value="c">
+                    C. L'ignorance des représentations des élèves.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q17" value="d">
+                    D. Des exercices de grammaire.
+                </label>
+            </div>
+            <div class="explanation" id="explanation-q17">
+                <strong>Réponse correcte:</strong> A<br>
+                L'approche par caractéristiques (nutrition, reproduction) est adaptée au jeune public.
+            </div>
+        </div>
+    </div>
+    <!-- Question 18 -->
+    <div class="card question-card">
+        <div class="card-body">
+            <h5 class="card-title">Question 18</h5>
+            <p class="card-text">Un projet technologique en classe suit l'ordre :</p>
+            <div class="list-group">
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q18" value="a">
+                    A. Choix → Conception → Réalisation → Évaluation.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q18" value="b">
+                    B. Évaluation → Choix → Réalisation.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q18" value="c">
+                    C. Réalisation → Abandon → Nouveau projet.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q18" value="d">
+                    D. Aucune logique précise.
+                </label>
+            </div>
+            <div class="explanation" id="explanation-q18">
+                <strong>Réponse correcte:</strong> A<br>
+                Cette séquence permet une démarche structurée et réflexive.
+            </div>
+        </div>
+    </div>
+    <!-- Question 19 -->
+    <div class="card question-card">
+        <div class="card-body">
+            <h5 class="card-title">Question 19</h5>
+            <p class="card-text">La plateforme "TelmidTice" propose :</p>
+            <div class="list-group">
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q19" value="a">
+                    A. Des ressources numériques pour l'enseignement à distance.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q19" value="b">
+                    B. Des jeux vidéo éducatifs uniquement.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q19" value="c">
+                    C. Des manuels scolaires en PDF.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q19" value="d">
+                    D. Des évaluations standardisées.
+                </label>
+            </div>
+            <div class="explanation" id="explanation-q19">
+                <strong>Réponse correcte:</strong> A<br>
+                Elle offre des cours, exercices et vidéos pour l'apprentissage en ligne (Maroc).
+            </div>
+        </div>
+    </div>
+    <!-- Question 20 -->
+    <div class="card question-card">
+        <div class="card-body">
+            <h5 class="card-title">Question 20</h5>
+            <p class="card-text">L'erreur dans l'identification de l'aluminium comme métal peut provenir de :</p>
+            <div class="list-group">
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q20" value="a">
+                    A. Une confusion avec son apparence (ex. brillante comme l'acier).
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q20" value="b">
+                    B. Une mauvaise explication de l'enseignant.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q20" value="c">
+                    C. Un manque de manuels.
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="q20" value="d">
+                    D. L'absence de tableau noir.
+                </label>
+            </div>
+            <div class="explanation" id="explanation-q20">
+                <strong>Réponse correcte:</strong> A<br>
+                Les erreurs conceptuelles naissent souvent de généralisations abusives (ex. "tout ce qui brille est un métal").
+            </div>
+        </div>
+    </div>
+    <div class="text-center mt-5">
+        <button id="submit-answers" class="btn btn-primary btn-lg px-5">
+            <i class="fas fa-check-circle me-2"></i>Soumettre les réponses
+        </button>
+    </div>
+</section>
+            <!-- Section Résultats -->
+            <section id="results-section" class="d-none">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="mb-0">Résultats du test</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mb-5">
+                            <h3 id="final-score">Score: 0/20</h3>
+                            <div class="progress mt-3 mb-4">
+                                <div id="final-progress" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between">
+                            <button id="review-answers" class="btn btn-outline-primary">
+                                <i class="fas fa-search me-2"></i>Voir les réponses
+                            </button>
+                            <button id="restart-quiz" class="btn btn-primary">
+                                <i class="fas fa-redo me-2"></i>Recommencer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Variables
+            const totalQuestions = 20;
+            let timeLeft = 30 * 60; // 30 minutes en secondes
+            let timerInterval;
+            let userAnswers = {};
+            let quizSubmitted = false;
+            
+            // Éléments DOM
+            const startTimerBtn = document.getElementById('start-timer');
+            const fixedTimer = document.getElementById('fixedTimer');
+            const fixedTimerDisplay = document.getElementById('fixed-timer-display');
+            const submitBtn = document.getElementById('submit-answers');
+            const reviewBtn = document.getElementById('review-answers');
+            const restartBtn = document.getElementById('restart-quiz');
+            const qcmSection = document.getElementById('qcm-section');
+            const resultsSection = document.getElementById('results-section');
+            
+            // Démarrer le timer
+            startTimerBtn.addEventListener('click', function() {
+                startTimer();
+                this.disabled = true;
+                fixedTimer.classList.add('active');
+                qcmSection.classList.remove('d-none');
+                qcmSection.scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Fonction pour démarrer le timer
+            function startTimer() {
+                updateTimerDisplay();
+                timerInterval = setInterval(function() {
+                    timeLeft--;
+                    updateTimerDisplay();
+                    if (timeLeft <= 0) {
+                        clearInterval(timerInterval);
+                        submitQuiz();
+                    }
+                }, 1000);
+            }
+            
+            // Fonction pour afficher le temps restant
+            function updateTimerDisplay() {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                fixedTimerDisplay.textContent = timeString;
+                if (timeLeft < 300) { // 5 minutes restantes
+                    fixedTimerDisplay.classList.add('text-danger');
+                }
+            }
+            
+            // Soumettre les réponses
+            submitBtn.addEventListener('click', function() {
+                if (confirm("Êtes-vous sûr de vouloir soumettre vos réponses ?")) {
+                    submitQuiz();
+                }
+            });
+            
+            // Revoir les réponses
+            reviewBtn.addEventListener('click', function() {
+                reviewAnswers();
+            });
+            
+            // Recommencer le quiz
+            restartBtn.addEventListener('click', function() {
+                if (confirm("Voulez-vous vraiment recommencer le test ? Toutes vos réponses seront perdues.")) {
+                    resetQuiz();
+                    fixedTimer.classList.remove('active');
+                }
+            });
+            
+            // Fonction pour soumettre le quiz
+            function submitQuiz() {
+                if (quizSubmitted) return;
+                clearInterval(timerInterval);
+                quizSubmitted = true;
+                fixedTimer.classList.remove('active');
+                collectAnswers();
+                const score = calculateScore();
+                showResults(score);
+                showAnswers();
+                disableInputs();
+            }
+            
+            // Fonction pour collecter les réponses
+            function collectAnswers() {
+                userAnswers = {};
+                for (let i = 1; i <= 20; i++) {
+                    const selectedOption = document.querySelector(`input[name="q${i}"]:checked`);
+                    if (selectedOption) {
+                        userAnswers[`q${i}`] = selectedOption.value;
+                    }
+                }
+            }
+            
+            // Fonction pour calculer le score
+            function calculateScore() {
+                let score = 0;
+                const correctAnswers = {
+                    q1: 'c',
+                    q2: 'b',
+                    q3: 'a',
+                    q4: 'b',
+                    q5: 'a',
+                    q6: 'b',
+                    q7: 'a',
+                    q8: 'b',
+                    q9: 'b',
+                    q10: 'b',
+                    q11: 'b',
+                    q12: 'a',
+                    q13: 'a',
+                    q14: 'a',
+                    q15: 'a',
+                    q16: 'a',
+                    q17: 'a',
+                    q18: 'a',
+                    q19: 'a',
+                    q20: 'a',
+                };
+                for (const question in userAnswers) {
+                    if (userAnswers[question] === correctAnswers[question]) {
+                        score++;
+                    }
+                }
+                return score;
+            }
+            
+            // Fonction pour afficher les réponses correctes/incorrectes (même principe pour toutes)
+            function showAnswers() {
+                const correctAnswers = {
+                    q1: 'c',
+                    q2: 'b',
+                    q3: 'a',
+                    q4: 'b',
+                    q5: 'a',
+                    q6: 'b',
+                    q7: 'a',
+                    q8: 'b',
+                    q9: 'b',
+                    q10: 'b',
+                    q11: 'b',
+                    q12: 'a',
+                    q13: 'a',
+                    q14: 'a',
+                    q15: 'a',
+                    q16: 'a',
+                    q17: 'a',
+                    q18: 'a',
+                    q19: 'a',
+                    q20: 'a',
+                };
+                for (let i = 1; i <= 20; i++) {
+                    const questionId = `q${i}`;
+                    const explanation = document.getElementById(`explanation-${questionId}`);
+                    // Afficher l'explication pour chaque question
+                    if (explanation) {
+                        explanation.style.display = 'block';
+                    }
+                    // Marquer la bonne réponse en vert
+                    const correctAnswerElement = document.querySelector(`input[name="${questionId}"][value="${correctAnswers[questionId]}"]`);
+                    if (correctAnswerElement) {
+                        correctAnswerElement.parentElement.classList.add('correct-answer');
+                    }
+                    // Si l'utilisateur a répondu et s'est trompé, marquer en rouge sa réponse
+                    if (userAnswers[questionId] && userAnswers[questionId] !== correctAnswers[questionId]) {
+                        const userAnswerElement = document.querySelector(`input[name="${questionId}"][value="${userAnswers[questionId]}"]`);
+                        if (userAnswerElement) {
+                            userAnswerElement.parentElement.classList.add('incorrect-answer');
+                        }
+                    }
+                }
+            }
+            
+            // Fonction pour afficher les résultats
+            function showResults(score) {
+                qcmSection.classList.add('d-none');
+                resultsSection.classList.remove('d-none');
+                document.getElementById('final-score').textContent = `Score: ${score}/${totalQuestions}`;
+                const percentage = Math.round((score / totalQuestions) * 100);
+                const progressBar = document.getElementById('final-progress');
+                progressBar.style.width = `${percentage}%`;
+                progressBar.textContent = `${percentage}%`;
+                if (percentage < 50) {
+                    progressBar.className = 'progress-bar bg-danger';
+                } else if (percentage < 75) {
+                    progressBar.className = 'progress-bar bg-warning';
+                } else {
+                    progressBar.className = 'progress-bar bg-success';
+                }
+                resultsSection.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            // Fonction pour désactiver les inputs
+            function disableInputs() {
+                const inputs = document.querySelectorAll('input[type="radio"]');
+                inputs.forEach(input => {
+                    input.disabled = true;
+                });
+            }
+            
+            // Fonction pour revoir les réponses
+            function reviewAnswers() {
+                qcmSection.classList.remove('d-none');
+                resultsSection.classList.add('d-none');
+                qcmSection.scrollIntoView({ behavior: 'smooth' });
+
+                // Replace "Soumettre les réponses" button with "Retour" button
+                const submitBtnContainer = document.querySelector('.text-center.mt-5');
+                submitBtnContainer.innerHTML = `
+                    <a href="../sp.html" class="btn btn-outline-primary btn-lg px-5">
+                        <i class="fas fa-arrow-left me-2"></i>Retour
+                    </a>
+                `;
+            }
+            
+            // Fonction pour réinitialiser le quiz
+            function resetQuiz() {
+                qcmSection.classList.add('d-none');
+                resultsSection.classList.add('d-none');
+                timeLeft = 30 * 60;
+                userAnswers = {};
+                quizSubmitted = false;
+                clearInterval(timerInterval);
+                fixedTimerDisplay.textContent = '30:00';
+                fixedTimerDisplay.classList.remove('text-danger');
+                startTimerBtn.disabled = false;
+                const inputs = document.querySelectorAll('input[type="radio"]');
+                inputs.forEach(input => {
+                    input.checked = false;
+                    input.disabled = false;
+                    input.parentElement.classList.remove('correct-answer', 'incorrect-answer');
+                });
+                const explanations = document.querySelectorAll('.explanation');
+                explanations.forEach(explanation => {
+                    explanation.style.display = 'none';
+                });
+                qcmSection.classList.remove('d-none');
+                resultsSection.classList.add('d-none');
+                window.scrollTo(0, 0);
+            }
+        });
+    </script>
+</body>
+</html>

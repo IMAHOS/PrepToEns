@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filières Académiques - Plateforme Éducative</title>
+    <meta name="description" content="Choisissez votre filière d'études parmi notre large sélection de matières académiques">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1.5rem 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .navbar h1 {
+            color: #1e293b;
+            font-size: 1.875rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .page-title {
+            color: white;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            letter-spacing: -0.025em;
+        }
+
+        .page-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.25rem;
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .filieres-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .filiere-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filiere-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .filiere-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 0.98);
+        }
+
+        .filiere-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .filiere-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .filiere-card:hover .filiere-icon {
+            transform: scale(1.1);
+        }
+
+        .filiere-title {
+            font-size: 1.375rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #1e293b;
+            line-height: 1.4;
+        }
+
+        .filiere-description {
+            text-align: center;
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .filiere-button {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .filiere-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-item {
+            text-align: center;
+            color: white;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #ffffff, #f1f5f9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+            
+            .page-title {
+                font-size: 2.25rem;
+            }
+            
+            .filieres-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .navbar {
+                padding: 1rem;
+            }
+            
+            .navbar h1 {
+                font-size: 1.5rem;
+            }
+
+            .stats-section {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .filiere-card {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        .navbar {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation principale -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top" style="background-color: #0d6efd !important; min-width: 0; width: 100%;">
+        <div class="container-fluid" style="max-width: 100%;">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-chalkboard-teacher me-2"></i>Concours Enseignement
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../index.html">Accueil</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                            Parcours
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="../crpe/index.html">CRPE - Primaire</a></li>
+                            <li><a class="dropdown-item" href="./filiere.html">CAPES - Secondaire</a></li>
+                            <li><a class="dropdown-item" href="#">ECPPE</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="../PROPOS/index.html">À Propos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../contact/contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <header class="page-header">
+            <h1 class="page-title">Choisissez votre Filière</h1>
+            <p class="page-subtitle">Explorez nos différentes matières et commencez votre parcours d'apprentissage dès aujourd'hui</p>
+        </header>
+        
+        <section class="filieres-grid" id="filieresGrid">
+            <!-- Les cartes seront générées par JavaScript -->
+        </section>
+
+        <section class="stats-section">
+            <div class="stat-item">
+                <div class="stat-number">13</div>
+                <div class="stat-label">Filières disponibles</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Support disponible</div>
+            </div>
+        </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Activer le carousel de témoignages
+        var testimonialCarousel = new bootstrap.Carousel(document.getElementById('testimonialsCarousel'), {
+            interval: 5000,
+            wrap: true
+        });
+    </script>
+<script>
+        const filieres = [
+            {
+                name: "Langue française",
+                icon: "📚",
+                description: "Littérature, grammaire et expression écrite",
+                link: "/francais.html"
+            },
+            {
+                name: "Mathématiques",
+                icon: "🔢",
+                description: "Algèbre, géométrie et analyse",
+                link: "./index.html"
+            },
+            {
+                name: "Langue anglaise",
+                icon: "GB",
+                description: "Communication et littérature anglaise",
+                link: "/anglais.html"
+            },
+            {
+                name: "Langue arabe",
+                icon: "🕌",
+                description: "Langue et civilisation arabes",
+                link: "/arabe.html"
+            },
+            {
+                name: "Physique et chimie",
+                icon: "⚗",
+                description: "Sciences physiques et chimiques",
+                link: "/physique-chimie.html"
+            },
+            {
+                name: "Sciences de la vie et de la terre",
+                icon: "🌱",
+                description: "Biologie, géologie et environnement",
+                link: "/svt.html"
+            },
+            {
+                name: "Histoire et géographie",
+                icon: "🗺",
+                description: "Histoire mondiale et géographie",
+                link: "/histoire-geo.html"
+            },
+            {
+                name: "Éducation islamique",
+                icon: "☪",
+                description: "Études islamiques et valeurs",
+                link: "/education-islamique.html"
+            },
+            {
+                name: "Éducation physique et sportive",
+                icon: "⚽",
+                description: "Sport et développement physique",
+                link: "/eps.html"
+            },
+            {
+                name: "Philosophie",
+                icon: "🤔",
+                description: "Pensée critique et philosophique",
+                link: "/philosophie.html"
+            },
+            {
+                name: "Informatique",
+                icon: "💻",
+                description: "Programmation et technologies",
+                link: "/informatique.html"
+            },
+            {
+                name: "Sciences économiques et gestion",
+                icon: "📊",
+                description: "Économie et management",
+                link: "/economie.html"
+            },
+            {
+                name: "Ingénierie",
+                icon: "⚙",
+                description: "Sciences de l'ingénieur",
+                link: "/ingenierie.html"
+            }
+        ];
+
+        function createFiliereCard(filiere, index) {
+            const card = document.createElement('div');
+            card.className = 'filiere-card';
+            card.style.animationDelay = (index * 0.1) + 's';
+
+            // Disable all buttons except Mathématiques
+            let isMath = filiere.name === "Mathématiques";
+            let buttonHtml = isMath
+                ? '<button class="filiere-button">Accéder aux cours</button>'
+                : '<button class="filiere-button" disabled style="background: #cbd5e1; color: #64748b; cursor: not-allowed;">Indisponible</button>';
+
+            card.innerHTML = `
+                <span class="filiere-icon">${filiere.icon}</span>
+                <h3 class="filiere-title">${filiere.name}</h3>
+                <p class="filiere-description">${filiere.description}</p>
+                ${buttonHtml}
+            `;
+
+            if (isMath) {
+                card.addEventListener('click', () => {
+                    card.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        window.location.href = filiere.link;
+                    }, 200);
+                });
+            }
+
+            return card;
+        }
+
+        function renderFilieres() {
+            const grid = document.getElementById('filieresGrid');
+            filieres.forEach((filiere, index) => {
+                const card = createFiliereCard(filiere, index);
+                grid.appendChild(card);
+            });
+        }
+
+        // Initialiser la page
+        document.addEventListener('DOMContentLoaded', () => {
+            renderFilieres();
+        });
+
+        // Animation au scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observer les cartes après leur création
+        setTimeout(() => {
+            document.querySelectorAll('.filiere-card').forEach(card => {
+                observer.observe(card);
+            });
+        }, 100);
+    </script>
+</body>
+</html>

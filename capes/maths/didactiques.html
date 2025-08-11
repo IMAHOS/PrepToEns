@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Didactique Maths | CAPES</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="../../../css/style.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="../../../index.html">
+                <i class="fas fa-chalkboard-teacher me-2"></i>Concours Enseignement
+            </a>
+            <span class="navbar-text">Didactique des Mathématiques</span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMathDid">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarMathDid">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Retour Maths</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cours.html">Cours</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="didactique.html">Didactique</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="qcm.html">QCM</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h1 class="display-4">Didactique des Mathématiques</h1>
+            <p class="lead">Enseigner les mathématiques au secondaire</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h4>Navigation</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="list-group">
+                            <a href="#concepts" class="list-group-item list-group-item-action">Concepts clés</a>
+                            <a href="#obstacles" class="list-group-item list-group-item-action">Obstacles didactiques</a>
+                            <a href="#sequences" class="list-group-item list-group-item-action">Séquences pédagogiques</a>
+                            <a href="#ressources" class="list-group-item list-group-item-action">Ressources</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header bg-info text-white">
+                        <h4>Votre progression</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="progress mb-3">
+                            <div id="didactique-progress" class="progress-bar" role="progressbar" style="width: 0%">0%</div>
+                        </div>
+                        <button id="mark-completed" class="btn btn-sm btn-outline-success">Marquer comme complété</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <!-- Concepts clés -->
+                        <section id="concepts" class="mb-5">
+                            <h3 class="mb-4">Concepts clés en didactique</h3>
+                            <div class="accordion" id="conceptsAccordion">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#transposition">
+                                            Transposition didactique
+                                        </button>
+                                    </h2>
+                                    <div id="transposition" class="accordion-collapse collapse show" data-bs-parent="#conceptsAccordion">
+                                        <div class="accordion-body">
+                                            <p>Processus par lequel un savoir savant est transformé en savoir à enseigner.</p>
+                                            <ul>
+                                                <li>Analyse des programmes scolaires</li>
+                                                <li>Adaptation aux niveaux des élèves</li>
+                                                <li>Exemples concrets</li>
+                                            </ul>
+                                            <div class="text-end">
+                                                <button class="btn btn-sm btn-outline-primary mark-section" data-section="transposition">Marquer comme lu</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#contrat">
+                                            Contrat didactique
+                                        </button>
+                                    </h2>
+                                    <div id="contrat" class="accordion-collapse collapse" data-bs-parent="#conceptsAccordion">
+                                        <div class="accordion-body">
+                                            <p>Ensemble des comportements attendus de l'enseignant et des élèves.</p>
+                                            <ul>
+                                                <li>Rôles implicites et explicites</li>
+                                                <li>Gestion des attentes</li>
+                                                <li>Exemples de rupture de contrat</li>
+                                            </ul>
+                                            <div class="text-end">
+                                                <button class="btn btn-sm btn-outline-primary mark-section" data-section="contrat">Marquer comme lu</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Obstacles didactiques -->
+                        <section id="obstacles" class="mb-5">
+                            <h3 class="mb-4">Obstacles didactiques</h3>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Concept</th>
+                                            <th>Obstacle fréquent</th>
+                                            <th>Stratégie pédagogique</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Fractions</td>
+                                            <td>Confusion entre fraction et division</td>
+                                            <td>Manipulation d'objets concrets</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Équations</td>
+                                            <td>Mécanisation des résolutions</td>
+                                            <td>Approche par problèmes ouverts</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Géométrie</td>
+                                            <td>Difficulté avec l'abstraction</td>
+                                            <td>Utilisation de logiciels de géométrie</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-end">
+                                <button class="btn btn-sm btn-outline-primary mark-section" data-section="obstacles">Marquer comme lu</button>
+                            </div>
+                        </section>
+
+                        <!-- Séquences pédagogiques -->
+                        <section id="sequences" class="mb-5">
+                            <h3 class="mb-4">Séquences pédagogiques</h3>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <h5>Théorème de Pythagore</h5>
+                                            <p>Niveau : 4ème</p>
+                                            <ul class="small">
+                                                <li>Découverte expérimentale</li>
+                                                <li>Démonstration</li>
+                                                <li>Applications</li>
+                                            </ul>
+                                            <a href="#" class="btn btn-sm btn-outline-primary">Voir la séquence</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <h5>Fonctions affines</h5>
+                                            <p>Niveau : 3ème</p>
+                                            <ul class="small">
+                                                <li>Approche graphique</li>
+                                                <li>Notion de coefficient</li>
+                                                <li>Problèmes concrets</li>
+                                            </ul>
+                                            <a href="#" class="btn btn-sm btn-outline-primary">Voir la séquence</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-end mt-3">
+                                <button class="btn btn-sm btn-outline-primary mark-section" data-section="sequences">Marquer comme lu</button>
+                            </div>
+                        </section>
+
+                        <!-- Ressources -->
+                        <section id="ressources">
+                            <h3 class="mb-4">Ressources didactiques</h3>
+                            <div class="list-group">
+                                <a href="#" class="list-group-item list-group-item-action">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-1">IREM - Ressources didactiques</h6>
+                                        <small class="text-muted">Site web</small>
+                                    </div>
+                                    <p class="mb-1">Institut de Recherche sur l'Enseignement des Mathématiques</p>
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-1">Les grands auteurs en didactique</h6>
+                                        <small class="text-muted">PDF</small>
+                                    </div>
+                                    <p class="mb-1">Brousseau, Chevallard, Vergnaud</p>
+                                </a>
+                            </div>
+                            <div class="text-end mt-3">
+                                <button class="btn btn-sm btn-outline-primary mark-section" data-section="ressources">Marquer comme lu</button>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-5">
+            <a href="../index.html" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Retour aux Mathématiques
+            </a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../js/progress.js"></script>
+    <script>
+        // Gestion de la progression pour cette page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Récupérer la progression existante
+            const progressData = JSON.parse(localStorage.getItem('userProgress')) || {};
+            if (!progressData.capes) progressData.capes = {};
+            if (!progressData.capes.maths) progressData.capes.maths = {};
+            
+            // Mettre à jour la barre de progression
+            updateDidactiqueProgress();
+            
+            // Marquer une section comme lue
+            document.querySelectorAll('.mark-section').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const section = this.getAttribute('data-section');
+                    progressData.capes.maths[`didactique_${section}`] = true;
+                    localStorage.setItem('userProgress', JSON.stringify(progressData));
+                    updateDidactiqueProgress();
+                    this.textContent = '✓ Lu';
+                    this.classList.remove('btn-outline-primary');
+                    this.classList.add('btn-success');
+                });
+            });
+            
+            // Marquer toute la page comme complétée
+            document.getElementById('mark-completed').addEventListener('click', function() {
+                if (confirm('Marquer toute la section Didactique comme complétée ?')) {
+                    progressData.capes.maths.didactique_completed = true;
+                    localStorage.setItem('userProgress', JSON.stringify(progressData));
+                    updateDidactiqueProgress();
+                    alert('Progression enregistrée !');
+                }
+            });
+            
+            function updateDidactiqueProgress() {
+                const progressData = JSON.parse(localStorage.getItem('userProgress')) || {};
+                const mathsData = progressData.capes?.maths || {};
+                
+                // Calculer le pourcentage de complétion
+                const sections = ['transposition', 'contrat', 'obstacles', 'sequences', 'ressources'];
+                let completed = 0;
+                
+                sections.forEach(section => {
+                    if (mathsData[`didactique_${section}`]) completed++;
+                });
+                
+                const percentage = Math.round((completed / sections.length) * 100);
+                const progressBar = document.getElementById('didactique-progress');
+                progressBar.style.width = `${percentage}%`;
+                progressBar.textContent = `${percentage}%`;
+                
+                // Changer la couleur en fonction du pourcentage
+                if (percentage < 30) {
+                    progressBar.className = 'progress-bar bg-danger';
+                } else if (percentage < 70) {
+                    progressBar.className = 'progress-bar bg-warning';
+                } else {
+                    progressBar.className = 'progress-bar bg-success';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

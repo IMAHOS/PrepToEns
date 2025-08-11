@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRES | Concours Enseignement</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="../css/style.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@500&display=swap');
+        .qcm-link {
+            transition: box-shadow 0.2s, transform 0.2s;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        .qcm-link:hover, .qcm-link:focus {
+            box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+            transform: translateY(-2px) scale(1.03);
+            text-decoration: none;
+        }
+        .modern-qcm-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 1rem 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.15rem;
+            font-weight: 600;
+            border-radius: 1.5rem;
+            background: linear-gradient(90deg, #e3f2fd 0%, #bbdefb 100%);
+            color: #1976d2;
+            box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+            border: none;
+            transition: background 0.3s, color 0.3s, transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+        .modern-qcm-link:hover, .modern-qcm-link:focus {
+            background: linear-gradient(90deg, #1976d2 0%, #64b5f6 100%);
+            color: #fff;
+            transform: translateY(-2px) scale(1.04);
+            box-shadow: 0 4px 16px rgba(25, 118, 210, 0.18);
+            text-decoration: none;
+        }
+        .simple-qcm-link {
+            display: block;
+            width: 100%;
+            min-height: 28px;
+            padding: 0.35rem 0.7rem;
+            margin-bottom: 4px;
+            text-align: left;
+            border-radius: 8px;
+            background: #f5f5f5;
+            color: #1b7ee2;
+            font-size: 1.08rem;
+            font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            text-decoration: none;
+            box-shadow: 0 1px 2px rgba(21, 101, 192, 0.04);
+            transition: background 0.2s, color 0.2s, transform 0.2s;
+            border: none;
+        }
+        .simple-qcm-link:hover{
+            background: #e3f2fd;
+            color: #d84315 ; /* orange/red for hover */
+            transform: translateY(-1px) scale(1.03);
+            text-decoration: none;
+        }
+        @keyframes vibrate {
+            0% { transform: translateX(0); }
+            20% { transform: translateX(-2px); }
+            40% { transform: translateX(2px); }
+            60% { transform: translateX(-2px); }
+            80% { transform: translateX(2px); }
+            100% { transform: translateX(0); }
+        }
+        .attention-vibrate {
+            animation: vibrate 0.5s infinite;
+        }
+        .attention-vibrate.stop-vibrate {
+            animation: none !important;
+        }
+        .attention-glow {
+            animation: glow 1s infinite alternate;
+        }
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 6px #ff9800, 0 0 12px #d32f2f;
+                color: #d32f2f;
+            }
+            100% {
+                text-shadow: 0 0 18px #ff9800, 0 0 32px #d32f2f;
+                color: #ff9800;
+            }
+        }
+        .attention-glow.stop-glow {
+            animation: none !important;
+            text-shadow: none !important;
+            color: #d32f2f !important;
+        }
+        /* fixer le navebar dans la page */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+        
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation principale -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+    <div class="container">
+        <a class="navbar-brand fs-5 fw-normal" href="../index.html">
+            <i class="fas fa-chalkboard-teacher me-2"></i>Concours Enseignement
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="../index.html">Accueil</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                        Parcours
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item active" href="index.html">CRPE - Primaire</a></li>
+                        <li><a class="dropdown-item" href="../capes/index.html">CAPES - Secondaire</a></li>
+                        <li><a class="dropdown-item" href="../agreg/index.html">ECPPE</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../PROPOS/index.html">À Propos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../contact/contact.html">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h1 class="display-4">Préparation au <i>CRES</i></h1>
+            <p class="lead">Concours de recrutement pour l'enseignement secondaire</p>
+        </div>
+    <div class="container py-2">
+        <div class="d-flex justify-content-start align-items-center mb-2">
+            <a href="conditions.html" id="attention-link" title="Voir les conditions des QCM" style="color:#d32f2f;font-size:1.35rem;text-decoration:none;">
+                <i class="fas fa-exclamation-triangle me-1 attention-glow" style="font-size:2rem;"></i>
+                <span style="font-size:1rem;vertical-align:middle;font-family:'Montserrat','Roboto',Arial,sans-serif;">
+                    Consignes et instructions importantes :
+                </span>
+            </a>
+        </div>
+    </div>
+        <!-- Cartes des disciplines -->
+        <div class="row g-4">
+            <!-- Mathématiques -->
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-header bg-primary text-white">
+                        <h3>Mathématiques</h3>
+                    </div>
+                    <div class="card-body d-flex flex-column justify-content-center align-items-center gap-1">
+    <a href="./maths/qsm-sp/qsm1.html" class="simple-qcm-link">QCM - Math - partie 1</a>
+    <a href="./maths/qsm-sp/qsm2.html" class="simple-qcm-link">QCM - Math - partie 2</a>
+    <a href="./maths/qsm-sp/qsm3.html" class="simple-qcm-link">QCM - Math - partie 3</a>
+    <a class="simple-qcm-link disabled" style="pointer-events:none;opacity:0.6;">Indisponible</a>
+    <div id="math-more-links" style="display:none;width:100%;">
+        <a class="simple-qcm-link disabled" style="width:100%;pointer-events:none;opacity:0.6;">Indisponible</a>
+        <a class="simple-qcm-link disabled" style="width:100%;pointer-events:none;opacity:0.6;">Indisponible</a>
+        <a class="simple-qcm-link disabled" style="width:100%;pointer-events:none;opacity:0.6;">Indisponible</a>
+        <a class="simple-qcm-link disabled" style="width:100%;pointer-events:none;opacity:0.6;">Indisponible</a>
+        <a class="simple-qcm-link disabled" style="width:100%;pointer-events:none;opacity:0.6;">Indisponible</a>
+        <a class="simple-qcm-link disabled" style="width:100%;pointer-events:none;opacity:0.6;">Indisponible</a>
+        <a class="simple-qcm-link disabled" style="width:100%;pointer-events:none;opacity:0.6;">Indisponible</a>
+    </div>
+    <a href="#" id="math-read-more" style="color:#1976d2;font-weight:600;text-decoration:underline;margin-top:6px;">Read more...</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Français (Didactique) -->
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-header bg-info text-white">
+                        <h3>Didactique</h3>
+                    </div>
+                    <div class="card-body d-flex flex-column justify-content-center align-items-center gap-1">
+    <a href="./maths/qsm_didactique/qsm1.html" class="simple-qcm-link">QCM - Didactique - partie 1</a>
+    <a href="./maths/qsm_didactique/qsm2.html" class="simple-qcm-link">QCM - Didactique - partie 2</a>
+    <a href="./maths/qsm_didactique/qsm3.html" class="simple-qcm-link">QCM - Didactique - partie 3</a>
+    <a class="simple-qcm-link disabled" style="pointer-events:none;opacity:0.6;">Indisponible</a>
+    <div id="dida-more-links" style="display:none;width:100%;">
+        <a class="simple-qcm-link disabled" style="width:100%;pointer-events:none;opacity:0.6;">Indisponible</a>
+        <a class="simple-qcm-link disabled" style="width:100%;pointer-events:none;opacity:0.6;">Indisponible</a>
+        <a class="simple-qcm-link disabled" style="width:100%;pointer-events:none;opacity:0.6;">Indisponible</a>
+        <a class="simple-qcm-link disabled" style="width:100%;pointer-events:none;opacity:0.6;">Indisponible</a>
+        <a class="simple-qcm-link disabled" style="width:100%;pointer-events:none;opacity:0.6;">Indisponible</a>
+        <a class="simple-qcm-link disabled" style="width:100%;pointer-events:none;opacity:0.6;">Indisponible</a>
+        <a class="simple-qcm-link disabled" style="width:100%;pointer-events:none;opacity:0.6;">Indisponible</a>
+    </div>
+    <a href="#" id="dida-read-more" style="color:#1976d2;font-weight:600;text-decoration:underline;margin-top:6px;">Read more...</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sciences Éducation -->
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-header bg-warning text-dark">
+                        <h3>Sciences de l'Éducation</h3>
+                    </div>
+                    <div class="card-body d-flex flex-column justify-content-center align-items-center gap-1">
+                        <a href="./maths/qsm_s_education/qsm1.html" class="simple-qcm-link">QCM - S.Éducation - partie 1</a>
+                        <a href="./maths/qsm_s_education/qsm2.html" class="simple-qcm-link">QCM - S.Éducation - partie 2</a>
+                        <a href="./maths/qsm_s_education/qsm3.html" class="simple-qcm-link">QCM - S.Éducation - partie 3</a>
+                        <a class="simple-qcm-link disabled" style="pointer-events:none;opacity:0.6;">Indisponible</a>
+                        <div id="educ-more-links" style="display:none;width:100%;">
+                <a class="simple-qcm-link disabled" style="width:100%;pointer-events:none;opacity:0.6;">Indisponible</a>
+                <a class="simple-qcm-link disabled" style="width:100%;pointer-events:none;opacity:0.6;">Indisponible</a>
+                <a class="simple-qcm-link disabled" style="width:100%;pointer-events:none;opacity:0.6;">Indisponible</a>
+                <a class="simple-qcm-link disabled" style="width:100%;pointer-events:none;opacity:0.6;">Indisponible</a>
+                <a class="simple-qcm-link disabled" style="width:100%;pointer-events:none;opacity:0.6;">Indisponible</a>
+                <a class="simple-qcm-link disabled" style="width:100%;pointer-events:none;opacity:0.6;">Indisponible</a>
+                <a class="simple-qcm-link disabled" style="width:100%;pointer-events:none;opacity:0.6;">Indisponible</a>
+            </div>
+            <a href="#" id="educ-read-more" style="color:#1976d2;font-weight:600;text-decoration:underline;margin-top:6px;">Read more...</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-end mt-4">
+            <p style="color:#090909;font-weight:600;text-decoration:none;display:block;margin-bottom:8px;">
+            الإطلاع على توصيف المجالات المضمونية للاختبارات الكتابية لمباريات ولوج سلك تأهيل أطر التدريس بالمراكز الجهوية لمهن التربية والتكوين - دورة أكتوبر 2024
+            </p>
+            <a href="didactique.pdf" style="color:#fbc02d;font-weight:600;text-decoration:none;display:block;margin-bottom:8px;">
+                <u class="fas fa-book-open me-2">الديداكتيك</u>  </a>
+            <a href="scinceEduc.pdf" style="color:#388e3c;font-weight:600;text-decoration:none;display:block;margin-bottom:8px;">
+                <u class="fas fa-graduation-cap me-2"> علوم التربية</u> </a>
+            <a href="mathSp.pdf" style="color:#1976d2;font-weight:600;text-decoration:none;display:block;">
+                <u class="fas fa-square-root-alt me-2"> تخصص الرياضيات</u></a>
+        </div>
+
+
+        <div class="container mt-5">
+            <table class="table table-bordered align-middle text-center" style="width:100%;max-width:100%;margin:auto;">
+                <thead class="table-light">
+                    <tr>
+                        <th>Mathématiques</th>
+                        <th>Didactique</th>
+                        <th>Sciences de l'Éducation</th>
+                    </tr>
+                </thead>
+                <tbody >
+                    <tr>
+                        <td>
+                            <ul class="list-unstyled mb-0">
+                                <li>
+                                    <a href="../pdf/تخصص الرياضيات دورة ابريل 2024.pdf" target="_blank" style="color:#1976d2;text-decoration:underline;font-weight:600;">
+                                        <u>Concours Math 2024</u>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../pdf/تصحيح تخصص الرياضيات 2023.pdf" target="_blank" style="color:#1976d2;text-decoration:underline;font-weight:600;">
+                                        <u>Concours Math 2023</u>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul id="math-table-more" class="list-unstyled mb-0" style="display:none;">
+                                <li>
+                                    <a href="../pdf/تصحيح رياضيات 2022.pdf" target="_blank" style="color:#1976d2;text-decoration:underline;font-weight:600;">
+                                        <u>Concours Math 2022</u>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../pdf/concours 2021.pdf" target="_blank" style="color:#1976d2;text-decoration:underline;font-weight:600;">
+                                        <u>Concours Math 2021</u>
+                                    </a>
+                                </li>
+                            </ul>
+                            <a href="#" id="math-table-more-btn" style="font-size:0.97rem;color:#1976d2;text-decoration:underline;display:inline-block;margin-top:4px;"><u>voir plus</u></a>
+                        </td>
+                        <td>
+                            <ul class="list-unstyled mb-0">
+                                <li>
+                                    <a href="../pdf/Didacttiq_M.pdf" target="_blank" style="color:#388e3c;text-decoration:underline;font-weight:600;">
+                                        <u>Concours Didactique </u>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../pdf/2017ديداكتيك و تخصص.pdf" target="_blank" style="color:#388e3c;text-decoration:underline;font-weight:600;">
+                                        <u>Concours Didactique </u>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul id="dida-table-more" class="list-unstyled mb-0" style="display:none;">
+                                <li>
+                                    <a href="../pdf/تصحيح ديداكتيك وتخصص 2021.pdf" target="_blank" style="color:#388e3c;text-decoration:underline;font-weight:600;">
+                                        <u>Concours Didactique </u>
+                                    </a>
+                                </li>
+                               
+                            </ul>
+                            <a href="#" id="dida-table-more-btn" style="font-size:0.97rem;color:#388e3c;text-decoration:underline;display:inline-block;margin-top:4px;"><u>voir plus</u></a>
+                        </td>
+                        <td>
+                            <ul class="list-unstyled mb-0">
+                                <li>
+                                    <a href="../pdf/Examens recrutement by mathsbooks-1.pdf" target="_blank" style="color:#fbc02d;text-decoration:underline;font-weight:600;">
+                                        <u>Concours S.Éducation </u>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../pdf/علوم التربية أكتوبر 2024.pdf" target="_blank" style="color:#fbc02d;text-decoration:underline;font-weight:600;">
+                                        <u>Concours S.Éducation </u>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul id="educ-table-more" class="list-unstyled mb-0" style="display:none;">
+                              
+                              
+                            </ul>
+                            <a href="#" id="educ-table-more-btn" style="font-size:0.97rem;color:#fbc02d;text-decoration:underline;display:inline-block;margin-top:4px;"><u>voir plus</u></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const link = document.getElementById('attention-link');
+    const icon = link ? link.querySelector('.attention-glow') : null;
+    if (icon && link) {
+        link.addEventListener('click', function() {
+            icon.classList.add('stop-glow');
+        });
+    }
+    const readMore = document.getElementById('math-read-more');
+    const moreLinks = document.getElementById('math-more-links');
+    if (readMore && moreLinks) {
+        readMore.addEventListener('click', function(e) {
+            e.preventDefault();
+            moreLinks.style.display = 'block';
+            readMore.style.display = 'none';
+        });
+    }
+    const educReadMore = document.getElementById('educ-read-more');
+    const educMoreLinks = document.getElementById('educ-more-links');
+    if (educReadMore && educMoreLinks) {
+        educReadMore.addEventListener('click', function(e) {
+            e.preventDefault();
+            educMoreLinks.style.display = 'block';
+            educReadMore.style.display = 'none';
+        });
+    }
+    const didaReadMore = document.getElementById('dida-read-more');
+    const didaMoreLinks = document.getElementById('dida-more-links');
+    if (didaReadMore && didaMoreLinks) {
+        didaReadMore.addEventListener('click', function(e) {
+            e.preventDefault();
+            didaMoreLinks.style.display = 'block';
+            didaReadMore.style.display = 'none';
+        });
+    }
+    // Table "voir plus" logic
+    const mathTableBtn = document.getElementById('math-table-more-btn');
+    const mathTableMore = document.getElementById('math-table-more');
+    if (mathTableBtn && mathTableMore) {
+        mathTableBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            mathTableMore.style.display = 'block';
+            mathTableBtn.style.display = 'none';
+        });
+    }
+    const didaTableBtn = document.getElementById('dida-table-more-btn');
+    const didaTableMore = document.getElementById('dida-table-more');
+    if (didaTableBtn && didaTableMore) {
+        didaTableBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            didaTableMore.style.display = 'block';
+            didaTableBtn.style.display = 'none';
+        });
+    }
+    const educTableBtn = document.getElementById('educ-table-more-btn');
+    const educTableMore = document.getElementById('educ-table-more');
+    if (educTableBtn && educTableMore) {
+        educTableBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            educTableMore.style.display = 'block';
+            educTableBtn.style.display = 'none';
+        });
+    }
+});
+</script>
+</body>
+</html>

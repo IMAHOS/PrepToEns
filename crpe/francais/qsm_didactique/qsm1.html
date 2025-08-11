@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concours de Français - CRFPE 2024</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c786c;
+            --secondary-color: #004445;
+            --accent-color: #f8b400;
+            --light-color: #faf5e4;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-top: 80px;
+            color: #333;
+            line-height: 1.7;
+        }
+        
+        .main-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 68, 69, 0.1);
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            border: 2px solid rgba(44, 120, 108, 0.1);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .question-card {
+            margin-bottom: 2.5rem;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 68, 69, 0.08);
+            border: 2px solid rgba(44, 120, 108, 0.15);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 68, 69, 0.15);
+            border-color: rgba(44, 120, 108, 0.3);
+        }
+        
+      .card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            font-weight: 700;
+            border-bottom: none;
+            padding: 1.2rem 1.5rem;
+            border-radius: 13px 13px 0 0 !important;
+        }
+        .card-body {
+            padding: 1.8rem;
+        }
+        
+        .card-title {
+            color: var(--secondary-color);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1.2rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .card-title:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 25px;
+            background: var(--accent-color);
+            border-radius: 5px;
+        }
+        
+        .card-text {
+            color: #444;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .list-group-item {
+            border: none;
+            border-left: 4px solid transparent;
+            margin-bottom: 0.5rem;
+            border-radius: 8px !important;
+            padding: 1rem 1.5rem;
+            font-size: 1.05rem;
+            transition: all 0.2s;
+            background-color: rgba(250, 245, 228, 0.5);
+        }
+        
+        .list-group-item:hover {
+            background-color: rgba(44, 120, 108, 0.08);
+            border-left-color: var(--accent-color);
+        }
+        
+        .form-check-input {
+            width: 1.2em;
+            height: 1.2em;
+            margin-right: 0.8rem;
+            margin-top: 0.2rem;
+            border: 2px solid #ced4da;
+        }
+        
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 0.6rem 2.2rem;
+            font-weight: 600;
+            border-radius: 30px;
+            box-shadow: 0 4px 10px rgba(44, 120, 108, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 68, 69, 0.4);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            font-weight: 600;
+            border-radius: 30px;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .correct-answer {
+            background-color: rgba(40, 167, 69, 0.15) !important;
+            border-left: 4px solid var(--success-color) !important;
+        }
+        
+        .incorrect-answer {
+            background-color: rgba(220, 53, 69, 0.1) !important;
+            border-left: 4px solid var(--danger-color) !important;
+        }
+        
+        .explanation {
+            display: none;
+            background-color: rgba(248, 180, 0, 0.08);
+            border-radius: 10px;
+            padding: 1.3rem;
+            margin-top: 1.5rem;
+            border-left: 4px solid var(--accent-color);
+            font-size: 1.05rem;
+        }
+        
+        .explanation strong {
+            color: var(--secondary-color);
+        }
+        
+        .fixed-timer {
+            position: fixed;
+            top: 90px;
+            right: 30px;
+            z-index: 1000;
+            width: 180px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 68, 69, 0.15);
+            padding: 15px;
+            text-align: center;
+            display: none;
+            border: 2px solid rgba(44, 120, 108, 0.2);
+        }
+        
+        .fixed-timer.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        .fixed-timer .timer-text {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        
+        .fixed-timer #fixed-timer-display {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--secondary-color);
+            letter-spacing: 1px;
+        }
+        
+        .navbar {
+            box-shadow: 0 3px 15px rgba(0, 68, 69, 0.1);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+            padding: 0.8rem 1rem;
+        }
+        
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white !important;
+        }
+        
+        .navbar-brand i {
+            color: var(--accent-color);
+        }
+        
+        .navbar-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9) !important;
+        }
+        
+        .nav-link {
+            font-weight: 600;
+            padding: 0.5rem 1.2rem !important;
+            color: rgba(255, 255, 255, 0.8) !important;
+            transition: all 0.2s;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: white !important;
+            transform: translateY(-2px);
+        }
+        
+        .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 30px;
+        }
+        
+        h1.display-4 {
+            font-weight: 800;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1.display-4:after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 70px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+        
+        .lead {
+            color: #555;
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .progress {
+            height: 35px;
+            background-color: #f1f1f1;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-bar {
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: width 0.6s ease;
+        }
+        
+        #final-score {
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 991.98px) {
+            .main-container {
+                padding: 1.8rem;
+                border-radius: 15px;
+            }
+            
+            .fixed-timer {
+                top: 80px;
+                right: 15px;
+                width: 150px;
+                padding: 12px;
+            }
+            
+            body {
+                padding-top: 70px;
+            }
+            
+            .card-body {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 767.98px) {
+            .main-container {
+                padding: 1.5rem 1rem;
+                border-radius: 12px;
+            }
+            
+            .fixed-timer {
+                top: 70px;
+                right: 10px;
+                width: 120px;
+                padding: 10px;
+            }
+            
+            h1.display-4 {
+                font-size: 1.8rem;
+            }
+            
+            .lead {
+                font-size: 1.1rem;
+            }
+            
+            .card-title {
+                font-size: 1.1rem;
+            }
+            
+            .card-text, .list-group-item {
+                font-size: 1rem;
+            }
+            
+            .btn-primary, .btn-outline-primary {
+                padding: 0.5rem 1.5rem;
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    
+
+    <!-- Timer fixe qui apparaît quand on commence le test -->
+    <div class="fixed-timer" id="fixedTimer">
+        <div class="timer-text">Temps restant</div>
+        <div id="fixed-timer-display">30:00</div>
+    </div>
+
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h1 class="display-4">Concours de Français</h1>
+            <p class="lead">Épreuve de langue française</p>
+        </div>
+
+        <div class="main-container">
+            <div class="card mb-4 border-0 shadow-sm">
+                <div class="card-header">
+                    <h4 class="mb-0">Instructions</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="mb-4">
+                        <li class="mb-2">L'épreuve contient 30 questions (de Q1 à Q20)</li>
+                        <li class="mb-2">Vous disposez de 30 minutes pour répondre à toutes les questions</li>
+                        <li class="mb-2">Pour chaque question, 5 choix de réponses sont proposés (A, B, C, D)</li>
+                        <li class="mb-2">Une seule réponse est correcte pour chaque question</li>
+                        <li>Chaque réponse correcte rapporte 1 point</li>
+                    </ul>
+                    <div class="text-center mt-4">
+                        <button id="start-timer" class="btn btn-primary btn-lg px-5">
+                            <i class="fas fa-play-circle me-2"></i>Commencer le test
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section QCM -->
+            <section id="qcm-section" class="d-none">
+                <form id="qcm-form">
+                    <!-- Q1 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 1</h5>
+                            <p class="card-text">En analyse de discours, quelle notion permet d'expliquer l'effet produit par la phrase : "C'est simple comme bonjour" dans un texte argumentatif ?</p>
+                            <div class="list-group">
+                                <label class="list-group-item">
+                                    <input class="form-check-input me-1" type="radio" name="q1" value="b">
+                                    A. L'ironie
+                                </label>
+                                <label class="list-group-item">
+                                    <input class="form-check-input me-1" type="radio" name="q1" value="a">
+                                    B. La polyphonie énonciative
+                                </label>
+                                <label class="list-group-item">
+                                    <input class="form-check-input me-1" type="radio" name="q1" value="c">
+                                    C. La présupposition
+                                </label>
+                                <label class="list-group-item">
+                                    <input class="form-check-input me-1" type="radio" name="q1" value="d">
+                                    D. L'isotopie
+                                </label>
+                            </div>
+                            <div class="explanation" id="explanation-q1">
+                                <strong>Réponse correcte:</strong> A<br>
+                                L'ironie repose sur un décalage entre le dit et le vouloir dire. Ici, l'expression "simple comme bonjour" peut sous-entendre une complexité cachée (Ducrot).
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Q2 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 2</h5>
+                            <p class="card-text">Dans l'enseignement de la lecture au cycle 3, quel dispositif favorise le mieux l'accès à l'implicite d'un texte ?</p>
+                            <div class="list-group">
+                                <label class="list-group-item">
+                                    <input class="form-check-input me-1" type="radio" name="q2" value="b">
+                                    A. Le débat interprétatif
+                                </label>
+                                <label class="list-group-item">
+                                    <input class="form-check-input me-1" type="radio" name="q2" value="a">
+                                    B. La fluence
+                                </label>
+                                <label class="list-group-item">
+                                    <input class="form-check-input me-1" type="radio" name="q2" value="c">
+                                    C. La copie de texte
+                                </label>
+                                <label class="list-group-item">
+                                    <input class="form-check-input me-1" type="radio" name="q2" value="d">
+                                    D. La dictée préparée
+                                </label>
+                            </div>
+                            <div class="explanation" id="explanation-q2">
+                                <strong>Réponse correcte:</strong> A<br>
+                                Le débat interprétatif (Tauveron) incite les élèves à confronter leurs hypothèses de sens et à justifier leurs interprétations.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Q3 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 3</h5>
+                            <p class="card-text">Quel concept de la transposition didactique est illustré par l'enseignement des "compléments circonstanciels" à l'école alors qu'ils n'existent pas en linguistique ?</p>
+                            <div class="list-group">
+                                <label class="list-group-item">
+                                    <input class="form-check-input me-1" type="radio" name="q3" value="d">
+                                    A. L'obstacle épistémologique
+                                </label>
+                                <label class="list-group-item">
+                                    <input class="form-check-input me-1" type="radio" name="q3" value="a">
+                                    B. La noosphère
+                                </label>
+                                <label class="list-group-item">
+                                    <input class="form-check-input me-1" type="radio" name="q3" value="b">
+                                    C. Le contrat didactique
+                                </label>
+                                <label class="list-group-item">
+                                    <input class="form-check-input me-1" type="radio" name="q3" value="c">
+                                    D. La dévolution
+                                </label>
+                            </div>
+                            <div class="explanation" id="explanation-q3">
+                                <strong>Réponse correcte:</strong> A<br>
+                                La noosphère (Chevallard) désigne les acteurs (inspecteurs, éditeurs) qui transforment les savoirs savants en savoirs à enseigner, parfois de manière arbitraire.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Q4 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 4</h5>
+                            <p class="card-text">Pour enseigner la notion de "complément du nom", quelle démarche évite le mieux les confusions avec l'apposition ?</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q4" value="A">A. Faire souligner les expansions nominales</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q4" value="B">B. Utiliser des manipulations syntaxiques (déplacement, suppression)</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q4" value="C">C. Donner une définition grammaticale</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q4" value="D">D. Faire copier des exemples</label>
+                            </div>
+                            <div class="explanation" id="explanation-q4"><strong>Réponse correcte:</strong> B<br>Seules les manipulations (ex: "le livre de Paul" → déplaçable en "le livre rouge de Paul" vs l'apposition "médecin, il partit") permettent de distinguer les fonctions (F. Grossmann).</div>
+                        </div>
+                    </div>
+                    <!-- Q5 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 5</h5>
+                            <p class="card-text">Quelle stratégie cognitive un élève mobilise-t-il lorsqu'il déduit le sens de "aquaphobie" en connaissant "hydrophobie" ?</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q5" value="A">A. L'inférence morphologique</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q5" value="B">B. L'analogie lexicale</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q5" value="C">C. L'activation du champ sémantique</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q5" value="D">D. La compensation contextuelle</label>
+                            </div>
+                            <div class="explanation" id="explanation-q5"><strong>Réponse correcte:</strong> B<br>L'analogie entre les radicaux grecs (aqua et hydro) et le suffixe -phobie relève d'un transfert inter-lexical (J. David).</div>
+                        </div>
+                    </div>
+                    <!-- Q6 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 6</h5>
+                            <p class="card-text">Dans l'étude d'un texte polémique, quel indicateur est le plus révélateur de la stratégie argumentative ?</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q6" value="A">A. La fréquence des adjectifs mélioratifs</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q6" value="B">B. Le taux de subordonnées relatives</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q6" value="C">C. La présence de lexique axiologique</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q6" value="D">D. L'alternance des temps verbaux</label>
+                            </div>
+                            <div class="explanation" id="explanation-q6"><strong>Réponse correcte:</strong> C<br>Le lexique axiologique ("scandaleux", "indispensable") marque l'engagement énonciatif et construit la polémique (R. Amossy).</div>
+                        </div>
+                    </div>
+                    <!-- Q7 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 7</h5>
+                            <p class="card-text">Quelle erreur révèle une méconnaissance du système graphémique français dans l'écriture "il s'a cassé la jambe" ?</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q7" value="A">A. Confusion homophonique</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q7" value="B">B. Mauvaise segmentation</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q7" value="C">C. Méconnaissance de la catégorie verbale</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q7" value="D">D. Sur-généralisation d'une règle</label>
+                            </div>
+                            <div class="explanation" id="explanation-q7"><strong>Réponse correcte:</strong> B<br>L'élève segmente incorrectement la séquence /saka/ en "s'a" + "cassé" au lieu de "s'est" + "cassé", montrant une analyse erronée des frontières morphologiques (N. Fayol).</div>
+                        </div>
+                    </div>
+                    <!-- Q8 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 8</h5>
+                            <p class="card-text">Pour travailler l'implicite dans un texte informatif, quel dispositif est le plus efficace ?</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q8" value="A">A. La formulation de questions explicites</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q8" value="B">B. La transformation du texte en QCM</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q8" value="C">C. La réécriture avec ajout d'éléments explicites</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q8" value="D">D. Le débat sur les intentions de l'auteur</label>
+                            </div>
+                            <div class="explanation" id="explanation-q8"><strong>Réponse correcte:</strong> D<br>Le débat interprétatif (C. Tauveron) oblige à justifier les inférences par des indices textuels, développant ainsi une lecture fine.</div>
+                        </div>
+                    </div>
+                    <!-- Q9 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 9</h5>
+                            <p class="card-text">Quelle caractéristique du français oral est la plus problématique pour la compréhension en L2 ?</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q9" value="A">A. Les liaisons obligatoires</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q9" value="B">B. L'élision du "e" muet</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q9" value="C">C. L'enchaînement consonantique</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q9" value="D">D. La variation mélodique</label>
+                            </div>
+                            <div class="explanation" id="explanation-q9"><strong>Réponse correcte:</strong> B<br>L'élision ("j'pense" pour "je pense") supprime des syllabes attendues, perturbant la segmentation du flux sonore (P. Delattre).</div>
+                        </div>
+                    </div>
+                    <!-- Q10 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 10</h5>
+                            <p class="card-text">Dans une progression annuelle, quel principe justifie d'enseigner d'abord le récit puis l'argumentation ?</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q10" value="A">A. La complexité syntaxique croissante</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q10" value="B">B. La proximité génétique</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q10" value="C">C. La progressivité des compétences pragmatiques</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q10" value="D">D. La fréquence dans les programmes</label>
+                            </div>
+                            <div class="explanation" id="explanation-q10"><strong>Réponse correcte:</strong> C<br>Le récit mobilise des compétences narratives de base avant d'aborder l'argumentation qui exige une maîtrise des connecteurs logiques et de la polyphonie (J. Dolz).</div>
+                        </div>
+                    </div>
+                    <!-- Q11 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 11</h5>
+                            <p class="card-text">Quel critère permet de distinguer une erreur d'une faute en production écrite ?</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q11" value="A">A. La répétition de l'écart</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q11" value="B">B. La capacité de l'élève à s'autocorriger</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q11" value="C">C. La gravité de l'écart</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q11" value="D">D. Le type de règle enfreinte</label>
+                            </div>
+                            <div class="explanation" id="explanation-q11"><strong>Réponse correcte:</strong> B<br>L'erreur est un écart ponctuel que l'élève peut corriger seul, tandis que la faute révèle une incompréhension durable (L. Lentin).</div>
+                        </div>
+                    </div>
+                    <!-- Q12 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 12</h5>
+                            <p class="card-text">Quelle compétence est principalement évaluée par un exercice de reformulation de consignes ?</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q12" value="A">A. La compréhension fine</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q12" value="B">B. La maîtrise syntaxique</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q12" value="C">C. La capacité à synthétiser</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q12" value="D">D. La créativité lexicale</label>
+                            </div>
+                            <div class="explanation" id="explanation-q12"><strong>Réponse correcte:</strong> A<br>Reformuler une consigne exige une compréhension précise du sens pour le transposer dans ses propres mots (J. Giasson).</div>
+                        </div>
+                    </div>
+                    <!-- Q13 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 13</h5>
+                            <p class="card-text">Quelle stratégie est la plus efficace pour enseigner l'accord du participe passé avec "avoir" ?</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q13" value="A">A. Faire mémoriser la règle générale</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q13" value="B">B. Utiliser des couleurs pour marquer les chaînes d'accord</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q13" value="C">C. Travailler sur des corpus d'erreurs fréquentes</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q13" value="D">D. Privilégier l'accord systématique avec le COD</label>
+                            </div>
+                            <div class="explanation" id="explanation-q13"><strong>Réponse correcte:</strong> B<br>Le marquage visuel des chaînes d'accord (souligner COD + participe) favorise une représentation mentale opératoire (A. Chervel).</div>
+                        </div>
+                    </div>
+                    <!-- Q14 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 14</h5>
+                            <p class="card-text">Quelle caractéristique du français académique pose le plus de difficultés aux élèves allophones ?</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q14" value="A">A. L'ordre sujet-verbe-objet</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q14" value="B">B. La subordination multiple</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q14" value="C">C. Les articles partitifs</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q14" value="D">D. La place des adjectifs</label>
+                            </div>
+                            <div class="explanation" id="explanation-q14"><strong>Réponse correcte:</strong> B<br>Les enchâssements syntaxiques ("L'homme que j'ai vu qui partait") sont rares dans les langues maternelles de nombreux apprenants (C. Vargas).</div>
+                        </div>
+                    </div>
+                    <!-- Q15 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 15</h5>
+                            <p class="card-text">Quelle pratique favorise le mieux la conceptualisation en grammaire ?</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q15" value="A">A. La dictée préparée</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q15" value="B">B. La manipulation d'étiquettes syntaxiques</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q15" value="C">C. La copie différée</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q15" value="D">D. L'analyse logique</label>
+                            </div>
+                            <div class="explanation" id="explanation-q15"><strong>Réponse correcte:</strong> B<br>La manipulation concrète (déplacer, supprimer des groupes) permet de tester des hypothèses sur le fonctionnement de la langue (J.-P. Bronckart).</div>
+                        </div>
+                    </div>
+                    <!-- Q16 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 16</h5>
+                            <p class="card-text">Quel indicateur permet d'évaluer la maîtrise de la cohérence textuelle ?</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q16" value="A">A. Le nombre de connecteurs utilisés</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q16" value="B">B. La progression thématique</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q16" value="C">C. La variété lexicale</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q16" value="D">D. La longueur des phrases</label>
+                            </div>
+                            <div class="explanation" id="explanation-q16"><strong>Réponse correcte:</strong> B<br>La progression thème-rhème (reprises anaphoriques, liens logiques) est au cœur de la cohérence (M. Charolles).</div>
+                        </div>
+                    </div>
+                    <!-- Q17 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 17</h5>
+                            <p class="card-text">Quelle erreur révèle une méconnaissance du système temporel dans "Hier, je mangeais quand il téléphone" ?</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q17" value="A">A. Confusion aspectuelle</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q17" value="B">B. Mauvaise concordance des temps</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q17" value="C">C. Méconnaissance des marqueurs temporels</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q17" value="D">D. Usage incorrect de l'imparfait</label>
+                            </div>
+                            <div class="explanation" id="explanation-q17"><strong>Réponse correcte:</strong> B<br>L'élève n'applique pas la concordance standard (imparfait + passé composé) pour exprimer la simultanéité dans le passé (H. Portine).</div>
+                        </div>
+                    </div>
+                    <!-- Q18 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 18</h5>
+                            <p class="card-text">Quelle stratégie est la plus adaptée pour travailler la compréhension des inférences en lecture ?</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q18" value="A">A. Poser des questions explicites</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q18" value="B">B. Faire reformuler chaque phrase</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q18" value="C">C. Utiliser des textes à trous</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q18" value="D">D. Annoter les connecteurs logiques</label>
+                            </div>
+                            <div class="explanation" id="explanation-q18"><strong>Réponse correcte:</strong> C<br>Les textes à trous obligent à combler les blancs par des inférences (M. Fayol), développant ainsi la lecture active.</div>
+                        </div>
+                    </div>
+                    <!-- Q19 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 19</h5>
+                            <p class="card-text">Quelle compétence est principalement mobilisée dans un atelier d'écriture collaborative en ligne ?</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q19" value="A">A. La planification textuelle</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q19" value="B">B. La révision orthographique</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q19" value="C">C. La gestion des feedbacks</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q19" value="D">D. La vitesse de frappe</label>
+                            </div>
+                            <div class="explanation" id="explanation-q19"><strong>Réponse correcte:</strong> A<br>L'écriture collaborative exige une négociation constante du contenu et de la structure (B. Schneuwly).</div>
+                        </div>
+                    </div>
+                    <!-- Q20 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 20</h5>
+                            <p class="card-text">Quel critère permet de distinguer une difficulté d'apprentissage d'un trouble dysorthographique ?</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q20" value="A">A. La persistance des erreurs malgré la remédiation</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q20" value="B">B. Le type d'erreurs commises</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q20" value="C">C. Le QI de l'élève</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q20" value="D">D. La vitesse d'écriture</label>
+                            </div>
+                            <div class="explanation" id="explanation-q20"><strong>Réponse correcte:</strong> A<br>Les troubles dys- résistent aux interventions pédagogiques standard et nécessitent des adaptations spécifiques (INSERM).</div>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-5">
+                        <button id="submit-answers" type="button" class="btn btn-primary btn-lg px-5">
+                            <i class="fas fa-check-circle me-2"></i>Soumettre les réponses
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Section Résultats -->
+            <section id="results-section" class="d-none">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="mb-0">Résultats du test</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mb-5">
+                            <h3 id="final-score">Score: 0/20</h3>
+                            <div class="progress mt-3 mb-4">
+                                <div id="final-progress" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between">
+                            <button id="review-answers" class="btn btn-outline-primary">
+                                <i class="fas fa-search me-2"></i>Voir les réponses
+                            </button>
+                            <button id="restart-quiz" class="btn btn-primary">
+                                <i class="fas fa-redo me-2"></i>Recommencer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Variables
+            const totalQuestions = 20;
+            let timeLeft = 30 * 60; // 30 minutes en secondes
+            let timerInterval;
+            let userAnswers = {};
+            let quizSubmitted = false;
+            
+            // Éléments DOM
+            const startTimerBtn = document.getElementById('start-timer');
+            const fixedTimer = document.getElementById('fixedTimer');
+            const fixedTimerDisplay = document.getElementById('fixed-timer-display');
+            const submitBtn = document.getElementById('submit-answers');
+            const reviewBtn = document.getElementById('review-answers');
+            const restartBtn = document.getElementById('restart-quiz');
+            const qcmSection = document.getElementById('qcm-section');
+            const resultsSection = document.getElementById('results-section');
+            
+            // Démarrer le timer
+            startTimerBtn.addEventListener('click', function() {
+                startTimer();
+                this.disabled = true;
+                fixedTimer.classList.add('active');
+                qcmSection.classList.remove('d-none');
+                qcmSection.scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Fonction pour démarrer le timer
+            function startTimer() {
+                updateTimerDisplay();
+                timerInterval = setInterval(function() {
+                    timeLeft--;
+                    updateTimerDisplay();
+                    if (timeLeft <= 0) {
+                        clearInterval(timerInterval);
+                        submitQuiz();
+                    }
+                }, 1000);
+            }
+            
+            // Fonction pour afficher le temps restant
+            function updateTimerDisplay() {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                fixedTimerDisplay.textContent = timeString;
+                if (timeLeft < 300) { // 5 minutes restantes
+                    fixedTimerDisplay.classList.add('text-danger');
+                }
+            }
+            
+            // Soumettre les réponses
+            submitBtn.addEventListener('click', function() {
+                if (confirm("Êtes-vous sûr de vouloir soumettre vos réponses ?")) {
+                    submitQuiz();
+                    // Suppression de l'affichage automatique du score
+                    // (ne pas scroller vers la section résultats)
+                }
+            });
+            
+            // Revoir les réponses
+            reviewBtn.addEventListener('click', function() {
+                reviewAnswers();
+            });
+            
+            // Recommencer le quiz
+            restartBtn.addEventListener('click', function() {
+                if (confirm("Voulez-vous vraiment recommencer le test ? Toutes vos réponses seront perdues.")) {
+                    resetQuiz();
+                    fixedTimer.classList.remove('active');
+                }
+            });
+            
+            // Fonction pour soumettre le quiz
+            function submitQuiz() {
+                if (quizSubmitted) return;
+                clearInterval(timerInterval);
+                quizSubmitted = true;
+                fixedTimer.classList.remove('active');
+                collectAnswers();
+                const score = calculateScore();
+                showResults(score);
+                showAnswers();
+                disableInputs();
+            }
+            
+            // Fonction pour collecter les réponses
+            function collectAnswers() {
+                userAnswers = {};
+                for (let i = 1; i <= 20; i++) {
+                    const selectedOption = document.querySelector(`input[name="q${i}"]:checked`);
+                    if (selectedOption) {
+                        userAnswers[`q${i}`] = selectedOption.value;
+                    }
+                }
+            }
+            
+            // Fonction pour calculer le score
+            function calculateScore() {
+                let score = 0;
+                const correctAnswers = {
+                    q1: 'b',
+                    q2: 'b',
+                    q3: 'd',
+                    q4: 'B',
+                    q5: 'B',
+                    q6: 'C',
+                    q7: 'B',
+                    q8: 'D',
+                    q9: 'B',
+                    q10: 'C',
+                    q11: 'B',
+                    q12: 'A',
+                    q13: 'B',
+                    q14: 'B',
+                    q15: 'B',
+                    q16: 'B',
+                    q17: 'B',
+                    q18: 'C',
+                    q19: 'A',
+                    q20: 'A'
+                };
+                for (const question in userAnswers) {
+                    if (userAnswers[question] === correctAnswers[question]) {
+                        score++;
+                    }
+                }
+                return score;
+            }
+
+            // Fonction pour afficher les réponses correctes/incorrectes (même principe pour toutes)
+            function showAnswers() {
+                const correctAnswers = {
+                    q1: 'b',
+                    q2: 'b',
+                    q3: 'd',
+                    q4: 'B',
+                    q5: 'B',
+                    q6: 'C',
+                    q7: 'B',
+                    q8: 'D',
+                    q9: 'B',
+                    q10: 'C',
+                    q11: 'B',
+                    q12: 'A',
+                    q13: 'B',
+                    q14: 'B',
+                    q15: 'B',
+                    q16: 'B',
+                    q17: 'B',
+                    q18: 'C',
+                    q19: 'A',
+                    q20: 'A'
+                };
+                for (let i = 1; i <= 20; i++) {
+                    const questionId = `q${i}`;
+                    const explanation = document.getElementById(`explanation-${questionId}`);
+                    // Afficher l'explication pour chaque question
+                    if (explanation) {
+                        explanation.style.display = 'block';
+                    }
+                    // Marquer la bonne réponse en vert pour toutes les questions
+                    const correctAnswerElement = document.querySelector(`input[name="${questionId}"][value="${correctAnswers[questionId]}"]`);
+                    if (correctAnswerElement) {
+                        correctAnswerElement.parentElement.classList.add('correct-answer');
+                    }
+                    // Si l'utilisateur a répondu et s'est trompé, marquer en rouge sa réponse
+                    if (userAnswers[questionId] && userAnswers[questionId] !== correctAnswers[questionId]) {
+                        const userAnswerElement = document.querySelector(`input[name="${questionId}"][value="${userAnswers[questionId]}"]`);
+                        if (userAnswerElement) {
+                            userAnswerElement.parentElement.classList.add('incorrect-answer');
+                        }
+                    }
+                }
+            }
+            
+            // Fonction pour afficher les résultats
+            function showResults(score) {
+                qcmSection.classList.add('d-none');
+                resultsSection.classList.remove('d-none');
+                document.getElementById('final-score').textContent = `Score: ${score}/${totalQuestions}`;
+                const percentage = Math.round((score / totalQuestions) * 100);
+                const progressBar = document.getElementById('final-progress');
+                progressBar.style.width = `${percentage}%`;
+                progressBar.textContent = `${percentage}%`;
+
+                // Synchroniser la couleur du score avec la barre de progression
+                const finalScore = document.getElementById('final-score');
+                if (percentage < 50) {
+                    progressBar.className = 'progress-bar bg-danger';
+                    finalScore.style.color = '#dc3545'; // danger
+                } else if (percentage < 75) {
+                    progressBar.className = 'progress-bar bg-warning';
+                    finalScore.style.color = '#ffc107'; // warning
+                } else {
+                    progressBar.className = 'progress-bar bg-success';
+                    finalScore.style.color = '#28a745'; // success
+                }
+                resultsSection.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            // Fonction pour désactiver les inputs
+            function disableInputs() {
+                const inputs = document.querySelectorAll('input[type="radio"]');
+                inputs.forEach(input => {
+                    input.disabled = true;
+                });
+            }
+            
+            // Fonction pour revoir les réponses
+            function reviewAnswers() {
+                qcmSection.classList.remove('d-none');
+                resultsSection.classList.add('d-none');
+                qcmSection.scrollIntoView({ behavior: 'smooth' });
+
+                // Replace "Soumettre les réponses" button with "Retour" button
+                const submitBtnContainer = document.querySelector('.text-center.mt-5');
+                submitBtnContainer.innerHTML = `
+                    <a href="../didactique.html" class="btn btn-outline-primary btn-lg px-5">
+                        <i class="fas fa-arrow-left me-2"></i>Retour
+                    </a>
+                `;
+            }
+            
+            // Fonction pour réinitialiser le quiz
+            function resetQuiz() {
+                qcmSection.classList.add('d-none');
+                resultsSection.classList.add('d-none');
+                timeLeft = 30 * 60;
+                userAnswers = {};
+                quizSubmitted = false;
+                clearInterval(timerInterval);
+                fixedTimerDisplay.textContent = '30:00';
+                fixedTimerDisplay.classList.remove('text-danger');
+                startTimerBtn.disabled = false;
+                const inputs = document.querySelectorAll('input[type="radio"]');
+                inputs.forEach(input => {
+                    input.checked = false;
+                    input.disabled = false;
+                    input.parentElement.classList.remove('correct-answer', 'incorrect-answer');
+                });
+                const explanations = document.querySelectorAll('.explanation');
+                explanations.forEach(explanation => {
+                    explanation.style.display = 'none';
+                });
+                qcmSection.classList.remove('d-none');
+                resultsSection.classList.add('d-none');
+                window.scrollTo(0, 0);
+            }
+        });
+    </script>
+</body>
+</html>

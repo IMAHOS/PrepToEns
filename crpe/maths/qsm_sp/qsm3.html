@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Mathématiques - Concours d'Enseignement 2024</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c786c;
+            --secondary-color: #004445;
+            --accent-color: #f8b400;
+            --light-color: #faf5e4;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-top: 80px;
+            color: #333;
+            line-height: 1.7;
+        }
+        
+        .main-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 68, 69, 0.1);
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            border: 2px solid rgba(44, 120, 108, 0.1);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .question-card {
+            margin-bottom: 2.5rem;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 68, 69, 0.08);
+            border: 2px solid rgba(44, 120, 108, 0.15);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 68, 69, 0.15);
+            border-color: rgba(44, 120, 108, 0.3);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            font-weight: 700;
+            border-bottom: none;
+            padding: 1.2rem 1.5rem;
+            border-radius: 13px 13px 0 0 !important;
+        }
+        
+        .card-body {
+            padding: 1.8rem;
+        }
+        
+        .card-title {
+            color: var(--secondary-color);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1.2rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .card-title:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 25px;
+            background: var(--accent-color);
+            border-radius: 5px;
+        }
+        
+        .card-text {
+            color: #444;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 1.4rem;
+            margin: 2rem 0 1rem;
+            padding-left: 1rem;
+            border-left: 5px solid var(--accent-color);
+        }
+        
+        .text-content {
+            font-size: 1.1rem;
+            text-align: justify;
+            margin-bottom: 1.5rem;
+        }
+        
+        .text-emphasis {
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+        
+        .list-group-item {
+            border: none;
+            border-left: 4px solid transparent;
+            margin-bottom: 0.5rem;
+            border-radius: 8px !important;
+            padding: 1rem 1.5rem;
+            font-size: 1.05rem;
+            transition: all 0.2s;
+            background-color: rgba(250, 245, 228, 0.5);
+        }
+        
+        .list-group-item:hover {
+            background-color: rgba(44, 120, 108, 0.08);
+            border-left-color: var(--accent-color);
+        }
+        
+        .form-check-input {
+            width: 1.2em;
+            height: 1.2em;
+            margin-right: 0.8rem;
+            margin-left: 0;
+            margin-top: 0.2rem;
+            border: 2px solid #ced4da;
+        }
+        
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 0.6rem 2.2rem;
+            font-weight: 600;
+            border-radius: 30px;
+            box-shadow: 0 4px 10px rgba(44, 120, 108, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 68, 69, 0.4);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            font-weight: 600;
+            border-radius: 30px;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .correct-answer {
+            background-color: rgba(40, 167, 69, 0.15) !important;
+            border-left: 4px solid var(--success-color) !important;
+        }
+        
+        .incorrect-answer {
+            background-color: rgba(220, 53, 69, 0.1) !important;
+            border-left: 4px solid var(--danger-color) !important;
+        }
+        
+        .explanation {
+            display: none;
+            background-color: rgba(248, 180, 0, 0.08);
+            border-radius: 10px;
+            padding: 1.3rem;
+            margin-top: 1.5rem;
+            border-left: 4px solid var(--accent-color);
+            font-size: 1.05rem;
+        }
+        
+        .explanation strong {
+            color: var(--secondary-color);
+        }
+        
+        .fixed-timer {
+            position: fixed;
+            top: 90px;
+            right: 30px;
+            z-index: 1000;
+            width: 180px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 68, 69, 0.15);
+            padding: 15px;
+            text-align: center;
+            display: none;
+            border: 2px solid rgba(44, 120, 108, 0.2);
+        }
+        
+        .fixed-timer.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        .fixed-timer .timer-text {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        
+        .fixed-timer #fixed-timer-display {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--secondary-color);
+            letter-spacing: 1px;
+        }
+        
+        .navbar {
+            box-shadow: 0 3px 15px rgba(0, 68, 69, 0.1);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+            padding: 0.8rem 1rem;
+        }
+        
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white !important;
+        }
+        
+        .navbar-brand i {
+            color: var(--accent-color);
+        }
+        
+        .navbar-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9) !important;
+        }
+        
+        .nav-link {
+            font-weight: 600;
+            padding: 0.5rem 1.2rem !important;
+            color: rgba(255, 255, 255, 0.8) !important;
+            transition: all 0.2s;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: white !important;
+            transform: translateY(-2px);
+        }
+        
+        .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 30px;
+        }
+        
+        h1.display-4 {
+            font-weight: 800;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1.display-4:after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 70px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+        
+        .lead {
+            color: #555;
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .progress {
+            height: 35px;
+            background-color: #f1f1f1;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-bar {
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: width 0.6s ease;
+        }
+        
+        #final-score {
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 991.98px) {
+            .main-container {
+                padding: 1.8rem;
+                border-radius: 15px;
+            }
+            
+            .fixed-timer {
+                top: 80px;
+                right: 15px;
+                width: 150px;
+                padding: 12px;
+            }
+            
+            body {
+                padding-top: 70px;
+            }
+            
+            .card-body {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 767.98px) {
+            .main-container {
+                padding: 1.5rem 1rem;
+                border-radius: 12px;
+            }
+            
+            .fixed-timer {
+                top: 70px;
+                right: 10px;
+                width: 120px;
+                padding: 10px;
+            }
+            
+            h1.display-4 {
+                font-size: 1.8rem;
+            }
+            
+            .lead {
+                font-size: 1.1rem;
+            }
+            
+            .card-title {
+                font-size: 1.1rem;
+            }
+            
+            .card-text, .list-group-item {
+                font-size: 1rem;
+            }
+            
+            .btn-primary, .btn-outline-primary {
+                padding: 0.5rem 1.5rem;
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar fixe en haut -->
+   
+    <!-- Timer fixe qui apparaît quand on commence le test -->
+    <div class="fixed-timer" id="fixedTimer">
+        <div class="timer-text">Temps restant</div>
+        <div id="fixed-timer-display">30:00</div>
+    </div>
+
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h1 class="display-4">concours de Mathématiques</h1>
+            <p class="lead">Concours de recrutement des enseignants du primaire  - Spécialité Mathématiques</p>
+        </div>
+
+        <div class="main-container">
+            <div class="card mb-4 border-0 shadow-sm">
+                <div class="card-header bg-white" style="border-bottom: 1px solid #eee; border-radius: 16px 16px 0 0;">
+                    <h4 class="mb-0" style="color: var(--primary-color); font-weight: 700;">
+                        <i class="fas fa-info-circle me-2" style="color: var(--accent-color);"></i>
+                        Instructions
+                    </h4>
+                </div>
+                <div class="card-body" style="background: linear-gradient(90deg, #faf5e4 80%, #f8b40010 100%); border-radius: 0 0 16px 16px;">
+                    <ul class="mb-4" style="font-size: 1.08rem; color: #444;">
+                        <li class="mb-2">Ce test comprend <span style="color: var(--primary-color); font-weight:600;">20 questions</span> en mathématiques (de Q1 à Q20)</li>
+                        <li class="mb-2">Vous avez <span style="color: var(--accent-color); font-weight:600;">30 minutes</span> pour répondre à toutes les questions</li>
+                        <li class="mb-2">Chaque question a quatre choix de réponses (<span style="color: var(--secondary-color); font-weight:600;">A, B, C, D</span>), une seule est correcte</li>
+                        <li>Le score est calculé uniquement sur les bonnes réponses</li>
+                    </ul>
+                    <div class="text-center mt-4">
+                        <button id="start-timer" class="btn btn-primary btn-lg px-5"><i class="fas fa-play-circle me-2"></i>Commencer le test</button>
+                    </div>
+                </div>
+            </div>
+
+            <section id="qcm-section" class="d-none">
+                <!-- Section QCM -->
+                <!-- Question Q1 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q1</h5>
+                        <p class="card-text">Quel est le PGCD de 36 et 48 ?</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q1" value="a">
+                                6
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q1" value="b">
+                                8
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q1" value="c">
+                                12
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q1" value="d">
+                                16
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q1">
+                            <strong>Explication :</strong> Le PGCD (Plus Grand Commun Diviseur) de 36 et 48 est 12. On peut le trouver en décomposant les nombres en facteurs premiers : 36 = 2² × 3² et 48 = 2⁴ × 3. Le PGCD est le produit des facteurs premiers communs avec leur plus petit exposant, soit 2² × 3 = 12.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q2 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q2</h5>
+                        <p class="card-text">Quelle est la solution de l'équation 2x + 5 = 17 ?</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q2" value="a">
+                                5
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q2" value="b">
+                                6
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q2" value="c">
+                                7
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q2" value="d">
+                                8
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q2">
+                            <strong>Explication :</strong> Pour résoudre 2x + 5 = 17, on soustrait 5 des deux côtés : 2x = 12, puis on divise par 2 : x = 6.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q3 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q3</h5>
+                        <p class="card-text">Quelle est la dérivée de la fonction f(x) = 3x² + 4x - 5 ?</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q3" value="a">
+                                6x + 4
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q3" value="b">
+                                3x + 4
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q3" value="c">
+                                6x² + 4
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q3" value="d">
+                                3x² + 4x
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q3">
+                            <strong>Explication :</strong> La dérivée de x^n est n*x^(n-1). Donc la dérivée de 3x² est 6x, la dérivée de 4x est 4, et la dérivée d'une constante (-5) est 0. La dérivée totale est donc 6x + 4.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q4 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q4</h5>
+                        <p class="card-text">Quelle est la solution du système d'équations suivant ?<br>2x + y = 5<br>x - y = 1</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q4" value="a">
+                                x=2, y=1
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q4" value="b">
+                                x=1, y=3
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q4" value="c">
+                                x=3, y=-1
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q4" value="d">
+                                x=0, y=5
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q4">
+                            <strong>Explication :</strong> En additionnant les deux équations, on obtient 3x = 6, donc x = 2. En remplaçant x dans la seconde équation : 2 - y = 1 ⇒ y = 1.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q5 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q5</h5>
+                        <p class="card-text">Quelle est la formule de l'aire d'un triangle rectangle dont les côtés de l'angle droit mesurent a et b ?</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q5" value="a">
+                                (a × b)/2
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q5" value="b">
+                                a × b
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q5" value="c">
+                                (a + b)/2
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q5" value="d">
+                                √(a² + b²)
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q5">
+                            <strong>Explication :</strong> Pour un triangle rectangle, les côtés de l'angle droit peuvent être considérés comme la base et la hauteur. L'aire d'un triangle est toujours (base × hauteur)/2.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q6 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q6</h5>
+                        <p class="card-text">Quelle est la valeur de 5³ - 4² ?</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q6" value="a">
+                                109
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q6" value="b">
+                                101
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q6" value="c">
+                                89
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q6" value="d">
+                                61
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q6">
+                            <strong>Explication :</strong> 5³ = 125 et 4² = 16. Donc 125 - 16 = 109.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q7 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q7</h5>
+                        <p class="card-text">Quelle est la nature de la suite définie par uₙ = 3n + 2 ?</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q7" value="a">
+                                Suite géométrique
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q7" value="b">
+                                Suite arithmétique
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q7" value="c">
+                                Suite constante
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q7" value="d">
+                                Suite ni arithmétique ni géométrique
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q7">
+                            <strong>Explication :</strong> C'est une suite arithmétique car la différence entre deux termes consécutifs est constante (ici, la raison est 3).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q8 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q8</h5>
+                        <p class="card-text">Quelle est la solution de l'inéquation 3x - 5 > 10 ?</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q8" value="a">
+                                x > 5
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q8" value="b">
+                                x < 5
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q8" value="c">
+                                x > 15
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q8" value="d">
+                                x < 15
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q8">
+                            <strong>Explication :</strong> On ajoute 5 des deux côtés : 3x > 15, puis on divise par 3 : x > 5.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q9 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q9</h5>
+                        <p class="card-text">Quel est le coefficient directeur de la droite d'équation y = -2x + 3 ?</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q9" value="a">
+                                3
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q9" value="b">
+                                -2
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q9" value="c">
+                                2
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q9" value="d">
+                                -3
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q9">
+                            <strong>Explication :</strong> Dans l'équation d'une droite y = mx + p, m est le coefficient directeur. Ici, m = -2.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q10 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q10</h5>
+                        <p class="card-text">Quelle est la valeur de sin(π/2) ?</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q10" value="a">
+                                0
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q10" value="b">
+                                1/2
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q10" value="c">
+                                1
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q10" value="d">
+                                √2/2
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q10">
+                            <strong>Explication :</strong> π/2 radians correspond à 90 degrés. Le sinus de 90° est 1.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q11 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q11</h5>
+                        <p class="card-text">Combien y a-t-il de diagonales dans un hexagone ?</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q11" value="a">
+                                6
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q11" value="b">
+                                9
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q11" value="c">
+                                12
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q11" value="d">
+                                15
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q11">
+                            <strong>Explication :</strong> Un polygone à n côtés a n(n-3)/2 diagonales. Pour n=6 : 6×3/2 = 9.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q12 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q12</h5>
+                        <p class="card-text">Quelle est la factorisation correcte de x² - 4 ?</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q12" value="a">
+                                (x - 2)²
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q12" value="b">
+                                (x + 2)²
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q12" value="c">
+                                (x - 4)(x + 1)
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q12" value="d">
+                                (x - 2)(x + 2)
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q12">
+                            <strong>Explication :</strong> C'est une identité remarquable de la forme a² - b² = (a - b)(a + b). Ici, x² - 4 = x² - 2² = (x - 2)(x + 2).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q13 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q13</h5>
+                        <p class="card-text">Quel est le volume d'un cube dont l'arête mesure 3 cm ?</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q13" value="a">
+                                9 cm³
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q13" value="b">
+                                18 cm³
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q13" value="c">
+                                27 cm³
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q13" value="d">
+                                36 cm³
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q13">
+                            <strong>Explication :</strong> Le volume d'un cube est donné par arête³. Donc 3³ = 27 cm³.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q14 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q14</h5>
+                        <p class="card-text">Quelle est la probabilité d'obtenir un nombre pair en lançant un dé à 6 faces ?</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q14" value="a">
+                                1/6
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q14" value="b">
+                                1/3
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q14" value="c">
+                                1/2
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q14" value="d">
+                                2/3
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q14">
+                            <strong>Explication :</strong> Les nombres pairs possibles sont 2, 4, 6 (3 possibilités). Sur 6 résultats possibles, la probabilité est donc 3/6 = 1/2.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q15 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q15</h5>
+                        <p class="card-text">Quelle est la valeur moyenne de la série statistique : 5, 8, 10, 10, 12 ?</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q15" value="a">
+                                8
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q15" value="b">
+                                9
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q15" value="c">
+                                10
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q15" value="d">
+                                11
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q15">
+                            <strong>Explication :</strong> La moyenne est la somme des valeurs divisée par le nombre de valeurs. (5+8+10+10+12)/5 = 45/5 = 9.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q16 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q16</h5>
+                        <p class="card-text">Quelle est la solution de l'équation x² - 5x + 6 = 0 ?</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q16" value="a">
+                                x=2 et x=3
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q16" value="b">
+                                x=-2 et x=-3
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q16" value="c">
+                                x=1 et x=6
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q16" value="d">
+                                x=-1 et x=6
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q16">
+                            <strong>Explication :</strong> On factorise : x² - 5x + 6 = (x - 2)(x - 3) = 0. Les solutions sont donc x=2 et x=3.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q17 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q17</h5>
+                        <p class="card-text">Quel est le résultat de 7! (factorielle de 7) ?</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q17" value="a">
+                                5040
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q17" value="b">
+                                720
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q17" value="c">
+                                40320
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q17" value="d">
+                                120
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q17">
+                            <strong>Explication :</strong> 7! = 7 × 6 × 5 × 4 × 3 × 2 × 1 = 5040.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q18 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q18</h5>
+                        <p class="card-text">Quelle est la formule du théorème de Pythagore pour un triangle rectangle d'hypoténuse c ?</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q18" value="a">
+                                a² + b² = c²
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q18" value="b">
+                                a + b = c
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q18" value="c">
+                                a² × b² = c²
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q18" value="d">
+                                a + b + c = 180°
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q18">
+                            <strong>Explication :</strong> Dans un triangle rectangle, le carré de l'hypoténuse (côté opposé à l'angle droit) est égal à la somme des carrés des deux autres côtés.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q19 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q19</h5>
+                        <p class="card-text">Quelle est la valeur de log₁₀(100) ?</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q19" value="a">
+                                1
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q19" value="b">
+                                2
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q19" value="c">
+                                10
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q19" value="d">
+                                100
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q19">
+                            <strong>Explication :</strong> log₁₀(100) est l'exposant auquel il faut élever 10 pour obtenir 100. Comme 10² = 100, log₁₀(100) = 2.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q20 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q20</h5>
+                        <p class="card-text">Quelle est la nature d'un triangle dont les côtés mesurent 5 cm, 12 cm et 13 cm ?</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q20" value="a">
+                                Triangle quelconque
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q20" value="b">
+                                Triangle rectangle
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q20" value="c">
+                                Triangle équilatéral
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q20" value="d">
+                                Triangle isocèle
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q20">
+                            <strong>Explication :</strong> Vérifions avec le théorème de Pythagore : 5² + 12² = 25 + 144 = 169 = 13². Donc c'est un triangle rectangle.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-5" id="submit-btn-container">
+                    <button id="submit-answers" class="btn btn-primary btn-lg px-5">
+                        <i class="fas fa-check-circle me-2"></i>Soumettre les réponses
+                    </button>
+                </div>
+            </section>
+
+            <!-- Section Résultats -->
+            <section id="results-section" class="d-none">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="mb-0">Résultats du test</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mb-5">
+                            <h3 id="final-score">Score: 0/20</h3>
+                            <div class="progress mt-3 mb-4">
+                                <div id="final-progress" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between">
+                            <button id="review-answers" class="btn btn-outline-primary">
+                                <i class="fas fa-search me-2"></i>Voir les réponses
+                            </button>
+                            <button id="restart-quiz" class="btn btn-primary">
+                                <i class="fas fa-redo me-2"></i>Refaire le test
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Variables
+            const totalQuestions = 20;
+            let timeLeft = 30 * 60; // 30 minutes en secondes
+            let timerInterval;
+            let userAnswers = {};
+            let quizSubmitted = false;
+            
+            // Éléments DOM
+            const startTimerBtn = document.getElementById('start-timer');
+            const fixedTimer = document.getElementById('fixedTimer');
+            const fixedTimerDisplay = document.getElementById('fixed-timer-display');
+            const submitBtn = document.getElementById('submit-answers');
+            const reviewBtn = document.getElementById('review-answers');
+            const restartBtn = document.getElementById('restart-quiz');
+            const qcmSection = document.getElementById('qcm-section');
+            const resultsSection = document.getElementById('results-section');
+            
+            // Démarrer le timer
+            startTimerBtn.addEventListener('click', function() {
+                startTimer();
+                this.disabled = true;
+                fixedTimer.classList.add('active');
+                qcmSection.classList.remove('d-none');
+                qcmSection.scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Fonction pour démarrer le timer
+            function startTimer() {
+                updateTimerDisplay();
+                
+                timerInterval = setInterval(function() {
+                    timeLeft--;
+                    updateTimerDisplay();
+                    
+                    if (timeLeft <= 0) {
+                        clearInterval(timerInterval);
+                        submitQuiz();
+                    }
+                }, 1000);
+            }
+            
+            // Fonction pour afficher le temps restant
+            function updateTimerDisplay() {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                fixedTimerDisplay.textContent = timeString;
+                
+                if (timeLeft < 300) { // 5 minutes restantes
+                    fixedTimerDisplay.classList.add('text-danger');
+                    fixedTimerDisplay.classList.remove('text-dark');
+                }
+            }
+            
+            // Soumettre les réponses
+            submitBtn.addEventListener('click', function() {
+                if (confirm("Êtes-vous sûr de vouloir soumettre vos réponses ?")) {
+                    submitQuiz();
+                }
+            });
+            
+            // Revoir les réponses
+            reviewBtn.addEventListener('click', function() {
+                reviewAnswers();
+            });
+            
+            // Recommencer le quiz
+            restartBtn.addEventListener('click', function() {
+                if (confirm("Voulez-vous vraiment recommencer le test ? Toutes vos réponses seront perdues.")) {
+                    resetQuiz();
+                    fixedTimer.classList.remove('active');
+                }
+            });
+            
+            // Fonction pour soumettre le quiz
+            function submitQuiz() {
+                if (quizSubmitted) return;
+                
+                clearInterval(timerInterval);
+                quizSubmitted = true;
+                fixedTimer.classList.remove('active');
+                
+                collectAnswers();
+                const score = calculateScore();
+                showResults(score);
+                disableInputs();
+            }
+            
+            // Fonction pour collecter les réponses
+            function collectAnswers() {
+                userAnswers = {};
+                
+                for (let i = 1; i <= totalQuestions; i++) {
+                    const selectedOption = document.querySelector(`input[name="q${i}"]:checked`);
+                    if (selectedOption) {
+                        userAnswers[`q${i}`] = selectedOption.value;
+                    }
+                }
+            }
+            
+            // Fonction pour calculer le score
+            function calculateScore() {
+                let score = 0;
+                const correctAnswers = {
+                    q1: 'c', q2: 'b', q3: 'a', q4: 'a', q5: 'a',
+                    q6: 'a', q7: 'b', q8: 'a', q9: 'b', q10: 'c',
+                    q11: 'b', q12: 'd', q13: 'c', q14: 'c', q15: 'b',
+                    q16: 'a', q17: 'a', q18: 'a', q19: 'b', q20: 'b'
+                };
+                
+                for (const question in userAnswers) {
+                    if (userAnswers[question] === correctAnswers[question]) {
+                        score++;
+                    }
+                }
+                
+                return score;
+            }
+            
+            // Fonction pour afficher les résultats
+            function showResults(score) {
+                qcmSection.classList.add('d-none');
+                resultsSection.classList.remove('d-none');
+                
+                document.getElementById('final-score').textContent = `Score: ${score}/${totalQuestions}`;
+                
+                const percentage = Math.round((score / totalQuestions) * 100);
+                const progressBar = document.getElementById('final-progress');
+                progressBar.style.width = `${percentage}%`;
+                progressBar.textContent = `${percentage}%`;
+                
+                if (percentage < 50) {
+                    progressBar.className = 'progress-bar bg-danger';
+                } else if (percentage < 75) {
+                    progressBar.className = 'progress-bar bg-warning';
+                } else {
+                    progressBar.className = 'progress-bar bg-success';
+                }
+                
+                resultsSection.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            // Fonction pour désactiver les inputs
+            function disableInputs() {
+                const inputs = document.querySelectorAll('input[type="radio"]');
+                inputs.forEach(input => {
+                    input.disabled = true;
+                });
+            }
+            
+            // Fonction pour revoir les réponses
+            function reviewAnswers() {
+                // Nettoyer les anciennes classes de correction
+                const allLabels = document.querySelectorAll('#qcm-section .list-group-item');
+                allLabels.forEach(label => {
+                    label.classList.remove('correct-answer', 'incorrect-answer');
+                });
+
+                qcmSection.classList.remove('d-none');
+                resultsSection.classList.add('d-none');
+
+                const correctAnswers = {
+                    q1: 'c', q2: 'b', q3: 'a', q4: 'a', q5: 'a',
+                    q6: 'a', q7: 'b', q8: 'a', q9: 'b', q10: 'c',
+                    q11: 'b', q12: 'd', q13: 'c', q14: 'c', q15: 'b',
+                    q16: 'a', q17: 'a', q18: 'a', q19: 'b', q20: 'b'
+                };
+
+                // Afficher les bonnes réponses et marquer celles de l'utilisateur
+                for (let i = 1; i <= totalQuestions; i++) {
+                    const userVal = userAnswers[`q${i}`];
+                    const correctVal = correctAnswers[`q${i}`];
+                    const explanation = document.getElementById(`explanation-q${i}`);
+                    
+                    if (explanation) explanation.style.display = 'block';
+                    
+                    if (userVal) {
+                        const userLabel = document.querySelector(`input[name="q${i}"][value="${userVal}"]`);
+                        if (userLabel) {
+                            const labelElem = userLabel.parentElement;
+                            if (userVal === correctVal) {
+                                labelElem.classList.add('correct-answer');
+                            } else {
+                                labelElem.classList.add('incorrect-answer');
+                                const correctLabel = document.querySelector(`input[name="q${i}"][value="${correctVal}"]`);
+                                if (correctLabel) correctLabel.parentElement.classList.add('correct-answer');
+                            }
+                        }
+                    } else {
+                        // Si l'utilisateur n'a pas répondu, montrer la bonne réponse
+                        const correctLabel = document.querySelector(`input[name="q${i}"][value="${correctVal}"]`);
+                        if (correctLabel) correctLabel.parentElement.classList.add('correct-answer');
+                    }
+                }
+
+                // Remplacer le bouton "Soumettre" par un bouton "Retour"
+                const submitBtnContainer = document.getElementById('submit-btn-container');
+                submitBtnContainer.innerHTML = `
+                    <a href="#" class="btn btn-outline-primary btn-lg px-5" id="back-to-results">
+                        <i class="fas fa-arrow-left me-2"></i>Retour aux résultats
+                    </a>
+                `;
+
+                document.getElementById('back-to-results').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    qcmSection.classList.add('d-none');
+                    resultsSection.classList.remove('d-none');
+                    resultsSection.scrollIntoView({ behavior: 'smooth' });
+                });
+
+                qcmSection.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            // Fonction pour réinitialiser le quiz
+            function resetQuiz() {
+                timeLeft = 30 * 60;
+                userAnswers = {};
+                quizSubmitted = false;
+
+                clearInterval(timerInterval);
+                fixedTimerDisplay.textContent = '30:00';
+                fixedTimerDisplay.classList.remove('text-danger');
+                startTimerBtn.disabled = false;
+
+                const inputs = document.querySelectorAll('input[type="radio"]');
+                inputs.forEach(input => {
+                    input.checked = false;
+                    input.disabled = false;
+                    input.parentElement.classList.remove('correct-answer', 'incorrect-answer');
+                });
+
+                // Masquer toutes les explications
+                const explanations = document.querySelectorAll('.explanation');
+                explanations.forEach(exp => {
+                    exp.style.display = 'none';
+                });
+
+                qcmSection.classList.remove('d-none');
+                resultsSection.classList.add('d-none');
+
+                window.scrollTo(0, 0);
+            }
+        });
+    </script>
+</body>
+</html>

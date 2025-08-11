@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QCM Didactique Mathématiques | CRPE 2024</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c786c;
+            --secondary-color: #004445;
+            --accent-color: #f8b400;
+            --light-color: #faf5e4;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+        }
+        body {
+            background-color: var(--light-color);
+            font-family: 'Tajawal', 'Cairo', Arial, sans-serif;
+            padding-top: 80px;
+            color: #333;
+            line-height: 1.7;
+        }
+        .main-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 68, 69, 0.1);
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            border: 2px solid rgba(44, 120, 108, 0.1);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .question-card {
+            margin-bottom: 2.5rem;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 68, 69, 0.08);
+            border: 2px solid rgba(44, 120, 108, 0.15);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 68, 69, 0.15);
+            border-color: rgba(44, 120, 108, 0.3);
+        }
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            font-weight: 700;
+            border-bottom: none;
+            padding: 1.2rem 1.5rem;
+            border-radius: 13px 13px 0 0 !important;
+        }
+        .card-body {
+            padding: 1.8rem;
+        }
+        .card-title {
+            color: var(--secondary-color);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1.2rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        .card-title:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 25px;
+            background: var(--accent-color);
+            border-radius: 5px;
+        }
+        .card-text {
+            color: #444;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        .list-group-item {
+            border: none;
+            border-right: 4px solid transparent;
+            margin-bottom: 0.5rem;
+            border-radius: 8px !important;
+            padding: 1rem 1.5rem;
+            font-size: 1.05rem;
+            transition: all 0.2s;
+            background-color: rgba(250, 245, 228, 0.5);
+        }
+        .list-group-item:hover {
+            background-color: rgba(44, 120, 108, 0.08);
+            border-right-color: var(--accent-color);
+        }
+        .form-check-input {
+            width: 1.2em;
+            height: 1.2em;
+            margin-right: 0.8rem;
+            margin-left: 0;
+            margin-top: 0.2rem;
+            border: 2px solid #ced4da;
+        }
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 0.6rem 2.2rem;
+            font-weight: 600;
+            border-radius: 30px;
+            box-shadow: 0 4px 10px rgba(44, 120, 108, 0.3);
+        }
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 68, 69, 0.4);
+        }
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            font-weight: 600;
+            border-radius: 30px;
+        }
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        .correct-answer {
+            background-color: rgba(40, 167, 69, 0.15) !important;
+            border-right: 4px solid var(--success-color) !important;
+        }
+        .incorrect-answer {
+            background-color: rgba(220, 53, 69, 0.1) !important;
+            border-right: 4px solid var(--danger-color) !important;
+        }
+        .explanation {
+            display: none;
+            background-color: rgba(248, 180, 0, 0.08);
+            border-radius: 10px;
+            padding: 1.3rem;
+            margin-top: 1.5rem;
+            border-left: 4px solid var(--accent-color);
+            font-size: 1.05rem;
+        }
+        .explanation strong {
+            color: var(--secondary-color);
+        }
+        .fixed-timer {
+            position: fixed;
+            top: 90px;
+            right: 30px;
+            z-index: 1000;
+            width: 180px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 68, 69, 0.15);
+            padding: 15px;
+            text-align: center;
+            display: none;
+            border: 2px solid rgba(44, 120, 108, 0.2);
+        }
+        .fixed-timer.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        .fixed-timer .timer-text {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        .fixed-timer #fixed-timer-display {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--secondary-color);
+            letter-spacing: 1px;
+        }
+        .navbar {
+            box-shadow: 0 3px 15px rgba(0, 68, 69, 0.1);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+            padding: 0.8rem 1rem;
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white !important;
+        }
+        .navbar-brand i {
+            color: var(--accent-color);
+        }
+        .navbar-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9) !important;
+        }
+        .nav-link {
+            font-weight: 600;
+            padding: 0.5rem 1.2rem !important;
+            color: rgba(255, 255, 255, 0.8) !important;
+            transition: all 0.2s;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: white !important;
+            transform: translateY(-2px);
+        }
+        .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 30px;
+        }
+        h1.display-4 {
+            font-weight: 800;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        h1.display-4:after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 70px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+        .lead {
+            color: #555;
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .progress {
+            height: 35px;
+            background-color: #f1f1f1;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .progress-bar {
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: width 0.6s ease;
+        }
+        #final-score {
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media (max-width: 991.98px) {
+            .main-container {
+                padding: 1.8rem;
+                border-radius: 15px;
+            }
+            .fixed-timer {
+                top: 80px;
+                right: 15px;
+                width: 150px;
+                padding: 12px;
+            }
+            body {
+                padding-top: 70px;
+            }
+            .card-body {
+                padding: 1.5rem;
+            }
+        }
+        @media (max-width: 767.98px) {
+            .main-container {
+                padding: 1.5rem 1rem;
+                border-radius: 12px;
+            }
+            .fixed-timer {
+                top: 70px;
+                right: 10px;
+                width: 120px;
+                padding: 10px;
+            }
+            h1.display-4 {
+                font-size: 1.8rem;
+            }
+            .lead {
+                font-size: 1.1rem;
+            }
+            .card-title {
+                font-size: 1.1rem;
+            }
+            .card-text, .list-group-item {
+                font-size: 1rem;
+            }
+            .btn-primary, .btn-outline-primary {
+                padding: 0.5rem 1.5rem;
+                font-size: 0.95rem;
+            }
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
+    </style>
+</head>
+<body>
+    <!-- Navigation principale -->
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" style="background-color: #0d6efd !important;">
+        <div class="container">
+            <a class="navbar-brand" href="../../index.html">
+                <i class="fas fa-chalkboard-teacher me-2"></i>Concours Enseignement
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../../index.html">Accueil</a>
+                    </li>
+                
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../PROPOS/index.html">À Propos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../contact/contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <main class="container py-5">
+        <!-- Titre principal -->
+        <header class="text-center mb-5">
+            <h1 class="display-5 fw-bold">QCM Sciences - CRPE</h1>
+            <p class="lead text-muted">Préparez-vous à l'examen avec des QCM interactifs .</p>
+        </header>
+
+        <!-- Bloc QCM/examen -->
+        <section class="mb-5">
+            <div class="row g-4 justify-content-center">
+                <!-- Examen intégré (Partie 1) -->
+                <div class="col-md-6 col-lg-4 col-12">
+                    <div class="card border-0 shadow h-100 text-center" style="background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%); border-radius: 22px; border: 2px solid #6366f1;">
+                        <div class="card-header text-white" style="background: linear-gradient(90deg, #6366f1 0%, #0ea5e9 100%); border-radius: 22px 22px 0 0;">
+                            <h5 class="mb-0">QCM - Sciences - Partie 1</h5>
+                        </div>
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                            <a href="../sciences/qsm_didactique/qsm1.html" class="btn btn-primary mb-2 w-100 text-white" style="border-radius: 12px; background: linear-gradient(90deg, #6366f1 0%, #0ea5e9 100%); border: none;">Accéder</a>
+                            <small class="text-muted">20 questions</small>
+                        </div>
+                    </div>
+                </div>
+                <!-- QCM parties 2 à 11, même couleur et forme -->
+                <div class="col-md-6 col-lg-4 col-12">
+                    <div class="card border-0 shadow h-100 text-center" style="background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%); border-radius: 22px; border: 2px solid #6366f1;">
+                        <div class="card-header text-white" style="background: linear-gradient(90deg, #6366f1 0%, #0ea5e9 100%); border-radius: 22px 22px 0 0;">
+                            <h5 class="mb-0">QCM - Sciences - Partie 2</h5>
+                        </div>
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                            <a href="../sciences/qsm_didactique/qsm2.html" class="btn btn-primary mb-2 w-100 text-white" style="border-radius: 12px; background: linear-gradient(90deg, #6366f1 0%, #0ea5e9 100%); border: none;">Accéder</a>
+                            <small class="text-muted">20 questions</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-12">
+                    <div class="card border-0 shadow h-100 text-center" style="background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%); border-radius: 22px; border: 2px solid #6366f1;">
+                        <div class="card-header text-white" style="background: linear-gradient(90deg, #6366f1 0%, #0ea5e9 100%); border-radius: 22px 22px 0 0;">
+                            <h5 class="mb-0">QCM - Sciences - Partie 3</h5>
+                        </div>
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                            <a href="../sciences/qsm_didactique/qsm3.html" class="btn btn-primary mb-2 w-100 text-white" style="border-radius: 12px; background: linear-gradient(90deg, #6366f1 0%, #0ea5e9 100%); border: none;">Accéder</a>
+                            <small class="text-muted">20 questions</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-12">
+                    <div class="card border-0 shadow h-100 text-center" style="background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%); border-radius: 22px; border: 2px solid #6366f1;">
+                        <div class="card-header text-white" style="background: linear-gradient(90deg, #6366f1 0%, #0ea5e9 100%); border-radius: 22px 22px 0 0;">
+                            <h5 class="mb-0">QCM - Sciences - Partie 4</h5>
+                        </div>
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                            <a class="btn btn-primary mb-2 w-100 text-white disabled" style="border-radius: 12px; background: linear-gradient(90deg, #6366f1 0%, #0ea5e9 100%); border: none;">Indisponible</a>
+                            <small class="text-muted">20 questions</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-12">
+                    <div class="card border-0 shadow h-100 text-center" style="background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%); border-radius: 22px; border: 2px solid #6366f1;">
+                        <div class="card-header text-white" style="background: linear-gradient(90deg, #6366f1 0%, #0ea5e9 100%); border-radius: 22px 22px 0 0;">
+                            <h5 class="mb-0">QCM - Sciences - Partie 5</h5>
+                        </div>
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                            <a class="btn btn-primary mb-2 w-100 text-white disabled" style="border-radius: 12px; background: linear-gradient(90deg, #6366f1 0%, #0ea5e9 100%); border: none;">Indisponible</a>
+                            <small class="text-muted">20 questions</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-12">
+                    <div class="card border-0 shadow h-100 text-center" style="background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%); border-radius: 22px; border: 2px solid #6366f1;">
+                        <div class="card-header text-white" style="background: linear-gradient(90deg, #6366f1 0%, #0ea5e9 100%); border-radius: 22px 22px 0 0;">
+                            <h5 class="mb-0">QCM - Sciences - Partie 6</h5>
+                        </div>
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                            <a class="btn btn-primary mb-2 w-100 text-white disabled" style="border-radius: 12px; background: linear-gradient(90deg, #6366f1 0%, #0ea5e9 100%); border: none;">Indisponible</a>
+                            <small class="text-muted">20 questions</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-12">
+                    <div class="card border-0 shadow h-100 text-center" style="background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%); border-radius: 22px; border: 2px solid #6366f1;">
+                        <div class="card-header text-white" style="background: linear-gradient(90deg, #6366f1 0%, #0ea5e9 100%); border-radius: 22px 22px 0 0;">
+                            <h5 class="mb-0">QCM - Sciences - Partie 7</h5>
+                        </div>
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                            <a class="btn btn-primary mb-2 w-100 text-white disabled" style="border-radius: 12px; background: linear-gradient(90deg, #6366f1 0%, #0ea5e9 100%); border: none;">Indisponible</a>
+                            <small class="text-muted">20 questions</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-12">
+                    <div class="card border-0 shadow h-100 text-center" style="background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%); border-radius: 22px; border: 2px solid #6366f1;">
+                        <div class="card-header text-white" style="background: linear-gradient(90deg, #6366f1 0%, #0ea5e9 100%); border-radius: 22px 22px 0 0;">
+                            <h5 class="mb-0">QCM - Sciences - Partie 8</h5>
+                        </div>
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                            <a class="btn btn-primary mb-2 w-100 text-white disabled" style="border-radius: 12px; background: linear-gradient(90deg, #6366f1 0%, #0ea5e9 100%); border: none;">Indisponible</a>
+                            <small class="text-muted">20 questions</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-12">
+                    <div class="card border-0 shadow h-100 text-center" style="background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%); border-radius: 22px; border: 2px solid #6366f1;">
+                        <div class="card-header text-white" style="background: linear-gradient(90deg, #6366f1 0%, #0ea5e9 100%); border-radius: 22px 22px 0 0;">
+                            <h5 class="mb-0">QCM - Sciences - Partie 9</h5>
+                        </div>
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                            <a class="btn btn-primary mb-2 w-100 text-white disabled" style="border-radius: 12px; background: linear-gradient(90deg, #6366f1 0%, #0ea5e9 100%); border: none;">Indisponible</a>
+                            <small class="text-muted">20 questions</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-12">
+                    <div class="card border-0 shadow h-100 text-center" style="background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%); border-radius: 22px; border: 2px solid #6366f1;">
+                        <div class="card-header text-white" style="background: linear-gradient(90deg, #6366f1 0%, #0ea5e9 100%); border-radius: 22px 22px 0 0;">
+                            <h5 class="mb-0">QCM - Sciences - Partie 10</h5>
+                        </div>
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                            <a class="btn btn-primary mb-2 w-100 text-white disabled" style="border-radius: 12px; background: linear-gradient(90deg, #6366f1 0%, #0ea5e9 100%); border: none;">Indisponible</a>
+                            <small class="text-muted">20 questions</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-12">
+                    <div class="card border-0 shadow h-100 text-center" style="background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%); border-radius: 22px; border: 2px solid #6366f1;">
+                        <div class="card-header text-white" style="background: linear-gradient(90deg, #6366f1 0%, #0ea5e9 100%); border-radius: 22px 22px 0 0;">
+                            <h5 class="mb-0">QCM - Sciences - Partie 11</h5>
+                        </div>
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                            <a class="btn btn-primary mb-2 w-100 text-white disabled" style="border-radius: 12px; background: linear-gradient(90deg, #6366f1 0%, #0ea5e9 100%); border: none;">Indisponible</a>
+                            <small class="text-muted">20 questions</small>
+                        </div>
+                    </div>
+                </div>
+                <!-- QCM Sciences parties 1 à 11, même couleur et forme -->
+               
+
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configuration de l'examen
+            const totalQuestions = 20;
+            const examDuration = 45 * 60; // 45 minutes en secondes
+            let currentQuestion = 1;
+            let timeLeft = examDuration;
+            let timerInterval;
+            let userAnswers = {};
+            let examSubmitted = false;
+            
+            // Réponses correctes (à compléter pour toutes les questions)
+            const correctAnswers = {
+                1: "c",
+                2: "a"
+                // Ajouter les réponses pour les autres questions
+            };
+            
+            // Éléments DOM
+            const timerDisplay = document.getElementById('timer');
+            const progressBar = document.getElementById('progress-bar');
+            const submitBtn = document.getElementById('submit-exam');
+            const nextBtn = document.getElementById('next-question');
+            const prevBtn = document.getElementById('prev-question');
+            const resultsSection = document.getElementById('results-section');
+            const questionsSection = document.getElementById('questions-section');
+            const finalScoreDisplay = document.getElementById('final-score');
+            const finalProgress = document.getElementById('final-progress');
+            const resultMessage = document.getElementById('result-message');
+            const reviewBtn = document.getElementById('review-answers');
+            const restartBtn = document.getElementById('restart-exam');
+            
+            // Démarrer le timer
+            function startTimer() {
+                updateTimerDisplay();
+                timerInterval = setInterval(function() {
+                    timeLeft--;
+                    updateTimerDisplay();
+                    
+                    if (timeLeft <= 0) {
+                        clearInterval(timerInterval);
+                        submitExam();
+                    }
+                }, 1000);
+            }
+            
+            // Mettre à jour l'affichage du timer
+            function updateTimerDisplay() {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                // Mettre à jour la barre de progression
+                const progressPercent = ((examDuration - timeLeft) / examDuration) * 100;
+                progressBar.style.width = `${progressPercent}%`;
+                
+                // Changer la couleur si le temps est critique
+                if (timeLeft < 300) { // 5 minutes restantes
+                    timerDisplay.classList.add('text-danger');
+                }
+            }
+            
+            // Gestion de la sélection des options
+            document.querySelectorAll('.option-item').forEach(option => {
+                option.addEventListener('click', function() {
+                    const questionNum = this.getAttribute('data-question');
+                    const optionValue = this.getAttribute('data-option');
+                    
+                    // Enregistrer la réponse
+                    userAnswers[questionNum] = optionValue;
+                    
+                    // Mettre en évidence la sélection
+                    document.querySelectorAll(`.option-item[data-question="${questionNum}"]`).forEach(item => {
+                        item.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                });
+            });
+            
+            // Navigation entre les questions
+            function showQuestion(questionNum) {
+                if (questionNum < 1 || questionNum > totalQuestions) return;
+                
+                currentQuestion = questionNum;
+                document.querySelectorAll('.question-card').forEach(card => {
+                    card.style.display = 'none';
+                });
+                document.getElementById(`question-${questionNum}`).style.display = 'block';
+                
+                // Mettre à jour les boutons de navigation
+                prevBtn.style.visibility = questionNum === 1 ? 'hidden' : 'visible';
+                nextBtn.style.visibility = questionNum === totalQuestions ? 'hidden' : 'visible';
+                
+                // Pré-sélectionner la réponse si déjà donnée
+                if (userAnswers[questionNum]) {
+                    document.querySelector(`.option-item[data-question="${questionNum}"][data-option="${userAnswers[questionNum]}"]`).classList.add('selected');
+                }
+            }
+            
+            // Soumettre l'examen
+            function submitExam() {
+                if (examSubmitted) return;
+                
+                clearInterval(timerInterval);
+                examSubmitted = true;
+                
+                // Calculer le score
+                let score = 0;
+                for (const [question, answer] of Object.entries(userAnswers)) {
+                    if (answer === correctAnswers[question]) {
+                        score++;
+                    }
+                }
+                
+                // Afficher les résultats
+                questionsSection.style.display = 'none';
+                resultsSection.style.display = 'block';
+                
+                finalScoreDisplay.textContent = `${score}/${totalQuestions}`;
+                const percentage = (score / totalQuestions) * 100;
+                finalProgress.style.width = `${percentage}%`;
+                
+                // Message personnalisé selon le score
+                if (percentage >= 80) {
+                    resultMessage.textContent = "Excellent travail ! Vous êtes prêt pour le concours.";
+                    resultMessage.className = "lead text-success";
+                } else if (percentage >= 50) {
+                    resultMessage.textContent = "Bon résultat, mais quelques révisions seraient bénéfiques.";
+                    resultMessage.className = "lead text-warning";
+                } else {
+                    resultMessage.textContent = "Des révisions supplémentaires sont nécessaires pour réussir.";
+                    resultMessage.className = "lead text-danger";
+                }
+                
+                // Faire défiler vers les résultats
+                resultsSection.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            // Revoir les réponses
+            reviewBtn.addEventListener('click', function() {
+                questionsSection.style.display = 'block';
+                resultsSection.style.display = 'none';
+                
+                // Afficher les corrections
+                for (const [question, correctAnswer] of Object.entries(correctAnswers)) {
+                    const correctOption = document.querySelector(`.option-item[data-question="${question}"][data-option="${correctAnswer}"]`);
+                    correctOption.style.backgroundColor = '#d4edda';
+                    correctOption.style.borderColor = '#c3e6cb';
+                    
+                    if (userAnswers[question] && userAnswers[question] !== correctAnswer) {
+                        const userOption = document.querySelector(`.option-item[data-question="${question}"][data-option="${userAnswers[question]}"]`);
+                        userOption.style.backgroundColor = '#f8d7da';
+                        userOption.style.borderColor = '#f5c6cb';
+                    }
+                }
+                
+                showQuestion(1);
+                questionsSection.scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Recommencer l'examen
+            restartBtn.addEventListener('click', function() {
+                if (confirm("Voulez-vous vraiment recommencer l'examen ? Toutes vos réponses seront perdues.")) {
+                    // Réinitialiser les variables
+                    currentQuestion = 1;
+                    timeLeft = examDuration;
+                    userAnswers = {};
+                    examSubmitted = false;
+                    
+                    // Réinitialiser l'affichage
+                    questionsSection.style.display = 'block';
+                    resultsSection.style.display = 'none';
+                    timerDisplay.textContent = "45:00";
+                    timerDisplay.classList.remove('text-danger');
+                    progressBar.style.width = "0%";
+                    
+                    // Réinitialiser les sélections
+                    document.querySelectorAll('.option-item').forEach(option => {
+                        option.classList.remove('selected');
+                        option.style.backgroundColor = '';
+                        option.style.borderColor = '';
+                    });
+                    
+                    // Redémarrer le timer
+                    clearInterval(timerInterval);
+                    startTimer();
+                    
+                    // Afficher la première question
+                    showQuestion(1);
+                    window.scrollTo(0, 0);
+                }
+            });
+            
+            // Événements des boutons
+            nextBtn.addEventListener('click', () => showQuestion(currentQuestion + 1));
+            prevBtn.addEventListener('click', () => showQuestion(currentQuestion - 1));
+            submitBtn.addEventListener('click', () => {
+                if (confirm("Êtes-vous sûr de vouloir soumettre votre examen ?")) {
+                    submitExam();
+                }
+            });
+            
+            // Initialisation
+            startTimer();
+            showQuestion(1);
+        });
+    </script>
+</body>
+</html>

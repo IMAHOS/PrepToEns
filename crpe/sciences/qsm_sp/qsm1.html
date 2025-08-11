@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concours de Mathématiques - CRPE Maroc 2024</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c786c;
+            --secondary-color: #004445;
+            --accent-color: #f8b400;
+            --light-color: #faf5e4;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-top: 80px;
+            color: #333;
+            line-height: 1.7;
+        }
+        
+        .main-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 68, 69, 0.1);
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            border: 2px solid rgba(44, 120, 108, 0.1);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .question-card {
+            margin-bottom: 2.5rem;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 68, 69, 0.08);
+            border: 2px solid rgba(44, 120, 108, 0.15);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 68, 69, 0.15);
+            border-color: rgba(44, 120, 108, 0.3);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            font-weight: 700;
+            border-bottom: none;
+            padding: 1.2rem 1.5rem;
+            border-radius: 13px 13px 0 0 !important;
+        }
+        
+        .card-body {
+            padding: 1.8rem;
+        }
+        
+        .card-title {
+            color: var(--secondary-color);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1.2rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .card-title:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 25px;
+            background: var(--accent-color);
+            border-radius: 5px;
+        }
+        
+        .card-text {
+            color: #444;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .list-group-item {
+            border: none;
+            border-left: 4px solid transparent;
+            margin-bottom: 0.5rem;
+            border-radius: 8px !important;
+            padding: 1rem 1.5rem;
+            font-size: 1.05rem;
+            transition: all 0.2s;
+            background-color: rgba(250, 245, 228, 0.5);
+        }
+        
+        .list-group-item:hover {
+            background-color: rgba(44, 120, 108, 0.08);
+            border-left-color: var(--accent-color);
+        }
+        
+        .form-check-input {
+            width: 1.2em;
+            height: 1.2em;
+            margin-right: 0.8rem;
+            margin-top: 0.2rem;
+            border: 2px solid #ced4da;
+        }
+        
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 0.6rem 2.2rem;
+            font-weight: 600;
+            border-radius: 30px;
+            box-shadow: 0 4px 10px rgba(44, 120, 108, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 68, 69, 0.4);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            font-weight: 600;
+            border-radius: 30px;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .correct-answer {
+            background-color: rgba(40, 167, 69, 0.15) !important;
+            border-left: 4px solid var(--success-color) !important;
+        }
+        
+        .incorrect-answer {
+            background-color: rgba(220, 53, 69, 0.1) !important;
+            border-left: 4px solid var(--danger-color) !important;
+        }
+        
+        .explanation {
+            display: none;
+            background-color: rgba(248, 180, 0, 0.08);
+            border-radius: 10px;
+            padding: 1.3rem;
+            margin-top: 1.5rem;
+            border-left: 4px solid var(--accent-color);
+            font-size: 1.05rem;
+        }
+        
+        .explanation strong {
+            color: var(--secondary-color);
+        }
+        
+        .fixed-timer {
+            position: fixed;
+            top: 90px;
+            right: 30px;
+            z-index: 1000;
+            width: 180px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 68, 69, 0.15);
+            padding: 15px;
+            text-align: center;
+            display: none;
+            border: 2px solid rgba(44, 120, 108, 0.2);
+        }
+        
+        .fixed-timer.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        .fixed-timer .timer-text {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        
+        .fixed-timer #fixed-timer-display {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--secondary-color);
+            letter-spacing: 1px;
+        }
+        
+        .navbar {
+            box-shadow: 0 3px 15px rgba(0, 68, 69, 0.1);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+            padding: 0.8rem 1rem;
+        }
+        
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white !important;
+        }
+        
+        .navbar-brand i {
+            color: var(--accent-color);
+        }
+        
+        .navbar-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9) !important;
+        }
+        
+        .nav-link {
+            font-weight: 600;
+            padding: 0.5rem 1.2rem !important;
+            color: rgba(255, 255, 255, 0.8) !important;
+            transition: all 0.2s;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: white !important;
+            transform: translateY(-2px);
+        }
+        
+        .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 30px;
+        }
+        
+        h1.display-4 {
+            font-weight: 800;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1.display-4:after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 70px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+        .correct-answer {
+    background-color: rgba(40, 167, 69, 0.15) !important;
+    border-left: 4px solid var(--success-color) !important;
+}
+
+.incorrect-answer {
+    background-color: rgba(220, 53, 69, 0.1) !important;
+    border-left: 4px solid var(--danger-color) !important;
+}
+        .lead {
+            color: #555;
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .progress {
+            height: 35px;
+            background-color: #f1f1f1;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-bar {
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: width 0.6s ease;
+        }
+        
+        #final-score {
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 991.98px) {
+            .main-container {
+                padding: 1.8rem;
+                border-radius: 15px;
+            }
+            
+            .fixed-timer {
+                top: 80px;
+                right: 15px;
+                width: 150px;
+                padding: 12px;
+            }
+            
+            body {
+                padding-top: 70px;
+            }
+            
+            .card-body {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 767.98px) {
+            .main-container {
+                padding: 1.5rem 1rem;
+                border-radius: 12px;
+            }
+            
+            .fixed-timer {
+                top: 70px;
+                right: 10px;
+                width: 120px;
+                padding: 10px;
+            }
+            
+            h1.display-4 {
+                font-size: 1.8rem;
+            }
+            
+            .lead {
+                font-size: 1.1rem;
+            }
+            
+            .card-title {
+                font-size: 1.1rem;
+            }
+            
+            .card-text, .list-group-item {
+                font-size: 1rem;
+            }
+            
+            .btn-primary, .btn-outline-primary {
+                padding: 0.5rem 1.5rem;
+                font-size: 0.95rem;
+            }
+        }
+        
+        /* Style spécifique pour les formules mathématiques */
+        .math-formula {
+            font-size: 1.2rem;
+            margin: 1rem 0;
+            padding: 0.5rem;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        
+        /* Style pour les figures géométriques */
+        .figure-container {
+            text-align: center;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .figure-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+        
+        .figure-description {
+            font-style: italic;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+        
+        /* Style pour les images des figures */
+        .figure-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        
+        /* Style pour les questions avec des tableaux */
+        .question-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        
+        .question-table th, .question-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        .question-table th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar fixe en haut -->
+  
+
+    <!-- Timer fixe qui apparaît quand on commence le test -->
+    <div class="fixed-timer" id="fixedTimer">
+        <div class="timer-text">Temps restant</div>
+        <div id="fixed-timer-display">30:00</div>
+    </div>
+
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h1 class="display-4">Concours de sciences</h1>
+            <p class="lead">Épreuve  </p>
+        </div>
+
+        <div class="main-container">
+            <div class="card mb-4 border-0 shadow-sm">
+                <div class="card-header">
+                    <h4 class="mb-0">Instructions</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="mb-4">
+                        <li class="mb-2">L'épreuve contient 30 questions (de Q1 à Q20)</li>
+                        <li class="mb-2">Vous disposez de 30 minutes pour répondre à toutes les questions</li>
+                        <li class="mb-2">Pour chaque question, 4 choix de réponses sont proposés (A, B, C, D)</li>
+                        <li class="mb-2">Une seule réponse est correcte pour chaque question</li>
+                        <li>Chaque réponse correcte rapporte 1 point</li>
+                    </ul>
+                    <div class="text-center mt-4">
+                        <button id="start-timer" class="btn btn-primary btn-lg px-5">
+                            <i class="fas fa-play-circle me-2"></i>Commencer le test
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section QCM -->
+            <section id="qcm-section" class="d-none">
+                <form id="qcm-form">
+                    <!-- Q61 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 1</h5>
+                            <p class="card-text">Un objet de masse 200 g est suspendu à un dynamomètre. Quelle est l'intensité de la pesanteur (g) si le dynamomètre indique 2 N ?</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q61" value="a">A. 0.4 N/kg</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q61" value="b">B. 2 N/kg</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q61" value="c">C. 10 N/kg</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q61" value="d">D. 20 N/kg</label>
+                            </div>
+                            <div class="explanation" id="explanation-q61"><strong>Réponse correcte:</strong> C<br>P = m × g ⇒ g = P/m = 2 N/0.2 kg = 10 N/kg.</div>
+                        </div>
+                    </div>
+                    <!-- Q62 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 2</h5>
+                            <p class="card-text">Quel type de force est exercé par un aimant sur une pièce de fer ?</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q62" value="a">A. Force de contact</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q62" value="b">B. Force de frottement</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q62" value="c">C. Force à distance</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q62" value="d">D. Force élastique</label>
+                            </div>
+                            <div class="explanation" id="explanation-q62"><strong>Réponse correcte:</strong> C<br>Les forces magnétiques agissent sans contact direct.</div>
+                        </div>
+                    </div>
+                    <!-- Q63 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 3</h5>
+                            <p class="card-text">Dans une expérience sur la lumière, un objet rouge éclairé par une lumière blanche apparaît :</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q63" value="a">A. Rouge</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q63" value="b">B. Blanc</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q63" value="c">C. Noir</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q63" value="d">D. Bleu</label>
+                            </div>
+                            <div class="explanation" id="explanation-q63"><strong>Réponse correcte:</strong> A<br>Un objet rouge absorbe toutes les couleurs sauf le rouge qu'il diffuse.</div>
+                        </div>
+                    </div>
+                    <!-- Q64 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 4</h5>
+                            <p class="card-text">La vitesse moyenne d'une voiture parcourant 162 km en 1h42 min est :</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q64" value="a">A. 90 km/h</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q64" value="b">B. 95 km/h</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q64" value="c">C. 100 km/h</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q64" value="d">D. 105 km/h</label>
+                            </div>
+                            <div class="explanation" id="explanation-q64"><strong>Réponse correcte:</strong> B<br>1h42 = 1.7 h ⇒ v = 162/1.7 ≈ 95 km/h.</div>
+                        </div>
+                    </div>
+                    <!-- Q65 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 5</h5>
+                            <p class="card-text">Quel principe géologique permet de déterminer que la faille F est plus ancienne que la couche B ?</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q65" value="a">A. Principe de recoupement</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q65" value="b">B. Principe de superposition</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q65" value="c">C. Principe de continuité</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q65" value="d">D. Principe d'identité paléontologique</label>
+                            </div>
+                            <div class="explanation" id="explanation-q65"><strong>Réponse correcte:</strong> A<br>Le principe de recoupement stipule qu'une structure qui en coupe une autre est plus récente.</div>
+                        </div>
+                    </div>
+                    <!-- Q66 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 6</h5>
+                            <p class="card-text">La masse volumique d'un cube de 2 cm d'arête pesant 28 g est :</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q66" value="a">A. 2.8 g/cm³</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q66" value="b">B. 7 g/cm³</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q66" value="c">C. 3.5 g/cm³</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q66" value="d">D. 14 g/cm³</label>
+                            </div>
+                            <div class="explanation" id="explanation-q66"><strong>Réponse correcte:</strong> C<br>Volume = 2³ = 8 cm³ ⇒ ρ = 28 g/8 cm³ = 3.5 g/cm³.</div>
+                        </div>
+                    </div>
+                    <!-- Q67 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 7</h5>
+                            <p class="card-text">Lors de la fécondation, la fusion des gamètes produit :</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q67" value="a">A. Une cellule diploïde</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q67" value="b">B. Une cellule haploïde</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q67" value="c">C. Une cellule triploïde</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q67" value="d">D. Une cellule tétraploïde</label>
+                            </div>
+                            <div class="explanation" id="explanation-q67"><strong>Réponse correcte:</strong> A<br>Les gamètes (n) fusionnent pour former un zygote (2n).</div>
+                        </div>
+                    </div>
+                    <!-- Q68 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 8</h5>
+                            <p class="card-text">Quel organe produit les hormones FSH et LH ?</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q68" value="a">A. Ovaire</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q68" value="b">B. Utérus</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q68" value="c">C. Hypothalamus</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q68" value="d">D. Hypophyse</label>
+                            </div>
+                            <div class="explanation" id="explanation-q68"><strong>Réponse correcte:</strong> D<br>L'hypophyse sécrète FSH et LH.</div>
+                        </div>
+                    </div>
+                    <!-- Q69 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 9</h5>
+                            <p class="card-text">Un train met 11 minutes de plus qu'une voiture pour parcourir 162 km. Si la voiture roule à 95 km/h, la vitesse du train est :</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q69" value="a">A. 85 km/h</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q69" value="b">B. 90 km/h</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q69" value="c">C. 92 km/h</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q69" value="d">D. 98 km/h</label>
+                            </div>
+                            <div class="explanation" id="explanation-q69"><strong>Réponse correcte:</strong> A<br>v_train ≈ 162/(1.705+11/60) ≈ 85.8 km/h.</div>
+                        </div>
+                    </div>
+                    <!-- Q70 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 10</h5>
+                            <p class="card-text">La période de révolution de la Terre autour du Soleil est :</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q70" value="a">A. 24 heures</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q70" value="b">B. 28 jours</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q70" value="c">C. 365 jours</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q70" value="d">D. 365.25 jours</label>
+                            </div>
+                            <div class="explanation" id="explanation-q70"><strong>Réponse correcte:</strong> D<br>La Terre met environ 365.25 jours pour orbiter autour du Soleil.</div>
+                        </div>
+                    </div>
+                    <!-- Q71 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 11</h5>
+                            <p class="card-text">Quel phénomène explique qu'un objet plongé dans l'eau paraît plus léger ?</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q71" value="a">A. La capillarité</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q71" value="b">B. La poussée d'Archimède</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q71" value="c">C. La tension superficielle</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q71" value="d">D. L'osmose</label>
+                            </div>
+                            <div class="explanation" id="explanation-q71"><strong>Réponse correcte:</strong> B<br>La poussée d'Archimède réduit le poids apparent.</div>
+                        </div>
+                    </div>
+                    <!-- Q72 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 12</h5>
+                            <p class="card-text">Dans une réaction chimique équilibrée, le nombre d'atomes de chaque élément :</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q72" value="a">A. Reste identique</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q72" value="b">B. Augmente</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q72" value="c">C. Diminue</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q72" value="d">D. Change de place</label>
+                            </div>
+                            <div class="explanation" id="explanation-q72"><strong>Réponse correcte:</strong> A<br>La loi de conservation de la masse impose que les atomes soient conservés.</div>
+                        </div>
+                    </div>
+                    <!-- Q73 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 13</h5>
+                            <p class="card-text">L'ADN est une molécule :</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q73" value="a">A. Double hélice</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q73" value="b">B. Linéaire chez tous les organismes</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q73" value="c">C. Circulaire chez l'homme</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q73" value="d">D. Sans structure définie</label>
+                            </div>
+                            <div class="explanation" id="explanation-q73"><strong>Réponse correcte:</strong> A<br>L'ADN a une structure en double hélice.</div>
+                        </div>
+                    </div>
+                    <!-- Q74 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 14</h5>
+                            <p class="card-text">La photosynthèse produit principalement :</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q74" value="a">A. CO₂ et H₂O</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q74" value="b">B. N₂ et O₂</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q74" value="c">C. O₂ et glucose</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q74" value="d">D. CO₂ et glucose</label>
+                            </div>
+                            <div class="explanation" id="explanation-q74"><strong>Réponse correcte:</strong> C<br>6CO₂ + 6H₂O + lumière → C₆H₁₂O₆ + 6O₂.</div>
+                        </div>
+                    </div>
+                    <!-- Q75 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 15</h5>
+                            <p class="card-text">Quel est le rôle des mitochondries ?</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q75" value="a">A. Synthèse des protéines</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q75" value="b">B. Stockage de l'ADN</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q75" value="c">C. Production d'énergie (ATP)</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q75" value="d">D. Photosynthèse</label>
+                            </div>
+                            <div class="explanation" id="explanation-q75"><strong>Réponse correcte:</strong> C<br>Les mitochondries sont le siège de la respiration cellulaire (production d'ATP).</div>
+                        </div>
+                    </div>
+                    <!-- Q76 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 16</h5>
+                            <p class="card-text">La vitesse de la lumière dans le vide est :</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q76" value="a">A. 150 000 km/s</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q76" value="b">B. 300 000 km/s</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q76" value="c">C. 450 000 km/s</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q76" value="d">D. Variable</label>
+                            </div>
+                            <div class="explanation" id="explanation-q76"><strong>Réponse correcte:</strong> B<br>c = 299 792 458 m/s (environ 300 000 km/s).</div>
+                        </div>
+                    </div>
+                    <!-- Q77 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 17</h5>
+                            <p class="card-text">Quel gaz est majoritaire dans l'atmosphère terrestre ?</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q77" value="a">A. Oxygène</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q77" value="b">B. Dioxyde de carbone</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q77" value="c">C. Hydrogène</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q77" value="d">D. Azote</label>
+                            </div>
+                            <div class="explanation" id="explanation-q77"><strong>Réponse correcte:</strong> D<br>L'azote (N₂) représente environ 78% de l'atmosphère.</div>
+                        </div>
+                    </div>
+                    <!-- Q78 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 18</h5>
+                            <p class="card-text">La formule chimique de l'eau est :</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q78" value="a">A. HO</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q78" value="b">B. H₂O</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q78" value="c">C. H₂O₂</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q78" value="d">D. H₃O</label>
+                            </div>
+                            <div class="explanation" id="explanation-q78"><strong>Réponse correcte:</strong> B<br>Une molécule d'eau contient 2 atomes d'hydrogène et 1 atome d'oxygène.</div>
+                        </div>
+                    </div>
+                    <!-- Q79 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 19</h5>
+                            <p class="card-text">Quel est le pH d'une solution neutre ?</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q79" value="a">A. 0</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q79" value="b">B. 10</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q79" value="c">C. 7</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q79" value="d">D. 14</label>
+                            </div>
+                            <div class="explanation" id="explanation-q79"><strong>Réponse correcte:</strong> C<br>Le pH neutre (eau pure) est 7 à 25°C.</div>
+                        </div>
+                    </div>
+                    <!-- Q80 -->
+                    <div class="card question-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question 20</h5>
+                            <p class="card-text">La fusion nucléaire dans le Soleil transforme principalement :</p>
+                            <div class="list-group">
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q80" value="a">A. Hydrogène en hélium</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q80" value="b">B. Hélium en carbone</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q80" value="c">C. Uranium en plomb</label>
+                                <label class="list-group-item"><input class="form-check-input me-1" type="radio" name="q80" value="d">D. Oxygène en azote</label>
+                            </div>
+                            <div class="explanation" id="explanation-q80"><strong>Réponse correcte:</strong> A<br>4 noyaux d'hydrogène fusionnent en 1 noyau d'hélium.</div>
+                        </div>
+                    </div>
+                    <!-- Ajoutez ici les autres questions jusqu'à Q90 si besoin -->
+                    <div class="text-center mt-5" id="submit-btn-container">
+            <button id="submit-answers" type="button" class="btn btn-primary btn-lg px-5">
+                <i class="fas fa-check-circle me-2"></i>Soumettre les réponses
+            </button>
+        </div>
+                </form>
+            </section>
+                
+         
+
+                <!-- Question Q84 -->
+                
+                  <!-- Section Résultats -->
+            <section id="results-section" class="d-none">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="mb-0">Résultats du test</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mb-5">
+                            <h3 id="final-score">Score: 0/30</h3>
+                            <div class="progress mt-3 mb-2">
+                                <div id="final-progress" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                            </div>
+                            <div id="final-progress-text" class="fw-bold" style="font-size:1.2rem;">0%</div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <button id="review-answers" class="btn btn-outline-primary">
+                                <i class="fas fa-search me-2"></i>Voir les réponses
+                            </button>
+                            <button id="restart-quiz" class="btn btn-primary">
+                                <i class="fas fa-redo me-2"></i>Recommencer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+                
+            
+        </div>
+    </div>
+
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Ajout du bouton de validation du quiz
+        // Supporte à la fois l'ID original et la nouvelle version ajoutée par l'utilisateur
+        const submitQuizBtn = document.getElementById('submit-answers') || document.getElementById('submit-quiz');
+        if (submitQuizBtn) {
+            submitQuizBtn.addEventListener('click', function() {
+                submitQuiz();
+            });
+        }
+
+        // Variables
+        const totalQuestions = 20; // 20 questions dans votre QCM
+        let timeLeft = 30 * 60; // 30 minutes en secondes
+        let timerInterval;
+        let userAnswers = {};
+        let quizSubmitted = false;
+
+        // Éléments DOM
+        const startTimerBtn = document.getElementById('start-timer');
+        const fixedTimer = document.getElementById('fixedTimer');
+        const fixedTimerDisplay = document.getElementById('fixed-timer-display');
+        const reviewBtn = document.getElementById('review-answers');
+        const restartBtn = document.getElementById('restart-quiz');
+        const qcmSection = document.getElementById('qcm-section');
+        const resultsSection = document.getElementById('results-section');
+        
+        // Démarrer le timer
+        startTimerBtn.addEventListener('click', function() {
+            startTimer();
+            this.disabled = true;
+            fixedTimer.classList.add('active');
+            qcmSection.classList.remove('d-none'); // <-- Affiche les questions au démarrage
+            qcmSection.scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        // Fonction pour démarrer le timer
+        function startTimer() {
+            updateTimerDisplay();
+            
+            timerInterval = setInterval(function() {
+                timeLeft--;
+                updateTimerDisplay();
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    submitQuiz();
+                }
+            }, 1000);
+        }
+        
+        // Fonction pour afficher le temps restant
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            fixedTimerDisplay.textContent = timeString;
+            
+            if (timeLeft < 300) { // 5 minutes restantes
+                fixedTimerDisplay.classList.add('text-danger');
+            }
+        }
+        
+        // Revoir les réponses
+        if (reviewBtn) {
+            reviewBtn.addEventListener('click', function() {
+                reviewAnswers();
+                replaceSubmitWithRetourButton(); // Ajoute le bouton Retour à la place de Soumettre
+            });
+        }
+        
+        // Recommencer le quiz
+        if (restartBtn) {
+            restartBtn.addEventListener('click', function() {
+                if (confirm("Voulez-vous vraiment recommencer le test ? Toutes vos réponses seront perdues.")) {
+                    resetQuiz();
+                    fixedTimer.classList.remove('active');
+                }
+            });
+        }
+        
+        // Fonction pour soumettre le quiz (peut être appelée par un bouton ou quand le temps est écoulé)
+        function submitQuiz() {
+            if (quizSubmitted) return;
+            
+            clearInterval(timerInterval);
+            quizSubmitted = true;
+            fixedTimer.classList.remove('active');
+            
+            collectAnswers();
+            const score = calculateScore();
+            showResults(score);
+            showAnswers(); // Afficher immédiatement les réponses correctes/incorrectes
+            disableInputs();
+        }
+        
+        // Fonction pour collecter les réponses
+        function collectAnswers() {
+            userAnswers = {};
+            for (let i = 61; i <= 80; i++) { // Correction : Q61 à Q80
+                const selectedOption = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selectedOption) {
+                    userAnswers[`q${i}`] = selectedOption.value;
+                }
+            }
+        }
+
+        // Fonction pour calculer le score
+        function calculateScore() {
+            let score = 0;
+            const correctAnswers = {
+                q61: 'c',
+                q62: 'c',
+                q63: 'a',
+                q64: 'b', // Correction : la bonne réponse pour Q64 est B (95 km/h)
+                q65: 'a',
+                q66: 'c',
+                q67: 'a',
+                q68: 'd',
+                q69: 'a',
+                q70: 'd',
+                q71: 'b',
+                q72: 'a',
+                q73: 'a',
+                q74: 'c',
+                q75: 'c',
+                q76: 'b',
+                q77: 'd',
+                q78: 'b',
+                q79: 'c',
+                q80: 'a'
+            };
+            for (const question in userAnswers) {
+                if (correctAnswers[question] && userAnswers[question] === correctAnswers[question]) {
+                    score++;
+                }
+            }
+            return score;
+        }
+
+        // Fonction pour afficher les réponses correctes/incorrectes
+        function showAnswers() {
+            const correctAnswers = {
+                q61: 'c',
+                q62: 'c',
+                q63: 'a',
+                q64: 'b', // Correction : la bonne réponse pour Q64 est B (95 km/h)
+                q65: 'a',
+                q66: 'c',
+                q67: 'a',
+                q68: 'd',
+                q69: 'a',
+                q70: 'd',
+                q71: 'b',
+                q72: 'a',
+                q73: 'a',
+                q74: 'c',
+                q75: 'c',
+                q76: 'b',
+                q77: 'd',
+                q78: 'b',
+                q79: 'c',
+                q80: 'a'
+            };
+            for (let i = 61; i <= 80; i++) {
+                const questionId = `q${i}`;
+                // Afficher l'explication
+                const explanation = document.getElementById(`explanation-${questionId}`);
+                if (explanation) {
+                    explanation.style.display = 'block';
+                }
+                // Colorer les réponses
+                if (userAnswers[questionId]) {
+                    const selectedInput = document.querySelector(`input[name="${questionId}"][value="${userAnswers[questionId]}"]`);
+                    if (selectedInput) {
+                        const userAnswerElement = selectedInput.parentElement;
+                        if (userAnswers[questionId] === correctAnswers[questionId]) {
+                            userAnswerElement.classList.add('correct-answer');
+                        } else {
+                            userAnswerElement.classList.add('incorrect-answer');
+                            // Marquer aussi la bonne réponse
+                            const correctInput = document.querySelector(`input[name="${questionId}"][value="${correctAnswers[questionId]}"]`);
+                            if (correctInput) {
+                                correctInput.parentElement.classList.add('correct-answer');
+                            }
+                        }
+                    }
+                } else {
+                    // Si aucune réponse n'a été donnée, marquer la bonne réponse
+                    const correctInput = document.querySelector(`input[name="${questionId}"][value="${correctAnswers[questionId]}"]`);
+                    if (correctInput) {
+                        correctInput.parentElement.classList.add('correct-answer');
+                    }
+                }
+            }
+        }
+
+        // Fonction pour afficher les résultats
+        function showResults(score) {
+            qcmSection.classList.add('d-none');
+            resultsSection.classList.remove('d-none');
+            document.getElementById('final-score').textContent = `Score: ${score}/${totalQuestions}`;
+            const percentage = Math.round((score / totalQuestions) * 100);
+            const progressBar = document.getElementById('final-progress');
+            const progressText = document.getElementById('final-progress-text');
+            progressBar.style.width = `${percentage}%`;
+            progressBar.textContent = `${percentage}%`;
+            if (progressText) {
+                progressText.textContent = `${percentage}%`;
+            }
+            if (percentage < 50) {
+                progressBar.className = 'progress-bar bg-danger';
+            } else if (percentage < 75) {
+                progressBar.className = 'progress-bar bg-warning';
+            } else {
+                progressBar.className = 'progress-bar bg-success';
+            }
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Fonction pour désactiver les inputs
+        function disableInputs() {
+            const inputs = document.querySelectorAll('input[type="radio"]');
+            inputs.forEach(input => {
+                input.disabled = true;
+            });
+        }
+        
+        // Fonction pour revoir les réponses
+        function reviewAnswers() {
+            qcmSection.classList.remove('d-none');
+            resultsSection.classList.add('d-none');
+            qcmSection.scrollIntoView({ behavior: 'smooth' });
+            replaceSubmitWithRetourButton(); // Ajoute le bouton Retour à la place de Soumettre
+        }
+
+        // Fonction pour remplacer "Soumettre les réponses" par "Retour"
+        function replaceSubmitWithRetourButton() {
+            const submitButton = document.getElementById('submit-answers');
+            if (submitButton) {
+                submitButton.remove(); // Supprime le bouton "Soumettre les réponses"
+            }
+
+            const retourButton = document.createElement('a');
+            retourButton.id = 'back-to-results';
+            retourButton.className = 'btn btn-outline-primary btn-lg px-5';
+            retourButton.innerHTML = '<i class="fas fa-arrow-left me-2"></i>Retour';
+            retourButton.href = '../sp.html';
+
+            const submitBtnContainer = document.getElementById('submit-btn-container');
+            if (submitBtnContainer) {
+                submitBtnContainer.innerHTML = '';
+                submitBtnContainer.appendChild(retourButton);
+            }
+        }
+
+        // Fonction pour réinitialiser le quiz
+        function resetQuiz() {
+            timeLeft = 30 * 60;
+            userAnswers = {};
+            quizSubmitted = false;
+            
+            clearInterval(timerInterval);
+            fixedTimerDisplay.textContent = '30:00';
+            fixedTimerDisplay.classList.remove('text-danger');
+            startTimerBtn.disabled = false;
+            
+            const inputs = document.querySelectorAll('input[type="radio"]');
+            inputs.forEach(input => {
+                input.checked = false;
+                input.disabled = false;
+                input.parentElement.classList.remove('correct-answer', 'incorrect-answer');
+            });
+            
+            const explanations = document.querySelectorAll('.explanation');
+            explanations.forEach(explanation => {
+                explanation.style.display = 'none';
+            });
+            
+            qcmSection.classList.remove('d-none');
+            resultsSection.classList.add('d-none');
+            
+            window.scrollTo(0, 0);
+        }
+        
+        // Ajouter un bouton de soumission manuel si nécessaire
+        const submitButton = document.createElement('button');
+        submitButton.id = 'submit-answers';
+        submitButton.className = 'btn btn-primary btn-lg px-5 mt-4';
+        submitButton.innerHTML = '<i class="fas fa-check-circle me-2"></i>Soumettre les réponses';
+        submitButton.addEventListener('click', function() {
+            if (confirm("Êtes-vous sûr de vouloir soumettre vos réponses ?")) {
+                submitQuiz();
+            }
+        });
+        
+        // Ajouter le bouton après la dernière question
+        const lastQuestion = document.querySelector('.question-card:last-child');
+        if (lastQuestion) {
+            const buttonContainer = document.createElement('div');
+            buttonContainer.className = 'text-center mt-4';
+            buttonContainer.appendChild(submitButton);
+            lastQuestion.appendChild(buttonContainer);
+        }
+    });
+</script>
+</body>
+</html>

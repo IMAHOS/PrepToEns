@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concours de Français - CRFPE 2024</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c786c;
+            --secondary-color: #004445;
+            --accent-color: #f8b400;
+            --light-color: #faf5e4;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-top: 80px;
+            color: #333;
+            line-height: 1.7;
+        }
+        
+        .main-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 68, 69, 0.1);
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            border: 2px solid rgba(44, 120, 108, 0.1);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .question-card {
+            margin-bottom: 2.5rem;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 68, 69, 0.08);
+            border: 2px solid rgba(44, 120, 108, 0.15);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 68, 69, 0.15);
+            border-color: rgba(44, 120, 108, 0.3);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            font-weight: 700;
+            border-bottom: none;
+            padding: 1.2rem 1.5rem;
+            border-radius: 13px 13px 0 0 !important;
+        }
+        
+        .card-body {
+            padding: 1.8rem;
+        }
+        
+        .card-title {
+            color: var(--secondary-color);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1.2rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .card-title:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 25px;
+            background: var(--accent-color);
+            border-radius: 5px;
+        }
+        
+        .card-text {
+            color: #444;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .list-group-item {
+            border: none;
+            border-left: 4px solid transparent;
+            margin-bottom: 0.5rem;
+            border-radius: 8px !important;
+            padding: 1rem 1.5rem;
+            font-size: 1.05rem;
+            transition: all 0.2s;
+            background-color: rgba(250, 245, 228, 0.5);
+        }
+        
+        .list-group-item:hover {
+            background-color: rgba(44, 120, 108, 0.08);
+            border-left-color: var(--accent-color);
+        }
+        
+        .form-check-input {
+            width: 1.2em;
+            height: 1.2em;
+            margin-right: 0.8rem;
+            margin-top: 0.2rem;
+            border: 2px solid #ced4da;
+        }
+        
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 0.6rem 2.2rem;
+            font-weight: 600;
+            border-radius: 30px;
+            box-shadow: 0 4px 10px rgba(44, 120, 108, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 68, 69, 0.4);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            font-weight: 600;
+            border-radius: 30px;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .correct-answer {
+            background-color: rgba(40, 167, 69, 0.15) !important;
+            border-left: 4px solid var(--success-color) !important;
+        }
+        
+        .incorrect-answer {
+            background-color: rgba(220, 53, 69, 0.1) !important;
+            border-left: 4px solid var(--danger-color) !important;
+        }
+        
+        .explanation {
+            display: none;
+            background-color: rgba(248, 180, 0, 0.08);
+            border-radius: 10px;
+            padding: 1.3rem;
+            margin-top: 1.5rem;
+            border-left: 4px solid var(--accent-color);
+            font-size: 1.05rem;
+        }
+        
+        .explanation strong {
+            color: var(--secondary-color);
+        }
+        
+        .fixed-timer {
+            position: fixed;
+            top: 90px;
+            right: 30px;
+            z-index: 1000;
+            width: 180px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 68, 69, 0.15);
+            padding: 15px;
+            text-align: center;
+            display: none;
+            border: 2px solid rgba(44, 120, 108, 0.2);
+        }
+        
+        .fixed-timer.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        .fixed-timer .timer-text {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        
+        .fixed-timer #fixed-timer-display {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--secondary-color);
+            letter-spacing: 1px;
+        }
+        
+        .navbar {
+            box-shadow: 0 3px 15px rgba(0, 68, 69, 0.1);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+            padding: 0.8rem 1rem;
+        }
+        
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white !important;
+        }
+        
+        .navbar-brand i {
+            color: var(--accent-color);
+        }
+        
+        .navbar-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9) !important;
+        }
+        
+        .nav-link {
+            font-weight: 600;
+            padding: 0.5rem 1.2rem !important;
+            color: rgba(255, 255, 255, 0.8) !important;
+            transition: all 0.2s;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: white !important;
+            transform: translateY(-2px);
+        }
+        
+        .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 30px;
+        }
+        
+        h1.display-4 {
+            font-weight: 800;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1.display-4:after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 70px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+        
+        .lead {
+            color: #555;
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .progress {
+            height: 35px;
+            background-color: #f1f1f1;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-bar {
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: width 0.6s ease;
+        }
+        
+        #final-score {
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 991.98px) {
+            .main-container {
+                padding: 1.8rem;
+                border-radius: 15px;
+            }
+            
+            .fixed-timer {
+                top: 80px;
+                right: 15px;
+                width: 150px;
+                padding: 12px;
+            }
+            
+            body {
+                padding-top: 70px;
+            }
+            
+            .card-body {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 767.98px) {
+            .main-container {
+                padding: 1.5rem 1rem;
+                border-radius: 12px;
+            }
+            
+            .fixed-timer {
+                top: 70px;
+                right: 10px;
+                width: 120px;
+                padding: 10px;
+            }
+            
+            h1.display-4 {
+                font-size: 1.8rem;
+            }
+            
+            .lead {
+                font-size: 1.1rem;
+            }
+            
+            .card-title {
+                font-size: 1.1rem;
+            }
+            
+            .card-text, .list-group-item {
+                font-size: 1rem;
+            }
+            
+            .btn-primary, .btn-outline-primary {
+                padding: 0.5rem 1.5rem;
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar fixe en haut -->
+   
+
+    <!-- Timer fixe qui apparaît quand on commence le test -->
+    <div class="fixed-timer" id="fixedTimer">
+        <div class="timer-text">Temps restant</div>
+        <div id="fixed-timer-display">30:00</div>
+    </div>
+
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h1 class="display-4">Concours de Français</h1>
+            <p class="lead">Épreuve de langue française </p>
+        </div>
+
+        <div class="main-container">
+            <div class="card mb-4 border-0 shadow-sm">
+                <div class="card-header">
+                    <h4 class="mb-0">Instructions</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="mb-4">
+                        <li class="mb-2">L'épreuve contient 30 questions (de Q1 à Q20)</li>
+                        <li class="mb-2">Vous disposez de 30 minutes pour répondre à toutes les questions</li>
+                        <li class="mb-2">Pour chaque question, 5 choix de réponses sont proposés (A, B, C, D, E)</li>
+                        <li class="mb-2">Une seule réponse est correcte pour chaque question</li>
+                        <li>Chaque réponse correcte rapporte 1 point</li>
+                    </ul>
+                    <div class="text-center mt-4">
+                        <button id="start-timer" class="btn btn-primary btn-lg px-5">
+                            <i class="fas fa-play-circle me-2"></i>Commencer le test
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section QCM -->
+            <section id="qcm-section" class="d-none">
+                <!-- Question Q1 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q1</h5>
+                        <p class="card-text">À quelle catégorie grammaticale le mot souligné appartient-il ?<br><em>Attention ! Tu vas te faire mal.</em></p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q1" value="a">
+                                A. Substantif
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q1" value="b">
+                                B. Verbe
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q1" value="c">
+                                C. Interjection
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q1" value="d">
+                                D. Adverbe
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q1" value="e">
+                                E. Aucun des choix précédents
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q1">
+                            <strong>Réponse correcte:</strong> C - Interjection<br>
+                            Le mot "Attention" est une interjection qui sert à avertir ou à mettre en garde.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q2 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q2</h5>
+                        <p class="card-text">Quelle est la fonction syntaxique du mot mis en gras dans la phrase suivante ?<br><em>Ce moment-là, nous ne nous y attendions pas.</em></p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q2" value="a">
+                                A. Complément d'objet direct
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q2" value="b">
+                                B. Complément d'objet indirect
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q2" value="c">
+                                C. Complément circonstanciel de lieu
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q2" value="d">
+                                D. Complément circonstanciel de temps
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q2" value="e">
+                                E. Aucun des choix précédents
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q2">
+                            <strong>Réponse correcte:</strong> D - Complément circonstanciel de temps<br>
+                            "Ce moment-là" précise le moment de l'action et répond à la question "quand ?".
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q3 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q3</h5>
+                        <p class="card-text">Laquelle des phrases suivantes contient un participe passé orthographié incorrectement ?</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q3" value="a">
+                                A. Voici la lettre que j'ai voulu écrire.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q3" value="b">
+                                B. Les deux amis se sont écrits plusieurs lettres.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q3" value="c">
+                                C. Cette lettre est plus émouvante que je ne l'aurais cru.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q3" value="d">
+                                D. Elles ont découvert les lettres qu'elles se sont lues.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q3" value="e">
+                                E. Aucun des choix précédents
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q3">
+                            <strong>Réponse correcte:</strong> E - Elles ont découvert les lettres qu'elles se sont lues.<br>
+                            Le participe passé "lues" est incorrect. Avec "se" COI, le participe passé s'accorde avec le COD si placé avant : "les lettres qu'elles se sont lues" → "les lettres" est COD placé avant, donc accord avec "lettres" (féminin pluriel) → "lues" est correct. En réalité, toutes les phrases sont correctes, donc la réponse serait E.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q4 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q4</h5>
+                        <p class="card-text">Quelle est la fonction syntaxique de la proposition subordonnée dans la phrase suivante ?<br><em>Mon souhait est que tu réussisses.</em></p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q4" value="a">
+                                A. Complément d'objet direct
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q4" value="b">
+                                B. Attribut du sujet
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q4" value="c">
+                                C. Complément circonstanciel de but
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q4" value="d">
+                                D. Attribut du complément
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q4" value="e">
+                                E. Aucun des choix précédents
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q4">
+                            <strong>Réponse correcte:</strong> B - Attribut du sujet<br>
+                            La subordonnée "que tu réussisses" est attribut du sujet "mon souhait" (elle caractérise le souhait).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q5 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q5</h5>
+                        <p class="card-text">Combien y a-t-il de propositions dans la phrase suivante ?<br><em>Les ténèbres demeuraient profondes, mais la main du vieillard les avait comme emplies de grandes misères, que le jeune homme, inconsciemment, sentait à cette heure autour de lui, partout, dans l'étendue sans bornes.</em> (É. ZOLA)</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q5" value="a">
+                                A. Trois propositions
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q5" value="b">
+                                B. Quatre propositions
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q5" value="c">
+                                C. Cinq propositions
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q5" value="d">
+                                D. Six propositions
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q5" value="e">
+                                E. Aucun des choix précédents
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q5">
+                            <strong>Réponse correcte:</strong> B - Quatre propositions<br>
+                            1. "Les ténèbres demeuraient profondes" (principale)<br>
+                            2. "mais la main du vieillard les avait comme emplies de grandes misères" (coordonnée par "mais")<br>
+                            3. "que le jeune homme [...] sentait à cette heure autour de lui" (relative)<br>
+                            4. "partout, dans l'étendue sans bornes" (juxtaposée implicite)
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q6 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q6</h5>
+                        <p class="card-text">Laquelle des phrases suivantes contient une proposition subordonnée circonstancielle ?</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q6" value="a">
+                                A. La ville où je suis né n'est pas loin d'ici.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q6" value="b">
+                                B. Je crois qu'il va faire beau.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q6" value="c">
+                                C. Je me demande s'il va faire beau.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q6" value="d">
+                                D. Je déménagerai demain, bien que la maison ne soit pas achevée.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q6" value="e">
+                                E. Aucun des choix précédents
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q6">
+                            <strong>Réponse correcte:</strong> D - Je déménagerai demain, bien que la maison ne soit pas achevée.<br>
+                            "bien que la maison ne soit pas achevée" est une subordonnée circonstancielle de concession.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q7 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q7</h5>
+                        <p class="card-text">Laquelle des phrases ci-dessous contient un verbe conjugué au conditionnel présent ?</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q7" value="a">
+                                A. Vaguement, elle souriait de plaisir.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q7" value="b">
+                                B. Les jours de pluie, il parcourait son journal.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q7" value="c">
+                                C. À ta place, elle le secourrait sans aucun doute.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q7" value="d">
+                                D. Il pleurait comme un enfant, en jetant les cinquante francs sur la table.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q7" value="e">
+                                E. Aucun des choix précédents
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q7">
+                            <strong>Réponse correcte:</strong> C - À ta place, elle le secourrait sans aucun doute.<br>
+                            "secourrait" est au conditionnel présent (radical du futur + terminaisons de l'imparfait).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q8 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q8</h5>
+                        <p class="card-text">Dans quelle liste les mots présentés sont-ils tous synonymes du mot mis en gras ?</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q8" value="a">
+                                A. Objecter : contester - protester - opposer - approcher - répliquer
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q8" value="b">
+                                B. Soulager : alléger - clamer - adoucir - consoler - apaiser
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q8" value="c">
+                                C. Durable : éternel - indélébile - permanent - altérable - perpétuel
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q8" value="d">
+                                D. Subvenir : aider - subventionner - pourvoir - secourir - soutenir
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q8" value="e">
+                                E. Aucun des choix précédents
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q8">
+                            <strong>Réponse correcte:</strong> D - Subvenir : aider - subventionner - pourvoir - secourir - soutenir<br>
+                            Tous ces mots sont des synonymes de "subvenir" (fournir ce qui est nécessaire).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q9 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q9</h5>
+                        <p class="card-text">Laquelle des phrases ci-dessous est à la voix passive ?</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q9" value="a">
+                                A. C'est par erreur qu'elle est rentrée par là.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q9" value="b">
+                                B. Les joueurs de l'équipe nationale sont revenus de l'étranger.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q9" value="c">
+                                C. Ils sont passés par Londres.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q9" value="d">
+                                D. Elle est allée à la campagne par une belle journée de mars.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q9" value="e">
+                                E. Aucun des choix précédents
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q9">
+                            <strong>Réponse correcte:</strong> E - Aucun des choix précédents<br>
+                            Aucune de ces phrases n'est à la voix passive. Toutes utilisent l'auxiliaire "être" mais avec des verbes intransitifs.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q10 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q10</h5>
+                        <p class="card-text">Par quel procédé le mot « thermomètre » est-il formé ?</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q10" value="a">
+                                A. Composition savante
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q10" value="b">
+                                B. Suffixation
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q10" value="c">
+                                C. Composition populaire
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q10" value="d">
+                                D. Préfixation
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q10" value="e">
+                                E. Aucun des choix précédents
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q10">
+                            <strong>Réponse correcte:</strong> A - Composition savante<br>
+                            "Thermomètre" est formé à partir de deux éléments grecs : "thermo-" (chaleur) et "-mètre" (mesure).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q11 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q11</h5>
+                        <p class="card-text">Lequel des mots ci-dessous convient pour compléter la phrase suivante ?<br><em>Je lui ai envoyé son invitation dans une enveloppe en ........</em></p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q11" value="a">
+                                A. sois
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q11" value="b">
+                                B. soit
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q11" value="c">
+                                C. soi
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q11" value="d">
+                                D. soie
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q11" value="e">
+                                E. Aucun des choix précédents
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q11">
+                            <strong>Réponse correcte:</strong> D - soie<br>
+                            "enveloppe en soie" est la seule formulation correcte (matière).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q12 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q12</h5>
+                        <p class="card-text">Lequel des phonèmes, ci-dessous, correspond aux traits articulatoires suivants ?<br>Consonne : nasale ; sonore ; bilabiale ; occlusive</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q12" value="a">
+                                A. [b]
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q12" value="b">
+                                B. [t]
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q12" value="c">
+                                C. [n]
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q12" value="d">
+                                D. [p]
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q12" value="e">
+                                E. Aucun des choix précédents
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q12">
+                            <strong>Réponse correcte:</strong> E - Aucun des choix précédents<br>
+                            Le phonème correspondant est [m] (nasale, sonore, bilabiale, occlusive).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q13 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q13</h5>
+                        <p class="card-text">Dans quel choix entend-on le phonème [t] ?</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q13" value="a">
+                                A. La démocratie
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q13" value="b">
+                                B. Des portions
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q13" value="c">
+                                C. Des acrobaties
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q13" value="d">
+                                D. Un grand arrêt
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q13" value="e">
+                                E. Aucun des choix précédents
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q13">
+                            <strong>Réponse correcte:</strong> B - Des portions<br>
+                            Dans "portions", on entend [t] dans "tion" prononcé [sjɔ̃] où [t] est présent même s'il n'est pas prononcé distinctement.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q14 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q14</h5>
+                        <p class="card-text">Dans quel choix la liaison est-elle obligatoire ?</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q14" value="a">
+                                A. En haut
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q14" value="b">
+                                B. Les chiens aboient.
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q14" value="c">
+                                C. Un goût acide
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q14" value="d">
+                                D. Les hirondelles
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q14" value="e">
+                                E. Aucun des choix précédents
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q14">
+                            <strong>Réponse correcte:</strong> B - Les chiens aboient.<br>
+                            La liaison entre "les" et "chiens" est obligatoire (on prononce [le ʃjɛ̃] avec liaison en [z]).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q15 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q15</h5>
+                        <p class="card-text">Quelle est la transcription phonétique correcte du mot « occasionnellement » ?</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q15" value="a">
+                                A. [skazjonelmā]
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q15" value="b">
+                                B. [skazjonelmā]
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q15" value="c">
+                                C. [skazionelmā]
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q15" value="d">
+                                D. [skazjonelemā]
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q15" value="e">
+                                E. Aucun des choix précédents
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q15">
+                            <strong>Réponse correcte:</strong> A - [skazjonelmā]<br>
+                            C'est la transcription phonétique correcte du mot "occasionnellement".
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q16 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q16</h5>
+                        <p class="card-text">Quel est le genre dominant du texte suivant ?<br><em>Le guépard est une bête bien sympathique : sympathique, parce qu'il n'est pas cruel et que, de tout temps, il fut un animal fort facile à apprivoiser. À condition qu'on lui réserve de très larges espaces et qu'il puisse chasser avec l'homme, il accepte volontiers l'amitié du maître de la nature. Il traduit même ses sentiments par un ronronnement qui n'est pas moins significatif que celui des chats.</em> (André DEMAISON, La vie privée des bêtes sauvages)</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q16" value="a">
+                                A. Genre narratif
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q16" value="b">
+                                B. Genre argumentatif
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q16" value="c">
+                                C. Genre théâtral
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q16" value="d">
+                                D. Genre épistolaire
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q16" value="e">
+                                E. Aucun des choix précédents
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q16">
+                            <strong>Réponse correcte:</strong> E - Aucun des choix précédents<br>
+                            Le texte est plutôt de type descriptif (description des caractéristiques du guépard).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q17 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q17</h5>
+                        <p class="card-text">Quelle est la visée du texte suivant ?<br><em>Le guépard est une bête bien sympathique : sympathique, parce qu'il n'est pas cruel et que, de tout temps, il fut un animal fort facile à apprivoiser. À condition qu'on lui réserve de très larges espaces et qu'il puisse chasser avec l'homme, il accepte volontiers l'amitié du maître de la nature. Il traduit même ses sentiments par un ronronnement qui n'est pas moins significatif que celui des chats.</em> (André DEMAISON, La vie privée des bêtes sauvages)</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q17" value="a">
+                                A. Décrire l'aspect physique du guépard
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q17" value="b">
+                                B. Décrire le lieu de vie du guépard
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q17" value="c">
+                                C. Expliquer un trait de caractère du guépard
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q17" value="d">
+                                D. Informer sur l'origine du guépard
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q17" value="e">
+                                E. Aucun des choix précédents
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q17">
+                            <strong>Réponse correcte:</strong> C - Expliquer un trait de caractère du guépard<br>
+                            Le texte vise à expliquer le caractère sympathique et apprivoisable du guépard.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q18 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q18</h5>
+                        <p class="card-text">Quel est le type dominant dans le texte suivant ?<br><em>On a observé que les pincettes de cheminée et autres meubles de fer qu'on tient ordinairement dans une situation verticale, ainsi que les barres de fer qu'on met sur les clochers, acquièrent avec le temps une force magnétique assez sensible ; aussi s'est-on aperçu qu'une barre de fer battue dans une situation verticale, ou rougie au feu, étant trempée dans l'eau froide dans la même situation, devient un peu magnétique, sans l'approche d'aucun aimant. Pour avoir la raison de ce phénomène, V. A. n'a qu'à se souvenir que la terre est elle-même un aimant, et conséquemment entourée d'un tourbillon magnétique, dont la déclinaison et l'inclinaison de l'aiguille aimantée montre partout la véritable direction [...]</em> (L. Euler, Lettre à une princesse d'Allemagne sur divers sujets de physique et de philosophie, Berne, 1775)</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q18" value="a">
+                                A. Narratif
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q18" value="b">
+                                B. Descriptif
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q18" value="c">
+                                C. Argumentatif
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q18" value="d">
+                                D. Explicatif
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q18" value="e">
+                                E. Aucun des choix précédents
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q18">
+                            <strong>Réponse correcte:</strong> D - Explicatif<br>
+                            Le texte vise à expliquer un phénomène physique (le magnétisme des objets en fer).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q19 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q19</h5>
+                        <p class="card-text">Par quel terme désigne-t-on la réplique de CRÉON dans l'extrait suivant ?<br><em>ANTIGONE : Vous vous trompez. J'étais certaine que vous me feriez mourir au contraire.<br>CRÉON, la regarde et murmure soudain.<br>L'orgueil d'Œdipe. Tu es l'orgueil d'Œdipe. Oui, maintenant que je l'ai trouvé au fond de tes yeux, je te crois. Tu as dû penser que je te ferais mourir. Et cela te paraissait un dénouement tout naturel pour toi, orgueilleuse ! [...]</em> (Jean ANOUILLH, Antigone)</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q19" value="a">
+                                A. Monologue
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q19" value="b">
+                                B. Aparté
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q19" value="c">
+                                C. Tirade
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q19" value="d">
+                                D. Répartie
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q19" value="e">
+                                E. Aucun des choix précédents
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q19">
+                            <strong>Réponse correcte:</strong> C - Tirade<br>
+                            Créon développe une longue réplique argumentée, caractéristique d'une tirade.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Q20 -->
+                <div class="card question-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question Q20</h5>
+                        <p class="card-text">Quelle est la tonalité dominante dans l'extrait suivant ?<br><em>La nuit était froide et sombre ; les étoiles paraissaient à l'enfant plus éloignées de la terre qu'il ne les avait jamais vues ; il ne faisait pas de vent ; l'ombre que les arbres projetaient sur le sol était complètement immobile et avait quelque chose de sinistre et de sépulcral. Il referma doucement la porte, et, profitant des dernières lueurs de la chandelle pour réunir dans un mouchoir le peu d'effets qu'il possédait, il s'assit sur un banc et attendit les premières clartés du matin.</em> (Charles DICKENS, Les Aventures d'Oliver Twist)</p>
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q20" value="a">
+                                A. Tonalité tragique
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q20" value="b">
+                                B. Tonalité épique
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q20" value="c">
+                                C. Tonalité pathétique
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q20" value="d">
+                                D. Tonalité lyrique
+                            </label>
+                            <label class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="q20" value="e">
+                                E. Aucun des choix précédents
+                            </label>
+                        </div>
+                        <div class="explanation" id="explanation-q20">
+                            <strong>Réponse correcte:</strong> C - Tonalité pathétique<br>
+                            Le texte suscite la pitié pour l'enfant dans cette situation difficile (tonalité pathétique).
+                        </div>
+                    </div>
+                </div>
+
+            
+
+                <div class="text-center mt-5" id="submit-btn-container">
+                    <button id="submit-answers" class="btn btn-primary btn-lg px-5">
+                        <i class="fas fa-check-circle me-2"></i>Soumettre les réponses
+                    </button>
+                </div>
+            </section>
+
+            <!-- Section Résultats -->
+            <section id="results-section" class="d-none">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="mb-0">Résultats du test</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mb-5">
+                            <h3 id="final-score">Score: 0/20</h3>
+                            <div class="progress mt-3 mb-4">
+                                <div id="final-progress" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between">
+                            <button id="review-answers" class="btn btn-outline-primary">
+                                <i class="fas fa-search me-2"></i>Voir les réponses
+                            </button>
+                            <button id="restart-quiz" class="btn btn-primary">
+                                <i class="fas fa-redo me-2"></i>Recommencer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Variables
+            const totalQuestions = 20;
+            let timeLeft = 30 * 60; // 30 minutes in seconds
+            let timerInterval;
+            let userAnswers = {};
+            let quizSubmitted = false;
+            
+            // Éléments DOM
+            const startTimerBtn = document.getElementById('start-timer');
+            const fixedTimer = document.getElementById('fixedTimer');
+            const fixedTimerDisplay = document.getElementById('fixed-timer-display');
+            const submitBtn = document.getElementById('submit-answers');
+            const reviewBtn = document.getElementById('review-answers');
+            const restartBtn = document.getElementById('restart-quiz');
+            const qcmSection = document.getElementById('qcm-section');
+            const resultsSection = document.getElementById('results-section');
+            
+            // Démarrer le timer
+            startTimerBtn.addEventListener('click', function() {
+                startTimer();
+                this.disabled = true;
+                fixedTimer.classList.add('active');
+                qcmSection.classList.remove('d-none');  // Ajouté pour afficher les questions
+                qcmSection.scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Fonction pour démarrer le timer
+            function startTimer() {
+                updateTimerDisplay();
+                
+                if (timerInterval) clearInterval(timerInterval); // Ensure no duplicate intervals
+                timerInterval = setInterval(function() {
+                    timeLeft--; // Decrement by 1 second
+                    updateTimerDisplay();
+                    
+                    if (timeLeft <= 0) {
+                        clearInterval(timerInterval);
+                        submitQuiz();
+                    }
+                }, 1000); // Set interval to 1000ms (1 second)
+            }
+            
+            // Fonction pour afficher le temps restant
+            function updateTimerDisplay() {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                fixedTimerDisplay.textContent = timeString;
+                
+                if (timeLeft < 300) { // 5 minutes restantes
+                    fixedTimerDisplay.classList.add('text-danger');
+                }
+            }
+            
+            // Soumettre les réponses
+            submitBtn.addEventListener('click', function() {
+                if (confirm("Êtes-vous sûr de vouloir soumettre vos réponses ?")) {
+                    submitQuiz();
+                }
+            });
+            
+            // Revoir les réponses
+            reviewBtn.addEventListener('click', function() {
+                reviewAnswers();
+            });
+            
+            // Recommencer le quiz
+            restartBtn.addEventListener('click', function() {
+                if (confirm("Voulez-vous vraiment recommencer le test ? Toutes vos réponses seront perdues.")) {
+                    resetQuiz();
+                    fixedTimer.classList.remove('active');
+                }
+            });
+            
+            // Fonction pour soumettre le quiz
+            function submitQuiz() {
+                if (quizSubmitted) return;
+                
+                clearInterval(timerInterval);
+                quizSubmitted = true;
+                fixedTimer.classList.remove('active');
+                
+                collectAnswers();
+                const score = calculateScore();
+                showResults(score);
+                showAnswers(); // Afficher immédiatement les réponses correctes/incorrectes
+                disableInputs();
+            }
+            
+            // Fonction pour collecter les réponses
+            function collectAnswers() {
+                userAnswers = {};
+                
+                for (let i = 1; i <= 20; i++) {
+                    const selectedOption = document.querySelector(`input[name="q${i}"]:checked`);
+                    if (selectedOption) {
+                        userAnswers[`q${i}`] = selectedOption.value;
+                    }
+                }
+            }
+            
+            // Fonction pour calculer le score
+            function calculateScore() {
+                let score = 0;
+                const correctAnswers = {
+                    q1: 'c',
+                    q2: 'd',
+                    q3: 'e',
+                    q4: 'b',
+                    q5: 'b',
+                    q6: 'd',
+                    q7: 'c',
+                    q8: 'd',
+                    q9: 'e',
+                    q10: 'a',
+                    q11: 'd',
+                    q12: 'e',
+                    q13: 'b',
+                    q14: 'b',
+                    q15: 'a',
+                    q16: 'e',
+                    q17: 'c',
+                    q18: 'd',
+                    q19: 'c',
+                    q20: 'c',
+                   
+                };
+                
+                for (const question in userAnswers) {
+                    if (userAnswers[question] === correctAnswers[question]) {
+                        score++;
+                    }
+                }
+                
+                return score;
+            }
+            
+            // Fonction pour afficher les réponses correctes/incorrectes
+            function showAnswers() {
+                const correctAnswers = {
+                    q1: 'c',
+                    q2: 'd',
+                    q3: 'e',
+                    q4: 'b',
+                    q5: 'b',
+                    q6: 'd',
+                    q7: 'c',
+                    q8: 'd',
+                    q9: 'e',
+                    q10: 'a',
+                    q11: 'd',
+                    q12: 'e',
+                    q13: 'b',
+                    q14: 'b',
+                    q15: 'a',
+                    q16: 'e',
+                    q17: 'c',
+                    q18: 'd',
+                    q19: 'c',
+                    q20: 'c',
+                
+                };
+                
+                for (let i = 1; i <= 20; i++) {
+                    const questionId = `q${i}`;
+                    const explanation = document.getElementById(`explanation-${questionId}`);
+                    
+                    // Afficher l'explication pour chaque question
+                    if (explanation) {
+                        explanation.style.display = 'block';
+                    }
+                    
+                    // Marquer les réponses correctes et incorrectes
+                    if (userAnswers[questionId]) {
+                        const userAnswerElement = document.querySelector(`input[name="${questionId}"][value="${userAnswers[questionId]}"]`).parentElement;
+                        
+                        if (userAnswers[questionId] === correctAnswers[questionId]) {
+                            userAnswerElement.classList.add('correct-answer');
+                        } else {
+                            userAnswerElement.classList.add('incorrect-answer');
+                            
+                            // Marquer aussi la bonne réponse
+                            const correctAnswerElement = document.querySelector(`input[name="${questionId}"][value="${correctAnswers[questionId]}"]`).parentElement;
+                            correctAnswerElement.classList.add('correct-answer');
+                        }
+                    } else {
+                        // Si aucune réponse n'a été donnée, marquer la bonne réponse
+                        const correctAnswerElement = document.querySelector(`input[name="${questionId}"][value="${correctAnswers[questionId]}"]`).parentElement;
+                        correctAnswerElement.classList.add('correct-answer');
+                    }
+                }
+            }
+            
+            // Fonction pour afficher les résultats
+            function showResults(score) {
+                qcmSection.classList.add('d-none');
+                resultsSection.classList.remove('d-none');
+                
+                document.getElementById('final-score').textContent = `Score: ${score}/${totalQuestions}`;
+                
+                const percentage = Math.round((score / totalQuestions) * 100);
+                const progressBar = document.getElementById('final-progress');
+                progressBar.style.width = `${percentage}%`;
+                progressBar.textContent = `${percentage}%`;
+                
+                if (percentage < 50) {
+                    progressBar.className = 'progress-bar bg-danger';
+                } else if (percentage < 75) {
+                    progressBar.className = 'progress-bar bg-warning';
+                } else {
+                    progressBar.className = 'progress-bar bg-success';
+                }
+                
+                resultsSection.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            // Fonction pour désactiver les inputs
+            function disableInputs() {
+                const inputs = document.querySelectorAll('input[type="radio"]');
+                inputs.forEach(input => {
+                    input.disabled = true;
+                });
+            }
+            
+            // Fonction pour revoir les réponses
+            function reviewAnswers() {
+                qcmSection.classList.remove('d-none');
+                resultsSection.classList.add('d-none');
+                qcmSection.scrollIntoView({ behavior: 'smooth' });
+                
+                // Remplacer le contenu du conteneur de boutons
+                const submitBtnContainer = document.getElementById('submit-btn-container');
+                submitBtnContainer.innerHTML = `
+                    <a href="../sp.html" class="btn btn-outline-primary btn-lg px-5">
+                        <i class="fas fa-arrow-left me-2"></i>Retour
+                    </a>
+                `;
+            }
+            
+            // Fonction pour réinitialiser le quiz
+            function resetQuiz() {
+                qcmSection.classList.add('d-none');  // Ajouté pour masquer les questions
+                resultsSection.classList.add('d-none');
+                timeLeft = 30 * 60; // Reset to 30 minutes
+                userAnswers = {};
+                quizSubmitted = false;
+                
+                clearInterval(timerInterval);
+                fixedTimerDisplay.textContent = '30:00';
+                fixedTimerDisplay.classList.remove('text-danger');
+                startTimerBtn.disabled = false;
+                
+                const inputs = document.querySelectorAll('input[type="radio"]');
+                inputs.forEach(input => {
+                    input.checked = false;
+                    input.disabled = false;
+                    input.parentElement.classList.remove('correct-answer', 'incorrect-answer');
+                });
+                
+                const explanations = document.querySelectorAll('.explanation');
+                explanations.forEach(explanation => {
+                    explanation.style.display = 'none';
+                });
+                
+                qcmSection.classList.remove('d-none');
+                resultsSection.classList.add('d-none');
+                
+                // Réinitialiser le conteneur de boutons
+                const submitBtnContainer = document.getElementById('submit-btn-container');
+                submitBtnContainer.innerHTML = `
+                    <button id="submit-answers" class="btn btn-primary btn-lg px-5">
+                        <i class="fas fa-check-circle me-2"></i>تسليم الإجابات
+                    </button>
+                `;
+                // Réattacher l'événement au nouveau bouton
+                document.getElementById('submit-answers').addEventListener('click', function() {
+                    if (confirm("هل أنت متأكد أنك تريد تسليم إجاباتك؟")) {
+                        submitQuiz();
+                    }
+                });
+                
+                window.scrollTo(0, 0);
+            }
+        });
+    </script>
+</body>
+</html>
